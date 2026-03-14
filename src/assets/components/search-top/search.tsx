@@ -1,12 +1,13 @@
-import { BtnSearch } from './btnSearch';
+import { search_form, search_sec } from '../../../styles/styles';
+import { Btn } from '../../ui/btn';
 import { InputSearch } from './inputSearch';
 
 export const Search = () => {
   return (
-    <section className="border-2 border-green-500 border-solid h-1/4 w-full">
-      <form className="flex items-center justify-center gap-1 w-full h-full">
+    <section className={search_sec}>
+      <form className={search_form}>
         <InputSearch />
-        <BtnSearch>SEARCH</BtnSearch>
+        <Btn>SEARCH</Btn>
       </form>
     </section>
   );
