@@ -1,5 +1,8 @@
+import React from 'react';
 import { Btn } from '../../ui/btn';
 
-export const ErrorBlock = () => {
-  return <Btn>Error</Btn>;
-};
+export class ErrorBlock extends React.Component {
+  render() {
+    return <Btn>Error</Btn>;
+  }
+}
