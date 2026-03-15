@@ -2,43 +2,17 @@ import React from 'react';
 import { search_form, search_sec } from '../../../styles/styles';
 import { Btn } from '../../ui/btn';
 import { InputSearch } from '../../ui/inputSearch';
-import Requests from '../../../requests';
+import type { SearchProps } from '../../../types';
 
-async function getAllPeople() {
-  const allPeople = await Requests.getAllPeople();
-  console.log('allPeople :', allPeople[0]);
-}
-
-export class Search extends React.Component {
-  state = {
-    inputValue: '',
-  };
-
-  componentDidMount() {
-    const searchStr: string | null = localStorage.getItem('searchStr');
-    this.setState({ inputValue: searchStr ?? '' }, () => {
-      getAllPeople();
-    });
-  }
-
-  changeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    this.setState({ inputValue: value });
-
-    if (typeof value === 'string') {
-      localStorage.setItem('searchStr', value);
-    }
-  };
-
+export class Search extends React.Component<SearchProps> {
   render() {
+    const { value, onChangeFunc, onClickFunc } = this.props;
+
     return (
       <section className={search_sec}>
         <form className={search_form} onSubmit={(e) => e.preventDefault()}>
-          <InputSearch
-            value={this.state.inputValue}
-            onChangeFunc={this.changeInputValue}
-          />
-          <Btn onClickFunc={getAllPeople}>SEARCH</Btn>
+          <InputSearch value={value} onChangeFunc={onChangeFunc} />
+          <Btn onClickFunc={onClickFunc}>SEARCH</Btn>
         </form>
       </section>
     );

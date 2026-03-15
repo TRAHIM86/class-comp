@@ -20,4 +20,4 @@ export const result_block = 'flex flex-row border-1 border-orange-500  w-full';
 export const title_item =
   'border-1 border-orange-500  flex items-center justify-center';
 
-export const reult_item = 'border-1 border-green-500 p-1';
+export const reult_item = 'border-1 border-green-500 p-1 flex flex-row gap-2';
