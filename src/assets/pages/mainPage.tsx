@@ -14,20 +14,16 @@ export class MainPage extends React.Component {
   };
 
   getAllPeople = async (value: string | null) => {
-    //console.log('value :', value);
-    //console.log(this.state.people);
-    //console.log('now :', this.state.inputValue);
-    //console.log('prev :', this.state.prevInputValue);
+    console.log('val :', this.state.inputValue);
+    console.log('prev :', this.state.prevInputValue);
 
     if (this.state.inputValue === this.state.prevInputValue) {
-      console.log('===');
+      console.log('Value = prevValue');
       return;
     } else {
-      //console.log('!==');
       this.setState({ prevInputValue: value });
       const allPeople = await Requests.getAllPeople(value);
       this.setState({ people: allPeople });
-      //console.log('allPeople :', allPeople);
     }
 
     const allPeople = await Requests.getAllPeople(value);
@@ -39,6 +35,9 @@ export class MainPage extends React.Component {
       const heroes = await Requests.getAllPeople(this.state.inputValue);
       console.log('heroes: ', heroes);
       this.setState({ people: heroes });
+      console.log('val :', this.state.inputValue);
+      console.log('prev :', this.state.prevInputValue);
+      this.setState({ prevInputValue: this.state.inputValue });
     };
 
     loadData();

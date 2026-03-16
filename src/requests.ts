@@ -9,7 +9,7 @@ const Requests = {
     try {
       const allPeople = await axios.get(`${SWAPI_PEOPLE_URL}?search=${value}`);
 
-      console.log('Response :', value);
+      console.log('Response :', allPeople.data.results.length);
 
       return allPeople.data.results;
     } catch (err) {
