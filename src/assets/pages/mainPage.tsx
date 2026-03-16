@@ -5,15 +5,19 @@ import { Result } from '../components/result-bottom/results';
 import { Search } from '../components/search-top/search';
 import Requests from '../../requests';
 import type { hero } from '../../types';
+import { Loading } from '../components/loading/loading';
 
 export class MainPage extends React.Component {
   state = {
     inputValue: localStorage.getItem('searchStr') || '',
     prevInputValue: '',
     people: [] as hero[],
+    loading: true,
   };
 
   fetchAllPeople = async (value: string | null) => {
+    this.setState({ loading: true });
+
     const valueTrim = value?.trim() || '';
 
     this.setState({ inputValue: valueTrim });
@@ -27,6 +31,8 @@ export class MainPage extends React.Component {
 
       const allPeople = await Requests.getAllPeople(valueTrim);
       this.setState({ people: allPeople });
+      this.setState({ loading: false });
+
       return allPeople;
     }
   };
@@ -38,6 +44,7 @@ export class MainPage extends React.Component {
       this.setState({ people: heroes });
 
       this.setState({ prevInputValue: this.state.inputValue });
+      this.setState({ loading: false });
     };
 
     loadData();
@@ -51,6 +58,7 @@ export class MainPage extends React.Component {
   render() {
     return (
       <>
+        {this.state.loading ? <Loading quantity={5} /> : ''}
         <div className={container1280}>
           <header />
           <Search

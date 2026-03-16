@@ -6,7 +6,7 @@ const Requests = {
   async getAllPeople(value: string | null) {
     console.log('request');
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     try {
       const allPeople = await axios.get(`${SWAPI_PEOPLE_URL}?search=${value}`);
 

@@ -21,3 +21,9 @@ export const title_item =
   'border-1 border-orange-500  flex items-center justify-center';
 
 export const reult_item = 'border-1 border-green-500 p-1 flex flex-row gap-2';
+
+export const dotsBlock = 'flex flex-row gap-2';
+
+export const dotLoad = 'w-4 h-4 bg-black';
+
+export const dotLoadActive = 'w-6 h-6 bg-black';
