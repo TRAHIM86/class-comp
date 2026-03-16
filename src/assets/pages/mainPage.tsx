@@ -15,16 +15,12 @@ export class MainPage extends React.Component {
 
   fetchAllPeople = async (value: string | null) => {
     const valueTrim = value?.trim() || '';
-    console.log(valueTrim?.length);
-
-    console.log('val :', value);
-    console.log('trim :', valueTrim);
 
     this.setState({ inputValue: valueTrim });
     this.setState({ prevInputValue: valueTrim });
 
     if (this.state.inputValue.trim() === this.state.prevInputValue.trim()) {
-      //console.log('Value = prevValue');
+      console.log('Prev === valueInput! Please enter data.');
       return;
     } else {
       const allPeople = await Requests.getAllPeople(valueTrim);
@@ -36,15 +32,13 @@ export class MainPage extends React.Component {
   componentDidMount() {
     const loadData = async () => {
       const heroes = await Requests.getAllPeople(this.state.inputValue);
-      //console.log('heroes: ', heroes);
+
       this.setState({ people: heroes });
-      //console.log('val :', this.state.inputValue);
-      //console.log('prev :', this.state.prevInputValue);
+
       this.setState({ prevInputValue: this.state.inputValue });
     };
 
     loadData();
-    //console.log(this.state.people);
   }
 
   changeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
