@@ -16,8 +16,6 @@ export class MainPage extends React.Component {
   };
 
   fetchAllPeople = async (value: string | null) => {
-    this.setState({ loading: true });
-
     const valueTrim = value?.trim() || '';
 
     this.setState({ inputValue: valueTrim });
@@ -27,6 +25,7 @@ export class MainPage extends React.Component {
       console.log('Prev === valueInput! Please enter data.');
       return;
     } else {
+      this.setState({ loading: true });
       localStorage.setItem('searchStr', valueTrim);
 
       const allPeople = await Requests.getAllPeople(valueTrim);

@@ -9,8 +9,10 @@ export class Loading extends React.Component<
     activeDot: 0,
   };
 
+  intervalId: number | null = null;
+
   changeDots() {
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState((prev) => ({
         activeDot:
           prev.activeDot + 1 === this.props.quantity ? 0 : prev.activeDot + 1,
@@ -20,6 +22,12 @@ export class Loading extends React.Component<
 
   componentDidMount(): void {
     this.changeDots();
+  }
+
+  componentWillUnmount() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   render() {
