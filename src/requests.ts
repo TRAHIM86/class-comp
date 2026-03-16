@@ -4,12 +4,9 @@ const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
 
 const Requests = {
   async getAllPeople(value: string | null) {
-    console.log('Request :', value);
-
+    console.log('request');
     try {
       const allPeople = await axios.get(`${SWAPI_PEOPLE_URL}?search=${value}`);
-
-      console.log('Response :', allPeople.data.results.length);
 
       return allPeople.data.results;
     } catch (err) {
