@@ -36,6 +36,16 @@ export class MainPage extends React.Component {
     }
   };
 
+  fetchError4xx = async () => {
+    const error4xx = await Requests.imitation4xx();
+    console.log(error4xx);
+  };
+
+  fetchError5xx = async () => {
+    const error5xx = await Requests.imitation5xx();
+    console.log(error5xx);
+  };
+
   componentDidMount() {
     const loadData = async () => {
       const heroes = await Requests.getAllPeople(this.state.inputValue);
@@ -69,7 +79,11 @@ export class MainPage extends React.Component {
           <Result heroes={this.state.people} />
         )}
 
-        <ErrorBlock />
+        <div>
+          {' '}
+          <ErrorBlock onClickErrorFunc={this.fetchError4xx} />
+          <ErrorBlock onClickErrorFunc={this.fetchError5xx} />
+        </div>
       </div>
     );
   }

@@ -20,3 +20,7 @@ export interface hero {
   birth_year: string;
   height: string;
 }
+
+export interface ErrorBtnProps {
+  onClickErrorFunc: () => void;
+}
