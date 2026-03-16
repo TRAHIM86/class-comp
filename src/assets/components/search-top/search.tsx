@@ -12,7 +12,7 @@ export class Search extends React.Component<SearchProps> {
       <section className={search_sec}>
         <form className={search_form} onSubmit={(e) => e.preventDefault()}>
           <InputSearch value={value} onChangeFunc={onChangeFunc} />
-          <Btn onClickFunc={onClickFunc}>SEARCH</Btn>
+          <Btn onClickFunc={() => onClickFunc(value)}>SEARCH</Btn>
         </form>
       </section>
     );

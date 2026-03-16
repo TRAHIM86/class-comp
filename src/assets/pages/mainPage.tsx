@@ -8,23 +8,41 @@ import type { hero } from '../../types';
 
 export class MainPage extends React.Component {
   state = {
-    inputValue: '',
+    inputValue: localStorage.getItem('searchStr') || '',
+    prevInputValue: '',
     people: [] as hero[],
   };
 
-  getAllPeople = async () => {
-    const allPeople = await Requests.getAllPeople();
-    console.log('Click');
+  getAllPeople = async (value: string | null) => {
+    //console.log('value :', value);
+    //console.log(this.state.people);
+    //console.log('now :', this.state.inputValue);
+    //console.log('prev :', this.state.prevInputValue);
+
+    if (this.state.inputValue === this.state.prevInputValue) {
+      console.log('===');
+      return;
+    } else {
+      //console.log('!==');
+      this.setState({ prevInputValue: value });
+      const allPeople = await Requests.getAllPeople(value);
+      this.setState({ people: allPeople });
+      //console.log('allPeople :', allPeople);
+    }
+
+    const allPeople = await Requests.getAllPeople(value);
     return allPeople;
   };
 
   componentDidMount() {
-    const searchStr: string | null = localStorage.getItem('searchStr');
-    this.setState({ inputValue: searchStr ?? '' }, async () => {
-      const heroes = await this.getAllPeople();
+    const loadData = async () => {
+      const heroes = await Requests.getAllPeople(this.state.inputValue);
+      console.log('heroes: ', heroes);
       this.setState({ people: heroes });
-      console.log(this.state.people);
-    });
+    };
+
+    loadData();
+    //console.log(this.state.people);
   }
 
   changeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {

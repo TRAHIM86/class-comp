@@ -1,3 +1,5 @@
+import type React from 'react';
+
 export interface ChildProps {
   children?: React.ReactNode;
 }
@@ -5,7 +7,7 @@ export interface ChildProps {
 export interface SearchProps {
   value: string;
   onChangeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClickFunc: () => void;
+  onClickFunc: (value: string) => void;
 }
 
 export interface BtnProps extends ChildProps {
