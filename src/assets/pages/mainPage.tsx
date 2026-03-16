@@ -56,22 +56,21 @@ export class MainPage extends React.Component {
 
   render() {
     return (
-      <>
-        {this.state.loading ? <Loading quantity={5} /> : ''}
-        <div className={container1280}>
-          <header />
-          <Search
-            value={this.state.inputValue}
-            onChangeFunc={this.changeInputValue}
-            onClickFunc={this.fetchAllPeople}
-          />
+      <div className={container1280}>
+        <Search
+          value={this.state.inputValue}
+          onChangeFunc={this.changeInputValue}
+          onClickFunc={this.fetchAllPeople}
+        />
+
+        {this.state.loading ? (
+          <Loading quantity={8} />
+        ) : (
           <Result heroes={this.state.people} />
+        )}
 
-          <ErrorBlock />
-
-          <footer />
-        </div>
-      </>
+        <ErrorBlock />
+      </div>
     );
   }
 }

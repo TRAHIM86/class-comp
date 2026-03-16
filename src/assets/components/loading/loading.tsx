@@ -17,7 +17,7 @@ export class Loading extends React.Component<
         activeDot:
           prev.activeDot + 1 === this.props.quantity ? 0 : prev.activeDot + 1,
       }));
-    }, 300);
+    }, 100);
   }
 
   componentDidMount(): void {
