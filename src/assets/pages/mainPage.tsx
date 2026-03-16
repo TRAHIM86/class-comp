@@ -23,6 +23,8 @@ export class MainPage extends React.Component {
       console.log('Prev === valueInput! Please enter data.');
       return;
     } else {
+      localStorage.setItem('searchStr', valueTrim);
+
       const allPeople = await Requests.getAllPeople(valueTrim);
       this.setState({ people: allPeople });
       return allPeople;
@@ -44,10 +46,6 @@ export class MainPage extends React.Component {
   changeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     this.setState({ inputValue: value });
-
-    if (typeof value === 'string') {
-      localStorage.setItem('searchStr', value.trim());
-    }
   };
 
   render() {
