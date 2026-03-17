@@ -6,7 +6,7 @@ const ERROR_5XX_URL = 'https://httpstat.us/500';
 
 const Requests = {
   async getAllPeople(value: string | null) {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     try {
       const allPeople = await axios.get(`${SWAPI_PEOPLE_URL}?search=${value}`);
 
@@ -17,6 +17,8 @@ const Requests = {
   },
 
   async imitation4xx() {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     try {
       const response = await axios.get(`${ERROR_4XX_URL}`);
       return response.data;
@@ -27,8 +29,6 @@ const Requests = {
           status: err.response?.status,
           data: err.response?.data,
         };
-
-        console.log(error4xx);
 
         return error4xx;
       }

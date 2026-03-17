@@ -1,8 +1,7 @@
-export const app =
-  'h-screen bg-black flex flex-col justify-center items-center';
+export const app = 'bg-black flex flex-col justify-center items-center';
 
 export const container1280 =
-  'w-[clamp(650px,80%,1024px)] h-screen flex flex-col justify-between items-center';
+  'w-[clamp(650px,80%,1024px)] min-h-screen flex flex-col justify-between items-center';
 
 export const btn_base =
   'p-3 border-1 border-gray-500 bg-gray-500 text-white rounded cursor-pointer hover:border-yellow-300';

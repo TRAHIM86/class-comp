@@ -13,15 +13,22 @@ export class MainPage extends React.Component {
     prevInputValue: '',
     people: [] as hero[],
     loading: true,
+    error: null,
+    statusError: '',
   };
 
   fetchAllPeople = async (value: string | null) => {
     const valueTrim = value?.trim() || '';
 
-    this.setState({ inputValue: valueTrim });
-    this.setState({ prevInputValue: valueTrim });
+    this.setState({
+      inputValue: valueTrim,
+      prevInputValue: valueTrim,
+    });
 
-    if (this.state.inputValue.trim() === this.state.prevInputValue.trim()) {
+    if (
+      this.state.inputValue.trim() === this.state.prevInputValue.trim() &&
+      !this.state.error
+    ) {
       console.log('Prev === valueInput! Please enter data.');
       return;
     } else {
@@ -29,16 +36,37 @@ export class MainPage extends React.Component {
       localStorage.setItem('searchStr', valueTrim);
 
       const allPeople = await Requests.getAllPeople(valueTrim);
-      this.setState({ people: allPeople });
-      this.setState({ loading: false });
+      this.setState({
+        people: allPeople,
+        loading: false,
+        error: null,
+      });
 
       return allPeople;
     }
   };
 
   fetchError4xx = async () => {
+    this.setState({ loading: true });
     const error4xx = await Requests.imitation4xx();
-    console.log(error4xx);
+    if (error4xx.isError) {
+      this.setState({
+        error: error4xx,
+        statusError: error4xx.status,
+        people: [],
+        loading: false,
+      });
+
+      // сюда никогда не дойдет, т.к. имитиация вернет ТОЛЬКО ошибку
+    } else {
+      this.setState({
+        people: error4xx.data,
+        error: null,
+        loading: false,
+      });
+    }
+
+    this.setState({ loading: false });
   };
 
   fetchError5xx = async () => {
@@ -75,6 +103,12 @@ export class MainPage extends React.Component {
 
         {this.state.loading ? (
           <Loading quantity={8} />
+        ) : this.state.error ? (
+          <div>
+            Sorry, an error occurred. Error status: {this.state.statusError}.
+            <br />
+            Please try sending your request again.
+          </div>
         ) : (
           <Result heroes={this.state.people} />
         )}
