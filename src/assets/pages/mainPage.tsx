@@ -1,6 +1,6 @@
 import React from 'react';
-import { container1280 } from '../../styles/styles';
-import { ErrorBlock } from '../components/error/errorBlock';
+import { container1280, errorBlock } from '../../styles/styles';
+import { ErrorBtn } from '../components/error/errorBlock';
 import { Result } from '../components/result-bottom/results';
 import { Search } from '../components/search-top/search';
 import Requests from '../../requests';
@@ -79,10 +79,10 @@ export class MainPage extends React.Component {
           <Result heroes={this.state.people} />
         )}
 
-        <div>
+        <div className={errorBlock}>
           {' '}
-          <ErrorBlock onClickErrorFunc={this.fetchError4xx} />
-          <ErrorBlock onClickErrorFunc={this.fetchError5xx} />
+          <ErrorBtn onClickErrorFunc={this.fetchError4xx} />
+          <ErrorBtn onClickErrorFunc={this.fetchError5xx} />
         </div>
       </div>
     );
