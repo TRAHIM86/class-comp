@@ -2,7 +2,7 @@ export const app =
   'h-screen bg-black flex flex-col justify-center items-center';
 
 export const container1280 =
-  'w-[clamp(768px,80%,1024spx)] h-screen flex flex-col justify-between items-center';
+  'w-[clamp(650px,80%,1024px)] h-screen flex flex-col justify-between items-center';
 
 export const btn_base =
   'p-3 border-1 border-gray-500 bg-gray-500 text-white rounded cursor-pointer hover:border-yellow-300';
@@ -27,6 +27,7 @@ export const dotsBlock = 'flex flex-row items-center gap-2';
 
 export const dotLoad = 'w-4 h-4  transition-all duration-100 bg-yellow-300';
 
-export const dotLoadActive = 'w-4 h-8 bg-black transition-all duration-100';
+export const dotLoadActive =
+  'w-4 h-8 bg-yellow-300 transition-all duration-100';
 
 export const errorBlock = 'flex flex-row p-2 pb-4 gap-2';
