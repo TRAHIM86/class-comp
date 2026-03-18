@@ -24,3 +24,7 @@ export interface hero {
 export interface ErrorBtnProps {
   onClickErrorFunc: () => void;
 }
+
+export interface StateError {
+  hasError: boolean;
+}

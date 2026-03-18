@@ -6,6 +6,7 @@ import { Search } from '../components/search-top/search';
 import Requests from '../../requests';
 import type { hero } from '../../types';
 import { Loading } from '../components/loading/loading';
+import { ErrorBoundary } from '../components/error/errorBoundary';
 
 export class MainPage extends React.Component {
   state = {
@@ -44,6 +45,19 @@ export class MainPage extends React.Component {
 
       return allPeople;
     }
+  };
+
+  imitateErrorRender = async () => {
+    // Имитируем получение данных
+    this.setState({ loading: true });
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    this.setState({
+      error: true,
+      loading: false,
+      people: '123',
+    });
   };
 
   fetchError4xx = async () => {
@@ -103,19 +117,15 @@ export class MainPage extends React.Component {
 
         {this.state.loading ? (
           <Loading quantity={8} />
-        ) : this.state.error ? (
-          <div>
-            Sorry, an error occurred. Error status: {this.state.statusError}.
-            <br />
-            Please try sending your request again.
-          </div>
         ) : (
-          <Result heroes={this.state.people} />
+          <ErrorBoundary>
+            <Result heroes={this.state.people} />
+          </ErrorBoundary>
         )}
 
         <div className={errorBlock}>
           {' '}
-          <ErrorBtn onClickErrorFunc={this.fetchError4xx} />
+          <ErrorBtn onClickErrorFunc={this.imitateErrorRender} />
           <ErrorBtn onClickErrorFunc={this.fetchError5xx} />
         </div>
       </div>
