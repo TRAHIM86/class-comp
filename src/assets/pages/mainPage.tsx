@@ -15,6 +15,7 @@ export class MainPage extends React.Component {
     people: [] as hero[],
     loading: true,
     error: null,
+    error404: null,
     statusError: '',
   };
 
@@ -55,6 +56,7 @@ export class MainPage extends React.Component {
 
     this.setState({
       error: true,
+      error404: null,
       loading: false,
       people: '123',
     });
@@ -63,9 +65,10 @@ export class MainPage extends React.Component {
   fetchError4xx = async () => {
     this.setState({ loading: true });
     const error4xx = await Requests.imitation4xx();
+
     if (error4xx.isError) {
       this.setState({
-        error: error4xx,
+        error404: true,
         statusError: error4xx.status,
         people: [],
         loading: false,
@@ -81,11 +84,6 @@ export class MainPage extends React.Component {
     }
 
     this.setState({ loading: false });
-  };
-
-  fetchError5xx = async () => {
-    const error5xx = await Requests.imitation5xx();
-    console.log(error5xx);
   };
 
   componentDidMount() {
@@ -117,6 +115,12 @@ export class MainPage extends React.Component {
 
         {this.state.loading ? (
           <Loading quantity={8} />
+        ) : this.state.error404 ? (
+          <div>
+            Sorry, an error occurred. Error status: {this.state.statusError}.
+            <br />
+            Please try sending your request again.
+          </div>
         ) : (
           <ErrorBoundary>
             <Result heroes={this.state.people} />
@@ -126,7 +130,7 @@ export class MainPage extends React.Component {
         <div className={errorBlock}>
           {' '}
           <ErrorBtn onClickErrorFunc={this.imitateErrorRender} />
-          <ErrorBtn onClickErrorFunc={this.fetchError5xx} />
+          <ErrorBtn onClickErrorFunc={this.fetchError4xx} />
         </div>
       </div>
     );

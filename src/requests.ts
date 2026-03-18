@@ -1,12 +1,11 @@
 import axios from 'axios';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
-const ERROR_4XX_URL = 'https://swapi.dev/api/people444';
-const ERROR_5XX_URL = 'https://httpstat.us/500';
+const ERROR_4XX_URL = 'https://swapi.dev/api/people404';
 
 const Requests = {
   async getAllPeople(value: string | null) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     try {
       const allPeople = await axios.get(`${SWAPI_PEOPLE_URL}?search=${value}`);
 
@@ -20,44 +19,22 @@ const Requests = {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     try {
-      const response = await axios.get(`${ERROR_4XX_URL}`);
-      return response.data;
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        const error4xx = {
-          isError: true,
-          status: err.response?.status,
-          data: err.response?.data,
-        };
+      const response = await fetch(`${ERROR_4XX_URL}`);
 
-        return error4xx;
+      if (!response.ok) {
+        return {
+          isError: true,
+          status: response.status,
+          data: await response.json().catch(() => ({})),
+        };
       }
+
+      const data = await response.json();
+      return data;
+    } catch {
       return {
         isError: true,
-        message: 'Unknown error',
-      };
-    }
-  },
-
-  async imitation5xx() {
-    try {
-      const response = await axios.get(`${ERROR_5XX_URL}`);
-      return response.data;
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        const error5xx = {
-          isError: true,
-          code: err.code,
-          message: err.message,
-        };
-
-        console.log(error5xx);
-
-        return error5xx;
-      }
-      return {
-        isError: true,
-        message: 'Unknown error',
+        message: 'Network error',
       };
     }
   },
