@@ -33,5 +33,5 @@ export interface ErrorBtnProps {
 
 export interface StateError {
   isError: boolean;
-  errorStatus: string;
+  errorStatus?: string;
 }

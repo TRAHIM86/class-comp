@@ -4,11 +4,11 @@ import type { ChildProps, StateError } from '../../../types';
 export class ErrorBoundary extends React.Component<ChildProps, StateError> {
   constructor(props: ChildProps) {
     super(props);
-    this.state = { isError: false, errorStatus: '' };
+    this.state = { isError: false };
   }
 
   static getDerivedStateFromError(): StateError {
-    return { isError: true, errorStatus: 'Render error' };
+    return { isError: true };
   }
 
   render(): ReactNode {
