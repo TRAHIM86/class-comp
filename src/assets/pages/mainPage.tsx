@@ -86,6 +86,31 @@ export class MainPage extends React.Component {
     this.setState({ loading: false });
   };
 
+  fetchErrorNetwork = async () => {
+    this.setState({ loading: true });
+    const errorNetwork = await Requests.imitationErrNetwork();
+
+    if (errorNetwork instanceof Error) {
+      console.log('catch');
+      this.setState({
+        error: {
+          isError: true,
+          errorStatus: 'Unknown error',
+        },
+        people: [],
+      });
+
+      // сюда никогда не дойдет, т.к. имитиация вернет ТОЛЬКО ошибку
+    } else {
+      this.setState({
+        people: errorNetwork.data,
+        error: null,
+      });
+    }
+
+    this.setState({ loading: false });
+  };
+
   componentDidMount() {
     const loadData = async () => {
       const heroes = await Requests.getAllPeople(this.state.inputValue);
@@ -131,6 +156,10 @@ export class MainPage extends React.Component {
           <ErrorBtn
             disabled={this.state.loading}
             onClickErrorFunc={this.fetchError4xx}
+          />
+          <ErrorBtn
+            disabled={this.state.loading}
+            onClickErrorFunc={this.fetchErrorNetwork}
           />
         </div>
       </div>
