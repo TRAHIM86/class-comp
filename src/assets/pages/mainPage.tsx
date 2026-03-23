@@ -4,7 +4,7 @@ import { ErrorBtn } from '../components/error/errorBlock';
 import { Result } from '../components/result-bottom/results';
 import { Search } from '../components/search-top/search';
 import Requests from '../../requests';
-import type { hero } from '../../types';
+import type { hero, StateError } from '../../types';
 import { Loading } from '../components/loading/loading';
 import { ErrorBoundary } from '../components/error/errorBoundary';
 
@@ -14,9 +14,7 @@ export class MainPage extends React.Component {
     prevInputValue: '',
     people: [] as hero[],
     loading: true,
-    error: null,
-    error404: null,
-    statusError: '',
+    error: { isError: false, errorStatus: '' } as StateError,
   };
 
   fetchAllPeople = async (value: string | null) => {
@@ -55,10 +53,12 @@ export class MainPage extends React.Component {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     this.setState({
-      error: true,
-      error404: null,
+      error: {
+        isError: true,
+        errorStatus: 'error render',
+      },
       loading: false,
-      people: '123',
+      people: '123', // специально для ошибки рендера, вызощет ErrorBoundary
     });
   };
 
@@ -68,10 +68,12 @@ export class MainPage extends React.Component {
 
     if (error4xx.isError) {
       this.setState({
-        error404: true,
-        statusError: error4xx.status,
-        people: [],
+        error: {
+          isError: true,
+          errorStatus: error4xx.status,
+        },
         loading: false,
+        people: [],
       });
 
       // сюда никогда не дойдет, т.к. имитиация вернет ТОЛЬКО ошибку
@@ -115,15 +117,9 @@ export class MainPage extends React.Component {
 
         {this.state.loading ? (
           <Loading quantity={8} />
-        ) : this.state.error404 ? (
-          <div>
-            Sorry, an error occurred. Error status: {this.state.statusError}.
-            <br />
-            Please try sending your request again.
-          </div>
         ) : (
           <ErrorBoundary>
-            <Result heroes={this.state.people} />
+            <Result stateError={this.state.error} heroes={this.state.people} />
           </ErrorBoundary>
         )}
 

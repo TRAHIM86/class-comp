@@ -25,17 +25,14 @@ const Requests = {
         return {
           isError: true,
           status: response.status,
-          data: await response.json().catch(() => ({})),
         };
       }
 
       const data = await response.json();
       return data;
-    } catch {
-      return {
-        isError: true,
-        message: 'Network error',
-      };
+    } catch (err) {
+      const error = err as Error;
+      return error;
     }
   },
 };

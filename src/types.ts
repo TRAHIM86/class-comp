@@ -26,5 +26,6 @@ export interface ErrorBtnProps {
 }
 
 export interface StateError {
-  hasError: boolean;
+  isError: boolean;
+  errorStatus: string;
 }

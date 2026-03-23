@@ -30,3 +30,5 @@ export const dotLoadActive =
   'w-4 h-8 bg-yellow-300 transition-all duration-100';
 
 export const errorBlock = 'flex flex-row p-2 pb-4 gap-2';
+
+export const errorMessage = 'flex items-center justify-center';
