@@ -91,7 +91,6 @@ export class MainPage extends React.Component {
     const errorNetwork = await Requests.imitationErrNetwork();
 
     if (errorNetwork instanceof Error) {
-      console.log('catch');
       this.setState({
         error: {
           isError: true,
@@ -133,6 +132,7 @@ export class MainPage extends React.Component {
     return (
       <div className={container1280}>
         <Search
+          btnText="SEARCH"
           value={this.state.inputValue}
           onChangeFunc={this.changeInputValue}
           onClickFunc={this.fetchAllPeople}
@@ -150,14 +150,17 @@ export class MainPage extends React.Component {
         <div className={errorBlock}>
           {' '}
           <ErrorBtn
+            btnText="render error"
             disabled={this.state.loading}
             onClickErrorFunc={this.imitateErrorRender}
           />
           <ErrorBtn
+            btnText="404 error (!response.ok)"
             disabled={this.state.loading}
             onClickErrorFunc={this.fetchError4xx}
           />
           <ErrorBtn
+            btnText="network error (catch)"
             disabled={this.state.loading}
             onClickErrorFunc={this.fetchErrorNetwork}
           />

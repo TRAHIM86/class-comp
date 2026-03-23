@@ -4,7 +4,7 @@ export const container1280 =
   'w-[clamp(650px,80%,1024px)] min-h-screen flex flex-col justify-between items-center';
 
 export const btn_base =
-  'p-3 border-1 border-gray-500 bg-gray-500 text-white rounded cursor-pointer hover:border-yellow-300';
+  'p-3 border-1 border-gray-500 bg-gray-500 text-white rounded cursor-pointer hover:border-yellow-300 flex-1';
 
 export const btn_disabled = 'opacity-50 cursor-not-allowed';
 

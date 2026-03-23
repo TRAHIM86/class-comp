@@ -4,7 +4,7 @@ import type { BtnProps } from '../../types';
 
 export class Btn extends React.Component<BtnProps> {
   render(): React.ReactNode {
-    const { onClickFunc, disabled } = this.props;
+    const { onClickFunc, disabled, btnText } = this.props;
 
     return (
       <button
@@ -12,7 +12,7 @@ export class Btn extends React.Component<BtnProps> {
         onClick={onClickFunc}
         disabled={disabled}
       >
-        {this.props.children}
+        {btnText}
       </button>
     );
   }

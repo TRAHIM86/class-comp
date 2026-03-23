@@ -4,15 +4,14 @@ import type { ErrorBtnProps } from '../../../types';
 
 export class ErrorBtn extends React.Component<ErrorBtnProps> {
   render() {
+    const { onClickErrorFunc, disabled, btnText } = this.props;
+
     return (
       <Btn
-        disabled={this.props.disabled}
-        onClickFunc={() => {
-          this.props.onClickErrorFunc();
-        }}
-      >
-        Error
-      </Btn>
+        disabled={disabled}
+        onClickFunc={() => onClickErrorFunc()}
+        btnText={btnText}
+      ></Btn>
     );
   }
 }
