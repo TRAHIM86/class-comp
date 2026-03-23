@@ -54,7 +54,7 @@ export class MainPage extends React.Component {
 
     this.setState({
       error: {
-        isError: true,
+        isError: false,
         errorStatus: 'error render',
       },
       loading: false,
