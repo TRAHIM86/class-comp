@@ -1,6 +1,6 @@
 import React from 'react';
 import { container1280, errorBlock } from '../../styles/styles';
-import { ErrorBtn } from '../components/error/errorBlock';
+import { ErrorBtn } from '../components/error/errorBtn';
 import { Result } from '../components/result-bottom/results';
 import { Search } from '../components/search-top/search';
 import Requests from '../../requests';
@@ -72,7 +72,6 @@ export class MainPage extends React.Component {
           isError: true,
           errorStatus: error4xx.status,
         },
-        loading: false,
         people: [],
       });
 
@@ -81,7 +80,6 @@ export class MainPage extends React.Component {
       this.setState({
         people: error4xx.data,
         error: null,
-        loading: false,
       });
     }
 
@@ -113,6 +111,7 @@ export class MainPage extends React.Component {
           value={this.state.inputValue}
           onChangeFunc={this.changeInputValue}
           onClickFunc={this.fetchAllPeople}
+          disabled={this.state.loading}
         />
 
         {this.state.loading ? (
@@ -125,8 +124,14 @@ export class MainPage extends React.Component {
 
         <div className={errorBlock}>
           {' '}
-          <ErrorBtn onClickErrorFunc={this.imitateErrorRender} />
-          <ErrorBtn onClickErrorFunc={this.fetchError4xx} />
+          <ErrorBtn
+            disabled={this.state.loading}
+            onClickErrorFunc={this.imitateErrorRender}
+          />
+          <ErrorBtn
+            disabled={this.state.loading}
+            onClickErrorFunc={this.fetchError4xx}
+          />
         </div>
       </div>
     );

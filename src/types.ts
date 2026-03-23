@@ -8,10 +8,12 @@ export interface SearchProps {
   value: string;
   onChangeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickFunc: (value: string) => void;
+  disabled: boolean;
 }
 
 export interface BtnProps extends ChildProps {
   onClickFunc: () => void;
+  disabled: boolean;
 }
 
 export interface hero {
@@ -23,6 +25,7 @@ export interface hero {
 
 export interface ErrorBtnProps {
   onClickErrorFunc: () => void;
+  disabled: boolean;
 }
 
 export interface StateError {

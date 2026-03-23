@@ -6,6 +6,7 @@ export class ErrorBtn extends React.Component<ErrorBtnProps> {
   render() {
     return (
       <Btn
+        disabled={this.props.disabled}
         onClickFunc={() => {
           this.props.onClickErrorFunc();
         }}

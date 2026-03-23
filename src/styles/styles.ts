@@ -6,6 +6,8 @@ export const container1280 =
 export const btn_base =
   'p-3 border-1 border-gray-500 bg-gray-500 text-white rounded cursor-pointer hover:border-yellow-300';
 
+export const btn_disabled = 'opacity-50 cursor-not-allowed';
+
 export const search_sec = 'p-2 pt-4 w-full';
 
 export const search_form =
