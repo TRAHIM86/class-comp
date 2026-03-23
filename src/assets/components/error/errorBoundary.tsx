@@ -1,13 +1,16 @@
 import React, { type ReactNode } from 'react';
-import type { ChildProps, StateError } from '../../../types';
+import type { ChildProps, StateErrorBoundary } from '../../../types';
 
-export class ErrorBoundary extends React.Component<ChildProps, StateError> {
+export class ErrorBoundary extends React.Component<
+  ChildProps,
+  StateErrorBoundary
+> {
   constructor(props: ChildProps) {
     super(props);
     this.state = { isError: false };
   }
 
-  static getDerivedStateFromError(): StateError {
+  static getDerivedStateFromError(): StateErrorBoundary {
     return { isError: true };
   }
 

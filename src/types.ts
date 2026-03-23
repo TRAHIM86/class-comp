@@ -35,3 +35,8 @@ export interface StateError {
   isError: boolean;
   errorStatus?: string;
 }
+
+export interface StateErrorBoundary {
+  isError: boolean;
+  errorStatus?: string;
+}
