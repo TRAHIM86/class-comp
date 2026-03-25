@@ -1,5 +1,5 @@
 import React from 'react';
-import { dotLoad, dotLoadActive, dotsBlock } from '../../../styles/styles';
+import { dotLoad, dotLoadActive, dotsBlock } from '../../styles/styles';
 
 export class Loading extends React.Component<
   { quantity: number },

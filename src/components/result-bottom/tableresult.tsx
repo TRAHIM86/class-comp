@@ -4,8 +4,8 @@ import {
   result_block,
   title_item,
   result_item,
-} from '../../../styles/styles';
-import type { hero } from '../../../types';
+} from '../../styles/styles';
+import type { hero } from '../../types';
 
 export class TableResult extends React.Component<{ heroes: Array<hero> }> {
   render() {

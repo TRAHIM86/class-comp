@@ -1,8 +1,8 @@
 import React from 'react';
-import { search_form, search_sec } from '../../../styles/styles';
+import { search_form, search_sec } from '../../styles/styles';
 import { Btn } from '../../ui/btn';
 import { InputSearch } from '../../ui/inputSearch';
-import type { SearchProps } from '../../../types';
+import type { SearchProps } from '../../types';
 
 export class Search extends React.Component<SearchProps> {
   render() {

@@ -1,10 +1,10 @@
 import React from 'react';
-import { container1280, errorBlock } from '../../styles/styles';
+import { container1280, errorBlock } from '../styles/styles';
 import { ErrorBtn } from '../components/error/errorBtn';
 import { Result } from '../components/result-bottom/results';
 import { Search } from '../components/search-top/search';
-import Requests from '../../requests';
-import type { hero, StateError } from '../../types';
+import Requests from '../requests';
+import type { hero, StateError } from '../types';
 import { Loading } from '../components/loading/loading';
 import { ErrorBoundary } from '../components/error/errorBoundary';
 

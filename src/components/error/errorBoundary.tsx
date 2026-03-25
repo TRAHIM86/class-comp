@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import type { ChildProps, StateErrorBoundary } from '../../../types';
+import type { ChildProps, StateErrorBoundary } from '../../types';
 
 export class ErrorBoundary extends React.Component<
   ChildProps,

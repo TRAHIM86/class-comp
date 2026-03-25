@@ -1,7 +1,7 @@
 import React from 'react';
-import { errorMessage, result_sec } from '../../../styles/styles';
+import { errorMessage, result_sec } from '../../styles/styles';
 import { TableResult } from './tableresult';
-import type { hero, StateError } from '../../../types';
+import type { hero, StateError } from '../../types';
 
 export class Result extends React.Component<{
   heroes: Array<hero>;
