@@ -130,7 +130,7 @@ export class MainPage extends React.Component {
 
   render() {
     return (
-      <div className={container1280}>
+      <div data-testid="container" className={container1280}>
         <Search
           btnText="SEARCH"
           value={this.state.inputValue}

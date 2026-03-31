@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <div className={app}>
-        <MainPage></MainPage>
+        <MainPage data-testid="main-page" />
       </div>
     );
   }
