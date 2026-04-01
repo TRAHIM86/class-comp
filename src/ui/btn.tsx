@@ -8,6 +8,7 @@ export class Btn extends React.Component<BtnProps> {
 
     return (
       <button
+        data-testid="error-btn"
         className={`${btn_base} ${this.props.disabled ? btn_disabled : ''}`}
         onClick={onClickFunc}
         disabled={disabled}
