@@ -37,6 +37,7 @@ export class Loading extends React.Component<
         {range.map((_, index) => {
           return (
             <div
+              data-testid="dot"
               key={index}
               className={
                 index === this.state.activeDot ? dotLoadActive : dotLoad

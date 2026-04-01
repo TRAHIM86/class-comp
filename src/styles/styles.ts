@@ -26,10 +26,10 @@ export const result_item = 'border-1 border-yellow-300 p-1 flex flex-row gap-2';
 
 export const dotsBlock = 'flex flex-row items-center gap-2';
 
-export const dotLoad = 'w-4 h-4  transition-all duration-100 bg-yellow-300';
+export const dotLoad = 'h-4 w-4 transition-all duration-100 bg-yellow-300';
 
 export const dotLoadActive =
-  'w-4 h-8 bg-yellow-300 transition-all duration-100';
+  'h-8 w-4 transition-all duration-100 bg-yellow-300 ';
 
 export const errorBlock = 'flex flex-row p-2 pb-4 gap-2';
 
