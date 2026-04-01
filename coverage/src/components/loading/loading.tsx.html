@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>10/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -120,37 +120,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,14 +170,14 @@ export class Loading extends React.Component&lt;
   { quantity: number },
   { activeDot: number }
 &gt; {
-  state = <span class="cstat-no" title="statement not covered" >{</span>
+  state = {
     activeDot: 0,
   };
 &nbsp;
-  intervalId: number | null = <span class="cstat-no" title="statement not covered" >null;</span>
+  intervalId: number | null = null;
 &nbsp;
-<span class="fstat-no" title="function not covered" >  changeDots() {</span>
-<span class="cstat-no" title="statement not covered" >    this.intervalId = <span class="fstat-no" title="function not covered" >setInterval(() =&gt; {</span></span>
+  changeDots() {
+    this.intervalId = <span class="fstat-no" title="function not covered" >setInterval(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      this.<span class="fstat-no" title="function not covered" >setState((p</span>rev) =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
         activeDot:
           prev.activeDot + 1 === this.props.quantity ? 0 : prev.activeDot + 1,
@@ -185,22 +185,22 @@ export class Loading extends React.Component&lt;
     }, 100);
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  componentDidMount(): void {</span>
-<span class="cstat-no" title="statement not covered" >    this.changeDots();</span>
+  componentDidMount(): void {
+    this.changeDots();
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  componentWillUnmount() {</span>
-<span class="cstat-no" title="statement not covered" >    if (this.intervalId) {</span>
-<span class="cstat-no" title="statement not covered" >      clearInterval(this.intervalId);</span>
+  componentWillUnmount() {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  render() {</span>
-    const range = <span class="cstat-no" title="statement not covered" >Array.from({ length: this.props.quantity }<span class="fstat-no" title="function not covered" >, (_</span>, i) =&gt; <span class="cstat-no" title="statement not covered" >i);</span></span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;div className={dotsBlock}&gt;
-        {range.<span class="fstat-no" title="function not covered" >map((_</span>, index) =&gt; {
-<span class="cstat-no" title="statement not covered" >          return (</span>
+  render() {
+    const range = Array.from({ length: this.props.quantity }, (_, i) =&gt; i);
+    return (
+      &lt;div data-testid="loading" className={dotsBlock}&gt;
+        {range.map((_, index) =&gt; {
+          return (
             &lt;div
               key={index}
               className={
@@ -220,7 +220,7 @@ export class Loading extends React.Component&lt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-31T17:55:44.211Z
+                at 2026-04-01T20:01:54.142Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

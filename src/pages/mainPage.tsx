@@ -147,7 +147,7 @@ export class MainPage extends React.Component {
           </ErrorBoundary>
         )}
 
-        <div className={errorBlock}>
+        <div data-testid="error-block" className={errorBlock}>
           {' '}
           <ErrorBtn
             btnText="render error"

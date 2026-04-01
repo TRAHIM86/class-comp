@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">19.51% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/41</span>
+                <span class='fraction'>8/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">28.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>4/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>3/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/40</span>
+                <span class='fraction'>8/40</span>
             </div>
         
             
@@ -245,7 +245,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,25 +347,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,7 +416,7 @@ import { Loading } from '../components/loading/loading';
 import { ErrorBoundary } from '../components/error/errorBoundary';
 &nbsp;
 export class MainPage extends React.Component {
-  state = <span class="cstat-no" title="statement not covered" >{</span>
+  state = {
     inputValue: localStorage.getItem('searchStr') || '',
     prevInputValue: '',
     people: [] as hero[],
@@ -517,17 +517,17 @@ export class MainPage extends React.Component {
 <span class="cstat-no" title="statement not covered" >    this.setState({ loading: false });</span>
   };
 &nbsp;
-<span class="fstat-no" title="function not covered" >  componentDidMount() {</span>
-    const loadData = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async () =&gt; {</span></span>
-      const heroes = <span class="cstat-no" title="statement not covered" >await Requests.getAllPeople(this.state.inputValue);</span>
+  componentDidMount() {
+    const loadData = async () =&gt; {
+      const heroes = await Requests.getAllPeople(this.state.inputValue);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      this.setState({ people: heroes });</span>
+      this.setState({ people: heroes });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      this.setState({ prevInputValue: this.state.inputValue });</span>
-<span class="cstat-no" title="statement not covered" >      this.setState({ loading: false });</span>
+      this.setState({ prevInputValue: this.state.inputValue });
+      this.setState({ loading: false });
     };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    loadData();</span>
+    loadData();
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  changeInputValue = (e</span>: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {</span>
@@ -535,9 +535,9 @@ export class MainPage extends React.Component {
 <span class="cstat-no" title="statement not covered" >    this.setState({ inputValue: value });</span>
   };
 &nbsp;
-<span class="fstat-no" title="function not covered" >  render() {</span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;div className={container1280}&gt;
+  render() {
+    return (
+      &lt;div data-testid="container" className={container1280}&gt;
         &lt;Search
           btnText="SEARCH"
           value={this.state.inputValue}
@@ -554,7 +554,7 @@ export class MainPage extends React.Component {
           &lt;/ErrorBoundary&gt;
         )}
 &nbsp;
-        &lt;div className={errorBlock}&gt;
+        &lt;div data-testid="error-block" className={errorBlock}&gt;
           {' '}
           &lt;ErrorBtn
             btnText="render error"
@@ -583,7 +583,7 @@ export class MainPage extends React.Component {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-31T17:55:44.211Z
+                at 2026-04-01T20:01:54.142Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

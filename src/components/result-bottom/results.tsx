@@ -9,7 +9,7 @@ export class Result extends React.Component<{
 }> {
   render() {
     return (
-      <section className={result_sec}>
+      <section data-testid="result" className={result_sec}>
         {this.props.stateError?.isError ? (
           <div className={errorMessage}>
             Error. Status: {this.props.stateError.errorStatus}. Please try

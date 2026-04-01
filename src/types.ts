@@ -40,3 +40,5 @@ export interface StateErrorBoundary {
   isError: boolean;
   errorStatus?: string;
 }
+
+export type DataTestId = string;
