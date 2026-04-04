@@ -13,7 +13,7 @@ describe('Loading test', () => {
   });
 
   test('Change active dot after 100ms', async () => {
-    render(<Loading quantity={3} />);
+    const renderResult = render(<Loading quantity={3} />);
 
     const dots = screen.getAllByTestId('dot');
     expect(dots[0]).toHaveClass(dotLoadActive);
@@ -27,5 +27,12 @@ describe('Loading test', () => {
       vi.advanceTimersByTime(100);
     });
     expect(dots[2]).toHaveClass(dotLoadActive);
+
+    act(() => {
+      vi.advanceTimersByTime(100);
+    });
+    expect(dots[0]).toHaveClass(dotLoadActive);
+
+    renderResult.unmount();
   });
 });

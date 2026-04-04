@@ -4,16 +4,17 @@ import { Search } from '../../components/search-top/search';
 export function renderSearch() {
   const mockOnChange = vi.fn();
   const mockOnClick = vi.fn();
+  const value = 'dart';
 
   render(
     <Search
       btnText="SEARCH"
-      value=""
+      value={value}
       onChangeFunc={mockOnChange}
       onClickFunc={mockOnClick}
       disabled={false}
     />
   );
 
-  return { mockOnChange, mockOnClick };
+  return { mockOnChange, mockOnClick, value };
 }

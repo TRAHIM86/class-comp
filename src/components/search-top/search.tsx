@@ -10,7 +10,11 @@ export class Search extends React.Component<SearchProps> {
 
     return (
       <section className={search_sec} data-testid="search-section">
-        <form className={search_form} onSubmit={(e) => e.preventDefault()}>
+        <form
+          className={search_form}
+          onSubmit={(e) => e.preventDefault()}
+          data-testid="form"
+        >
           <InputSearch value={value} onChangeFunc={onChangeFunc} />
           <Btn
             btnText={btnText}

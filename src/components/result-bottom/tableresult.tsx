@@ -18,7 +18,7 @@ export class TableResult extends React.Component<{ heroes: Array<hero> }> {
 
         {this.props.heroes?.map((p, index) => {
           return (
-            <div className={result_block} key={index}>
+            <div className={result_block} key={index} data-testid="hero-item">
               <div className={`${result_item} w-1/3`}>{p.name}</div>
               <div className={`${result_item} w-2/3`}>
                 <div>Gender: {p.gender},</div>

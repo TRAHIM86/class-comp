@@ -18,4 +18,26 @@ describe('Search test', () => {
     await userEvent.type(input, 'r2');
     expect(SearchComponent.mockOnChange).toHaveBeenCalledTimes(2);
   });
+
+  test('BtnSearch click with value', async () => {
+    const SearchComponent = renderSearch();
+
+    const searchBtn = screen.getByRole('button');
+    expect(searchBtn).toBeInTheDocument();
+
+    await userEvent.click(searchBtn);
+    expect(SearchComponent.mockOnClick).toHaveBeenCalledTimes(1);
+    expect(SearchComponent.mockOnClick).toHaveBeenLastCalledWith(
+      SearchComponent.value
+    );
+  });
+
+  test('Test props SearchBtn', () => {
+    renderSearch();
+
+    const btnSearch = screen.getByRole('button', { name: /SEARCH/i });
+
+    expect(btnSearch).toHaveTextContent('SEARCH');
+    expect(btnSearch).not.toBeDisabled();
+  });
 });
