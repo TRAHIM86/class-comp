@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/30</span>
+                <span class='fraction'>24/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/27</span>
+                <span class='fraction'>21/27</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -144,31 +144,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -176,12 +165,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,32 +205,32 @@ const Requests = {
     }
   },
 &nbsp;
-  async <span class="fstat-no" title="function not covered" >imitation4xx() {</span>
-<span class="cstat-no" title="statement not covered" >    await new <span class="fstat-no" title="function not covered" >Promise((r</span>esolve) =&gt; <span class="cstat-no" title="statement not covered" >setTimeout(resolve, 2000))</span>;</span>
+  async imitation4xx() {
+    await new Promise((resolve) =&gt; setTimeout(resolve, 2000));
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    try {</span>
-      const response = <span class="cstat-no" title="statement not covered" >await fetch(`${ERROR_4XX_URL}`);</span>
+    try {
+      const response = await fetch(`${ERROR_4XX_URL}`);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (!response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >        return {</span>
+      if (!response.ok) {
+        return {
           isError: true,
           status: response.status,
         };
       }
 &nbsp;
-      const data = <span class="cstat-no" title="statement not covered" >await response.json();</span>
-<span class="cstat-no" title="statement not covered" >      return data;</span>
+      const data = await response.json();
+      return data;
     } catch (err) {
       const error = <span class="cstat-no" title="statement not covered" >err as Error;</span>
 <span class="cstat-no" title="statement not covered" >      return error;</span>
     }
   },
 &nbsp;
-  async <span class="fstat-no" title="function not covered" >imitationErrNetwork() {</span>
-<span class="cstat-no" title="statement not covered" >    await new <span class="fstat-no" title="function not covered" >Promise((r</span>esolve) =&gt; <span class="cstat-no" title="statement not covered" >setTimeout(resolve, 2000))</span>;</span>
+  async imitationErrNetwork() {
+    await new Promise((resolve) =&gt; setTimeout(resolve, 2000));
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    try {</span>
-      const response = <span class="cstat-no" title="statement not covered" >await fetch(`${ERROR_NETWORK}`);</span>
+    try {
+      const response = await fetch(`${ERROR_NETWORK}`);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (!response.ok) {</span>
 <span class="cstat-no" title="statement not covered" >        return {</span>
@@ -242,8 +242,8 @@ const Requests = {
       const data = <span class="cstat-no" title="statement not covered" >await response.json();</span>
 <span class="cstat-no" title="statement not covered" >      return data;</span>
     } catch (err) {
-      const error = <span class="cstat-no" title="statement not covered" >err as Error;</span>
-<span class="cstat-no" title="statement not covered" >      return error;</span>
+      const error = err as Error;
+      return error;
     }
   },
 };
@@ -256,7 +256,7 @@ export default Requests;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-04T20:12:21.965Z
+                at 2026-04-04T23:25:50.587Z
             </div>
         <script src="../prettify.js"></script>
         <script>
