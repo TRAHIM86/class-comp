@@ -100,6 +100,8 @@ describe('Request getAllPeople', () => {
   });
 });
 
+/********************************************************/
+
 describe('Request imitation4xx', () => {
   test('Imitation4xx returns isError + 404', async () => {
     window.fetch = vi.fn().mockResolvedValue({
@@ -127,15 +129,53 @@ describe('Request imitation4xx', () => {
 
     expect(result).toEqual({ name: 'test4xx' });
   });
+
+  test('Imitation4xx returns error', async () => {
+    window.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
+
+    const result = await Requests.imitation4xx();
+
+    expect(result).toBeInstanceOf(Error);
+
+    expect(result.message).toBe('Network error');
+  });
 });
 
-describe('Request imitation5xx', () => {
-  test('imitationErrNetwork', async () => {
+/********************************************************/
+describe('Request imitationErrNetwork', () => {
+  test('Return network error', async () => {
     window.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
     const result = await Requests.imitationErrNetwork();
 
     expect(result).toBeInstanceOf(Error);
     expect(result.message).toBe('Network error');
+  });
+
+  test('ImitationErrNetwork returns 404', async () => {
+    window.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 404,
+      json: async () => ({}),
+    } as Response);
+
+    const result = await Requests.imitationErrNetwork();
+
+    expect(result).toEqual({
+      isError: true,
+      status: 404,
+    });
+  });
+
+  test('Imitation4xx returns data on success', async () => {
+    window.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({ name: 'testNetwork' }),
+    } as Response);
+
+    const result = await Requests.imitationErrNetwork();
+
+    expect(result).toEqual({ name: 'testNetwork' });
   });
 });
