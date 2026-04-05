@@ -47,41 +47,74 @@ const responseSearchAllPeople = [
   },
 ];
 
+async function testError404(
+  method: keyof typeof Requests,
+  value: string | null
+) {
+  window.fetch = vi.fn().mockResolvedValue({
+    ok: false,
+    status: 404,
+    json: async () => ({}),
+  } as Response);
+
+  const result = await Requests[method](value);
+
+  expect(result).toEqual({
+    isError: true,
+    status: 404,
+  });
+}
+
+async function tetsErrorNetwork(
+  method: keyof typeof Requests,
+  value: string | null
+) {
+  window.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
+
+  const result = await Requests[method](value);
+
+  expect(result).toBeInstanceOf(Error);
+  expect(result.message).toBe('Network error');
+}
+
+async function testSuccessResponse(
+  method: keyof typeof Requests,
+  value: string | null
+) {
+  window.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    status: 200,
+    json: async () => ({ name: 'testNetwork' }),
+  } as Response);
+
+  const result = await Requests[method](value);
+
+  expect(result).toEqual({ name: 'testNetwork' });
+}
+
+async function testGetAllPeople(valueSearch: string, arrHero: hero[]) {
+  vi.spyOn(axios, 'get').mockResolvedValue({
+    data: {
+      results: arrHero,
+    },
+  });
+
+  const result = await Requests.getAllPeople(valueSearch);
+
+  expect(result).toEqual(arrHero);
+}
+
 describe('Request getAllPeople', () => {
   test('Return data success', async () => {
-    vi.spyOn(axios, 'get').mockResolvedValue({
-      data: {
-        results: responseSearchDarth,
-      },
-    });
-
-    const result = await Requests.getAllPeople('darth');
-
-    expect(result).toEqual(responseSearchDarth);
+    await testGetAllPeople('darth', responseSearchDarth);
   });
 
   test('Return data empty', async () => {
-    vi.spyOn(axios, 'get').mockResolvedValue({
-      data: {
-        results: responseSearchEmpty,
-      },
-    });
-
-    const result = await Requests.getAllPeople('qwertyuop');
-
-    expect(result).toEqual(responseSearchEmpty);
+    await testGetAllPeople('qwertyuop', responseSearchEmpty);
   });
 
   test('Return data without filter', async () => {
-    vi.spyOn(axios, 'get').mockResolvedValue({
-      data: {
-        results: responseSearchAllPeople,
-      },
-    });
-
-    const result = await Requests.getAllPeople('');
-
-    expect(result).toEqual(responseSearchAllPeople);
+    await testGetAllPeople('', responseSearchAllPeople);
   });
 
   test('Error axios.get', async () => {
@@ -104,78 +137,29 @@ describe('Request getAllPeople', () => {
 
 describe('Request imitation4xx', () => {
   test('Imitation4xx returns isError + 404', async () => {
-    window.fetch = vi.fn().mockResolvedValue({
-      ok: false,
-      status: 404,
-      json: async () => ({}),
-    } as Response);
-
-    const result = await Requests.imitation4xx();
-
-    expect(result).toEqual({
-      isError: true,
-      status: 404,
-    });
+    await testError404('imitation4xx', 'darth');
   });
 
   test('Imitation4xx returns data on success', async () => {
-    window.fetch = vi.fn().mockResolvedValue({
-      ok: true,
-      status: 200,
-      json: async () => ({ name: 'test4xx' }),
-    } as Response);
-
-    const result = await Requests.imitation4xx();
-
-    expect(result).toEqual({ name: 'test4xx' });
+    await testSuccessResponse('imitation4xx', 'darth');
   });
 
   test('Imitation4xx returns error', async () => {
-    window.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
-
-    const result = await Requests.imitation4xx();
-
-    expect(result).toBeInstanceOf(Error);
-
-    expect(result.message).toBe('Network error');
+    await tetsErrorNetwork('imitation4xx', 'darth');
   });
 });
 
 /********************************************************/
 describe('Request imitationErrNetwork', () => {
-  test('Return network error', async () => {
-    window.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
-
-    const result = await Requests.imitationErrNetwork();
-
-    expect(result).toBeInstanceOf(Error);
-    expect(result.message).toBe('Network error');
+  test('Imitation4xx returns error', async () => {
+    await tetsErrorNetwork('imitationErrNetwork', 'darth');
   });
 
-  test('ImitationErrNetwork returns 404', async () => {
-    window.fetch = vi.fn().mockResolvedValue({
-      ok: false,
-      status: 404,
-      json: async () => ({}),
-    } as Response);
-
-    const result = await Requests.imitationErrNetwork();
-
-    expect(result).toEqual({
-      isError: true,
-      status: 404,
-    });
+  test('Imitation4xx returns isError + 404', async () => {
+    await testError404('imitationErrNetwork', 'darth');
   });
 
   test('Imitation4xx returns data on success', async () => {
-    window.fetch = vi.fn().mockResolvedValue({
-      ok: true,
-      status: 200,
-      json: async () => ({ name: 'testNetwork' }),
-    } as Response);
-
-    const result = await Requests.imitationErrNetwork();
-
-    expect(result).toEqual({ name: 'testNetwork' });
+    await testSuccessResponse('imitationErrNetwork', 'darth');
   });
 });
