@@ -33,10 +33,11 @@ export class Loading extends React.Component<
   render() {
     const range = Array.from({ length: this.props.quantity }, (_, i) => i);
     return (
-      <div className={dotsBlock}>
+      <div data-testid="loading" className={dotsBlock}>
         {range.map((_, index) => {
           return (
             <div
+              data-testid="dot"
               key={index}
               className={
                 index === this.state.activeDot ? dotLoadActive : dotLoad

@@ -6,7 +6,7 @@ const ERROR_NETWORK = 'https://swapi123.dev/api/people';
 
 const Requests = {
   async getAllPeople(value: string | null) {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     try {
       const allPeople = await axios.get(`${SWAPI_PEOPLE_URL}?search=${value}`);
 

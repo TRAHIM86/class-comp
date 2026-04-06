@@ -90,6 +90,7 @@ export class MainPage extends React.Component {
     this.setState({ loading: true });
     const errorNetwork = await Requests.imitationErrNetwork();
 
+    // в запросе мы получим реальный Error через catch
     if (errorNetwork instanceof Error) {
       this.setState({
         error: {
@@ -130,7 +131,7 @@ export class MainPage extends React.Component {
 
   render() {
     return (
-      <div className={container1280}>
+      <div data-testid="container" className={container1280}>
         <Search
           btnText="SEARCH"
           value={this.state.inputValue}
@@ -147,7 +148,7 @@ export class MainPage extends React.Component {
           </ErrorBoundary>
         )}
 
-        <div className={errorBlock}>
+        <div data-testid="error-block" className={errorBlock}>
           {' '}
           <ErrorBtn
             btnText="render error"
