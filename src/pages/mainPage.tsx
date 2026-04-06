@@ -90,6 +90,7 @@ export class MainPage extends React.Component {
     this.setState({ loading: true });
     const errorNetwork = await Requests.imitationErrNetwork();
 
+    // в запросе мы получим реальный Error через catch
     if (errorNetwork instanceof Error) {
       this.setState({
         error: {

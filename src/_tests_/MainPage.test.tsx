@@ -8,7 +8,9 @@ vi.mock('../requests', () => {
     default: {
       getAllPeople: vi.fn(),
       imitation4xx: vi.fn().mockResolvedValue({ isError: true, status: 404 }),
-      imitationErrNetwork: vi.fn(),
+      imitationErrNetwork: vi
+        .fn()
+        .mockResolvedValue(new Error('Network error')),
     },
   };
 });
@@ -98,8 +100,20 @@ describe('Imitate error 404 test', () => {
 
     await new Promise((resolve) => setTimeout(resolve, 2500));
 
-    screen.debug();
-
     expect(screen.getByText(/Error. Status: 404/)).toBeInTheDocument();
+  });
+});
+
+describe('Imitate error network', () => {
+  test('Imitate error network test', async () => {
+    render(<MainPage />);
+
+    const errBtn = screen.getByRole('button', { name: /network error/i });
+
+    await userEvent.click(errBtn);
+
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+
+    expect(screen.getByText(/Error. Status/i)).toBeInTheDocument();
   });
 });
