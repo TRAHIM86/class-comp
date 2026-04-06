@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { MainPage } from '../pages/mainPage';
 import userEvent from '@testing-library/user-event';
 import { container1280 } from '../styles/styles';
+import { imitateError } from './test-utils/imitateError';
 
 vi.mock('../requests', () => {
   return {
@@ -78,42 +79,18 @@ describe('FetchAllPeople test', async () => {
 
 describe('Imitate error render test', () => {
   test('Imitate error render', async () => {
-    render(<MainPage />);
-
-    const errBtn = screen.getByRole('button', { name: /render error/i });
-
-    await userEvent.click(errBtn);
-
-    await new Promise((resolve) => setTimeout(resolve, 2500));
-
-    expect(screen.getByText(/sorry/i)).toBeInTheDocument();
+    await imitateError('render error', 'sorry');
   });
 });
 
 describe('Imitate error 404 test', () => {
-  test('Imiteate error 404 test', async () => {
-    render(<MainPage />);
-
-    const errBtn = screen.getByRole('button', { name: /404 error/i });
-
-    await userEvent.click(errBtn);
-
-    await new Promise((resolve) => setTimeout(resolve, 2500));
-
-    expect(screen.getByText(/Error. Status: 404/)).toBeInTheDocument();
+  test('Imitate error 404 test', async () => {
+    await imitateError('404 error', 'Error. Status: 404');
   });
 });
 
 describe('Imitate error network', () => {
   test('Imitate error network test', async () => {
-    render(<MainPage />);
-
-    const errBtn = screen.getByRole('button', { name: /network error/i });
-
-    await userEvent.click(errBtn);
-
-    await new Promise((resolve) => setTimeout(resolve, 2500));
-
-    expect(screen.getByText(/Error. Status/i)).toBeInTheDocument();
+    await imitateError('network error', 'Error. Status');
   });
 });

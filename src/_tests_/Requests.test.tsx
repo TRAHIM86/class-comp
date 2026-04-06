@@ -4,11 +4,11 @@ import {
   responseSearchAllPeople,
   responseSearchDarth,
   responseSearchEmpty,
-  testError404,
-  testGetAllPeople,
-  testSuccessResponse,
-  tetsErrorNetwork,
 } from './test-utils/dataForTests';
+import { testGetAllPeople } from './test-utils/testGetAllPeople';
+import { testError404 } from './test-utils/testError404';
+import { testSuccessResponse } from './test-utils/testSuccessResponse';
+import { tetsErrorNetwork } from './test-utils/tetsErrorNetwork';
 
 describe('Request getAllPeople', () => {
   test('Return data success', async () => {
