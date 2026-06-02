@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { dotLoad, dotLoadActive, dotsBlock } from '../../styles/styles';
 
+/*
 export class Loading extends React.Component<
   { quantity: number },
   { activeDot: number }
@@ -49,3 +50,33 @@ export class Loading extends React.Component<
     );
   }
 }
+*/
+
+export const Loading = ({ quantity }: { quantity: number }) => {
+  const [activeDot, setActiveDote] = useState<number>(0);
+
+  // создать из quantity массив индексов, например [0,1,2,3,4,5]
+  const arrRange = Array.from({ length: quantity }, (_, ind) => ind);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setActiveDote((prev) => (prev + 1 === quantity ? 0 : prev + 1));
+    }, 100);
+
+    return () => clearInterval(intervalId);
+  }, [quantity]);
+
+  return (
+    <div data-testid="loading" className={dotsBlock}>
+      {arrRange.map((_, index) => {
+        return (
+          <div
+            data-test="dot"
+            key={index}
+            className={index === activeDot ? dotLoadActive : dotLoad}
+          ></div>
+        );
+      })}
+    </div>
+  );
+};
