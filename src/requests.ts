@@ -1,12 +1,14 @@
 import axios from 'axios';
 
-const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
+const SWAPI_PEOPLE_URL = 'https://swapi.py4e.com/api/people/';
 const ERROR_4XX_URL = 'https://swapi.dev/api/people404';
 const ERROR_NETWORK = 'https://swapi123.dev/api/people';
 
 const Requests = {
   async getAllPeople(value: string | null) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    console.log('Запрос строки :', value);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     try {
       const allPeople = await axios.get(`${SWAPI_PEOPLE_URL}?search=${value}`);
 
@@ -17,7 +19,7 @@ const Requests = {
   },
 
   async imitation4xx() {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     try {
       const response = await fetch(`${ERROR_4XX_URL}`);
@@ -38,7 +40,7 @@ const Requests = {
   },
 
   async imitationErrNetwork() {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     try {
       const response = await fetch(`${ERROR_NETWORK}`);
