@@ -1,4 +1,3 @@
-import React from 'react';
 import { errorMessage, result_sec } from '../../styles/styles';
 import { TableResult } from './tableresult';
 import type { hero, StateError } from '../../types';

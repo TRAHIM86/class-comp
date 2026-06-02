@@ -7,6 +7,7 @@ import {
 } from '../../styles/styles';
 import type { hero } from '../../types';
 
+/*
 export class TableResult extends React.Component<{ heroes: Array<hero> }> {
   render() {
     return (
@@ -32,3 +33,29 @@ export class TableResult extends React.Component<{ heroes: Array<hero> }> {
     );
   }
 }
+*/
+
+export const TableResult = ({ heroes }: { heroes: Array<hero> }) => {
+  return (
+    <div className={result_table}>
+      <div className={result_block}>
+        <div className={`${title_item} w-1/3`}>HERO</div>
+        <div className={`${title_item} w-2/3`}>Hero description</div>
+      </div>
+
+      {heroes?.map((hero, index) => {
+        return (
+          <div className={result_block} key={index} data-testid="hero=item">
+            <div className={`${result_item} w-1/3`}>{hero.name}</div>
+
+            <div className={`${result_item} w-2/3`}>
+              <div>Cender: {hero.gender},</div>
+              <div>B.y.: {hero.birth_year},</div>
+              <div>Height: {hero.height},</div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
