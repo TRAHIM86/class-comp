@@ -7,7 +7,7 @@ export const Result = ({
   stateError,
 }: {
   heroes: Array<hero>;
-  stateError?: StateError;
+  stateError?: StateError | null;
 }) => {
   return (
     <section data-testid="result" className={result_sec}>
