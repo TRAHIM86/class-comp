@@ -7,6 +7,7 @@ import Requests from '../requests';
 import type { hero, StateError } from '../types';
 import { Loading } from '../components/loading/loading';
 import { ErrorBoundary } from '../components/error/errorBoundary';
+import { useLocalStorage } from '../customHooks/useLocalStorage';
 
 /*
 export class MainPage extends React.Component {
@@ -174,13 +175,19 @@ export class MainPage extends React.Component {
 */
 
 export const MainPage = () => {
-  // state инпута для поиска
+  /* state инпута для поиска
   const [inputValue, setInputValue] = useState<string>(
     localStorage.getItem('searchStr') || ''
-  );
+  );*/
+
+  // state search для поиска
+  const [searchValue, setSearchValue] = useLocalStorage('searchStr', '');
+
+  // state search для инпута
+  const [inputValue, setInputValue] = useState(searchValue);
 
   // state предыдущего поиска (если такой же, то не делать запрос, показать лог)
-  const [prevInputValue, setPrevInputValue] = useState<string>('');
+  //const [prevSearchValue, setPrevSearchValue] = useState<string>('');
 
   // state найденых персонажей
   const [people, setPeople] = useState<hero[]>([]);
@@ -189,20 +196,18 @@ export const MainPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   // state ошибка (булеан и текс ошибки)
-  const [error, setError] = useState<StateError | null>({
-    isError: false,
-    errorStatus: '',
-  });
+  const [error, setError] = useState<StateError | null>(null);
 
-  // функия получить людей по стпроке поиска
+  // функия получить людей по строке поиска
   async function fetchAllPeople(value: string | null) {
+    //console.log('search :', searchValue, 'input :', inputValue);
     const valueTrim = value?.trim() || '';
 
-    setInputValue(valueTrim);
+    setSearchValue(valueTrim);
 
-    setPrevInputValue(valueTrim);
+    //setPrevSearchValue(valueTrim);
 
-    if (inputValue.trim() === prevInputValue.trim() && !error) {
+    if (valueTrim.trim() === searchValue.trim() && !error) {
       console.log('Prev === valueInput! Please enter new data.');
     } else {
       setLoading(true);
@@ -216,6 +221,19 @@ export const MainPage = () => {
       return allPeople;
     }
   }
+
+  useEffect(() => {
+    async function loadData() {
+      //console.log('search :', searchValue, 'input :', inputValue);
+      setLoading(true);
+      const heroes = await Requests.getAllPeople(searchValue);
+      setPeople(heroes);
+      //setPrevSearchValue(searchValue);
+      setLoading(false);
+    }
+
+    loadData();
+  }, [searchValue]);
 
   async function imitateErrorRender() {
     setLoading(true);
@@ -265,18 +283,6 @@ export const MainPage = () => {
 
     setLoading(false);
   }
-
-  useEffect(() => {
-    async function loadData() {
-      setLoading(true);
-      const heroes = await Requests.getAllPeople(inputValue);
-      setPeople(heroes);
-      setPrevInputValue(inputValue);
-      setLoading(false);
-    }
-
-    loadData();
-  }, [inputValue]);
 
   function changeInputValue(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
