@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   result_table,
   result_block,
