@@ -171,8 +171,8 @@ export class MainPage extends React.Component {
     );
   }
 }
-
 */
+
 export const MainPage = () => {
   // state инпута для поиска
   const [inputValue, setInputValue] = useState<string>(
@@ -224,7 +224,10 @@ export const MainPage = () => {
 
     setError({ isError: true, errorStatus: 'error render' });
     setLoading(false);
-    setPeople('123'); // специально для ошибки рендера, вызощет ErrorBoundary
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    setPeople('123'); // специально для ошибки рендера, вызовет ErrorBoundary
   }
 
   async function fetchError4xx() {
@@ -263,15 +266,15 @@ export const MainPage = () => {
     setLoading(false);
   }
 
-  async function loadData() {
-    const heroes = await Requests.getAllPeople(inputValue);
-
-    setPeople(heroes);
-    setPrevInputValue(inputValue);
-    setLoading(false);
-  }
-
   useEffect(() => {
+    async function loadData() {
+      setLoading(true);
+      const heroes = await Requests.getAllPeople(inputValue);
+      setPeople(heroes);
+      setPrevInputValue(inputValue);
+      setLoading(false);
+    }
+
     loadData();
   }, [inputValue]);
 
