@@ -34,3 +34,8 @@ export const dotLoadActive =
 export const errorBlock = 'flex flex-row p-2 pb-4 gap-2';
 
 export const errorMessage = 'flex items-center justify-center';
+
+export const paginationBlock =
+  'p-1 flex flex-row items-center justify-center gap-4 cursor-pointer';
+
+export const activePage = 'p-1 border-1 border-yellow-300';

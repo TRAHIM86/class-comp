@@ -1,12 +1,12 @@
 import { errorMessage, result_sec } from '../../styles/styles';
 import { TableResult } from './tableresult';
-import type { hero, StateError } from '../../types';
+import type { PeopleResponse, StateError } from '../../types';
 
 export const Result = ({
   heroes,
   stateError,
 }: {
-  heroes: Array<hero>;
+  heroes: PeopleResponse;
   stateError?: StateError | null;
 }) => {
   return (

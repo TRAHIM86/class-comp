@@ -4,10 +4,11 @@ import { ErrorBtn } from '../components/error/errorBtn';
 import { Result } from '../components/result-bottom/results';
 import { Search } from '../components/search-top/search';
 import Requests from '../requests';
-import type { hero, StateError } from '../types';
+import type { PeopleResponse, StateError } from '../types';
 import { Loading } from '../components/loading/loading';
 import { ErrorBoundary } from '../components/error/errorBoundary';
 import { useLocalStorage } from '../customHooks/useLocalStorage';
+import { Pagination } from '../components/pagination/pagination';
 
 /*
 export class MainPage extends React.Component {
@@ -175,22 +176,31 @@ export class MainPage extends React.Component {
 */
 
 export const MainPage = () => {
-  /* state инпута для поиска
-  const [inputValue, setInputValue] = useState<string>(
-    localStorage.getItem('searchStr') || ''
-  );*/
-
   // state search для поиска
   const [searchValue, setSearchValue] = useLocalStorage('searchStr', '');
 
-  // state search для инпута
+  // state search для инпута {countAll: 0, peopleArr: [],}
   const [inputValue, setInputValue] = useState(searchValue);
 
-  // state предыдущего поиска (если такой же, то не делать запрос, показать лог)
-  //const [prevSearchValue, setPrevSearchValue] = useState<string>('');
+  // число для количества страниц
+  function countPages(countHeroes: number) {
+    return Math.ceil(countHeroes / 10);
+  }
+
+  // текущая страница
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // выбрать текущую страницу
+  function changePage(num: number): number {
+    setCurrentPage(num);
+    return num;
+  }
 
   // state найденых персонажей
-  const [people, setPeople] = useState<hero[]>([]);
+  const [people, setPeople] = useState<PeopleResponse>({
+    countAll: 0,
+    peopleArr: [],
+  });
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(true);
@@ -198,43 +208,24 @@ export const MainPage = () => {
   // state ошибка (булеан и текс ошибки)
   const [error, setError] = useState<StateError | null>(null);
 
-  // функия получить людей по строке поиска
-  async function fetchAllPeople(value: string | null) {
-    //console.log('search :', searchValue, 'input :', inputValue);
-    const valueTrim = value?.trim() || '';
-
-    setSearchValue(valueTrim);
-
-    //setPrevSearchValue(valueTrim);
-
-    if (valueTrim.trim() === searchValue.trim() && !error) {
-      console.log('Prev === valueInput! Please enter new data.');
-    } else {
-      setLoading(true);
-      localStorage.setItem('searchStr', valueTrim);
-
-      const allPeople = await Requests.getAllPeople(valueTrim);
-      setPeople(allPeople);
-      setLoading(false);
-      setError(null);
-
-      return allPeople;
-    }
+  function updateSearchAndPage(value: string, numPage: number) {
+    setSearchValue(value);
+    setCurrentPage(numPage);
   }
 
   useEffect(() => {
-    async function loadData() {
-      //console.log('search :', searchValue, 'input :', inputValue);
+    async function fetchAllPeople() {
       setLoading(true);
-      const heroes = await Requests.getAllPeople(searchValue);
-      setPeople(heroes);
-      //setPrevSearchValue(searchValue);
+      const allPeople = await Requests.getAllPeople(searchValue, currentPage);
+      setPeople(allPeople);
       setLoading(false);
+      setError(null);
     }
 
-    loadData();
-  }, [searchValue]);
+    fetchAllPeople();
+  }, [searchValue, currentPage]);
 
+  // блок с имитацией ошибок
   async function imitateErrorRender() {
     setLoading(true);
 
@@ -255,7 +246,10 @@ export const MainPage = () => {
 
     if (error4xx.isError) {
       setError({ isError: true, errorStatus: error4xx.status });
-      setPeople([]);
+      setPeople({
+        countAll: 0,
+        peopleArr: [],
+      });
 
       // сюда никогда не дойдет, т.к. имитиация вернет ТОЛЬКО ошибку
     } else {
@@ -273,7 +267,10 @@ export const MainPage = () => {
 
     if (errorNetwork instanceof Error) {
       setError({ isError: true, errorStatus: 'Unknown error' });
-      setPeople([]);
+      setPeople({
+        countAll: 0,
+        peopleArr: [],
+      });
 
       // сюда никогда не дойдет, т.к. имитиация вернет ТОЛЬКО ошибку
     } else {
@@ -295,7 +292,7 @@ export const MainPage = () => {
         btnText="SEARCH"
         value={inputValue}
         onChangeFunc={changeInputValue}
-        onClickFunc={fetchAllPeople}
+        onClickFunc={updateSearchAndPage}
         disabled={loading}
       />
 
@@ -304,6 +301,11 @@ export const MainPage = () => {
       ) : (
         <ErrorBoundary>
           <Result stateError={error} heroes={people} />
+          <Pagination
+            countHeroes={countPages(people.countAll)}
+            currentPage={currentPage}
+            fyncChangePage={changePage}
+          />
         </ErrorBoundary>
       )}
 

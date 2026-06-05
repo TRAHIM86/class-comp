@@ -49,7 +49,7 @@ export const Search = ({
         <Btn
           btnText={btnText}
           disabled={disabled}
-          onClickFunc={() => onClickFunc(value)}
+          onClickFunc={() => onClickFunc(value, 1)}
         />
       </form>
     </section>
