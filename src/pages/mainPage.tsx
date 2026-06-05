@@ -9,6 +9,7 @@ import { Loading } from '../components/loading/loading';
 import { ErrorBoundary } from '../components/error/errorBoundary';
 import { useLocalStorage } from '../customHooks/useLocalStorage';
 import { Pagination } from '../components/pagination/pagination';
+import { useNavigate, useParams } from 'react-router-dom';
 
 /*
 export class MainPage extends React.Component {
@@ -176,6 +177,11 @@ export class MainPage extends React.Component {
 */
 
 export const MainPage = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+
+  console.log(params.pageId);
+
   // state search для поиска
   const [searchValue, setSearchValue] = useLocalStorage('searchStr', '');
 
@@ -188,11 +194,12 @@ export const MainPage = () => {
   }
 
   // текущая страница
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(Number(params.page) || 1);
 
   // выбрать текущую страницу
   function changePage(num: number): number {
     setCurrentPage(num);
+    navigate(`/page/${num}`);
     return num;
   }
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { search_form, search_sec } from '../../styles/styles';
 import { Btn } from '../../ui/btn';
 import { InputSearch } from '../../ui/inputSearch';

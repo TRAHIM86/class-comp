@@ -39,3 +39,5 @@ export const paginationBlock =
   'p-1 flex flex-row items-center justify-center gap-4 cursor-pointer';
 
 export const activePage = 'p-1 border-1 border-yellow-300';
+
+export const boldText = 'font-bold';
