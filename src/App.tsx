@@ -2,6 +2,7 @@ import { MainPage } from './pages/mainPage';
 import { app } from './styles/styles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navigation } from './components/navigation/navigation';
+import { HeroData } from './components/heroData/heroData';
 
 export const App = () => {
   return (
@@ -15,10 +16,9 @@ export const App = () => {
             element={<MainPage data-testid="main-page" />}
           ></Route>
 
-          <Route
-            path="/page/:pageId"
-            element={<MainPage data-testid="main-page" />}
-          ></Route>
+          <Route path="/:pageId" element={<MainPage data-testid="main-page" />}>
+            <Route path="/:pageId/:heroId" element={<HeroData />} />
+          </Route>
 
           <Route path="/about" element={<div>ABOUT</div>}></Route>
         </Routes>

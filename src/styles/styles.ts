@@ -17,10 +17,10 @@ export const result_sec = 'w-full ';
 
 export const result_table = 'w-full flex flex-col items-center gap-1';
 
-export const result_block = 'flex flex-row border-2 border-yellow-300 w-full';
+export const result_block = 'flex flex-row w-full p-2 cursor-pointer';
 
 export const title_item =
-  'border-1 border-yellow-300 !text-sky-500 flex items-center justify-center';
+  'border-1 border-green-300 !text-sky-500 flex items-center justify-center';
 
 export const result_item = 'border-1 border-yellow-300 p-1 flex flex-row gap-2';
 

@@ -180,8 +180,6 @@ export const MainPage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  console.log(params.pageId);
-
   // state search для поиска
   const [searchValue, setSearchValue] = useLocalStorage('searchStr', '');
 
@@ -199,7 +197,7 @@ export const MainPage = () => {
   // выбрать текущую страницу
   function changePage(num: number): number {
     setCurrentPage(num);
-    navigate(`/page/${num}`);
+    navigate(`/${num}`);
     return num;
   }
 
@@ -308,6 +306,7 @@ export const MainPage = () => {
       ) : (
         <ErrorBoundary>
           <Result stateError={error} heroes={people} />
+
           <Pagination
             countHeroes={countPages(people.countAll)}
             currentPage={currentPage}
