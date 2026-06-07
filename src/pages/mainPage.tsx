@@ -10,6 +10,7 @@ import { ErrorBoundary } from '../components/error/errorBoundary';
 import { useLocalStorage } from '../customHooks/useLocalStorage';
 import { Pagination } from '../components/pagination/pagination';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { ErrorResponse } from '../components/error/errorResponse';
 
 /*
 export class MainPage extends React.Component {
@@ -189,8 +190,6 @@ export const MainPage = () => {
   // state search для инпута {countAll: 0, peopleArr: [],}
   const [inputValue, setInputValue] = useState(searchValue);
 
-  console.log('searchValue :', searchValue, 'inputValue', inputValue);
-
   // выбрать текущую страницу
   function changePage(num: number): number {
     navigate(`/${num}?search=${searchStr}`);
@@ -210,6 +209,15 @@ export const MainPage = () => {
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(true);
+
+  console.log(
+    'countAll :',
+    people.countAll,
+    'people :',
+    people.peopleArr,
+    'loading :',
+    loading
+  );
 
   // state ошибка (булеан и текс ошибки)
   const [error, setError] = useState<StateError | null>(null);
@@ -315,10 +323,11 @@ export const MainPage = () => {
 
       {loading ? (
         <Loading quantity={8} />
+      ) : people.peopleArr.length === 0 ? (
+        <ErrorResponse />
       ) : (
         <ErrorBoundary>
           <Result stateError={error} heroes={people} />
-
           <Pagination
             countPages={countPages}
             currentPage={currentPage}
@@ -328,7 +337,6 @@ export const MainPage = () => {
       )}
 
       <div data-testid="error-block" className={errorBlock}>
-        {' '}
         <ErrorBtn
           btnText="render error"
           disabled={loading}
