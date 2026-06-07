@@ -191,7 +191,6 @@ export const MainPage = () => {
 
   // выбрать текущую страницу
   function changePage(num: number): number {
-    setCurrentPage(num);
     navigate(`/${num}?search=${searchStr}`);
     return num;
   }
@@ -205,7 +204,9 @@ export const MainPage = () => {
   const countPages = Math.ceil(people.countAll / 10);
 
   // текущая страница
-  const [currentPage, setCurrentPage] = useState(Number(params.pageId) || 1);
+  const currentPage = Number(params.pageId);
+
+  console.log('currentPage :', currentPage);
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(true);
@@ -216,7 +217,7 @@ export const MainPage = () => {
   function updateSearchAndPage(value: string) {
     setSearchValue(value);
     navigate(`/1?search=${value}`);
-    setCurrentPage(1);
+    //setCurrentPage(1);
   }
 
   useEffect(() => {
@@ -230,10 +231,11 @@ export const MainPage = () => {
 
       setLoading(false);
       setError(null);
+      //setCurrentPage(Number(params.pageId));
     }
 
     fetchAllPeople();
-  }, [searchValue, currentPage]);
+  }, [searchValue, params.pageId]);
 
   // блок с имитацией ошибок
   async function imitateErrorRender() {
