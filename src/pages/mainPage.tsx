@@ -204,8 +204,14 @@ export const MainPage = () => {
 
   const countPages = Math.ceil(people.countAll / 10);
 
+  if (params.pageId && isNaN(Number(params.pageId))) {
+    navigate('/1');
+  }
+
   // текущая страница
   const currentPage = Number(params.pageId) || 1;
+
+  //console.log('currentPage :', currentPage);
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(true);

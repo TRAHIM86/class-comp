@@ -40,6 +40,11 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
     Number(params.heroId)
   );
 
+  if (params.heroId && isNaN(Number(params.heroId))) {
+    navigate('/1');
+    return null;
+  }
+
   // текущая страница (или 1)
   const currentPage = params.pageId || 1;
 

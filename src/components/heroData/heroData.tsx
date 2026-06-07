@@ -14,7 +14,6 @@ export const HeroData = () => {
   const heroId = params.heroId || undefined;
 
   const [heroData, setHeroData] = useState<hero | null>(null);
-  console.log(heroData);
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(false);
