@@ -17,7 +17,7 @@ export const App = () => {
           ></Route>
 
           <Route path="/:pageId" element={<MainPage data-testid="main-page" />}>
-            <Route path="/:pageId/:heroId" element={<HeroData />} />
+            <Route path=":heroId" element={<HeroData />} />
           </Route>
 
           <Route path="/about" element={<div>ABOUT</div>}></Route>

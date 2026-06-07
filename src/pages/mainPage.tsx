@@ -9,7 +9,7 @@ import { Loading } from '../components/loading/loading';
 import { ErrorBoundary } from '../components/error/errorBoundary';
 import { useLocalStorage } from '../customHooks/useLocalStorage';
 import { Pagination } from '../components/pagination/pagination';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 /*
 export class MainPage extends React.Component {
@@ -178,6 +178,9 @@ export class MainPage extends React.Component {
 
 export const MainPage = () => {
   const params = useParams();
+  const [searchParams] = useSearchParams();
+  const searchStr = searchParams.get('search') || '';
+
   const navigate = useNavigate();
 
   // state search для поиска
@@ -186,18 +189,10 @@ export const MainPage = () => {
   // state search для инпута {countAll: 0, peopleArr: [],}
   const [inputValue, setInputValue] = useState(searchValue);
 
-  // число для количества страниц
-  function countPages(countHeroes: number) {
-    return Math.ceil(countHeroes / 10);
-  }
-
-  // текущая страница
-  const [currentPage, setCurrentPage] = useState(Number(params.page) || 1);
-
   // выбрать текущую страницу
   function changePage(num: number): number {
     setCurrentPage(num);
-    navigate(`/${num}`);
+    navigate(`/${num}?search=${searchStr}`);
     return num;
   }
 
@@ -207,22 +202,32 @@ export const MainPage = () => {
     peopleArr: [],
   });
 
+  const countPages = Math.ceil(people.countAll / 10);
+
+  // текущая страница
+  const [currentPage, setCurrentPage] = useState(Number(params.pageId) || 1);
+
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(true);
 
   // state ошибка (булеан и текс ошибки)
   const [error, setError] = useState<StateError | null>(null);
 
-  function updateSearchAndPage(value: string, numPage: number) {
+  function updateSearchAndPage(value: string) {
     setSearchValue(value);
-    setCurrentPage(numPage);
+    navigate(`/1?search=${value}`);
+    setCurrentPage(1);
   }
 
   useEffect(() => {
     async function fetchAllPeople() {
       setLoading(true);
       const allPeople = await Requests.getAllPeople(searchValue, currentPage);
-      setPeople(allPeople);
+
+      if (allPeople) {
+        setPeople(allPeople);
+      }
+
       setLoading(false);
       setError(null);
     }
@@ -308,7 +313,7 @@ export const MainPage = () => {
           <Result stateError={error} heroes={people} />
 
           <Pagination
-            countHeroes={countPages(people.countAll)}
+            countPages={countPages}
             currentPage={currentPage}
             fyncChangePage={changePage}
           />

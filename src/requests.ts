@@ -2,15 +2,16 @@ import axios from 'axios';
 import type { hero, PeopleResponse } from './types';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.py4e.com/api/people/';
-const ERROR_4XX_URL = 'https://swapi.dev/api/people404';
+const ERROR_4XX_URL = 'https://swapi.py4e.com/api/people404';
 const ERROR_NETWORK = 'https://swapi123.dev/api/people';
 
 const Requests = {
   async getAllPeople(
     value: string | null,
     numPage: number
-  ): Promise<PeopleResponse> {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  ): Promise<PeopleResponse | null> {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     try {
       const allPeople = await axios.get(
         `${SWAPI_PEOPLE_URL}?search=${value}&page=${numPage}`
@@ -22,15 +23,12 @@ const Requests = {
       };
     } catch (err) {
       console.log(err);
-      return {
-        countAll: 0,
-        peopleArr: [],
-      };
+      return null;
     }
   },
 
   async getHeroData(heroId: string): Promise<hero> {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
       const heroData = await axios.get(`${SWAPI_PEOPLE_URL}${heroId}`);

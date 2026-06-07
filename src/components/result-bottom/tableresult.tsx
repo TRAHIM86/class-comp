@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { result_table, result_block, title_item } from '../../styles/styles';
 import type { PeopleResponse } from '../../types';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 /*
 export class TableResult extends React.Component<{ heroes: Array<hero> }> {
@@ -32,16 +32,22 @@ export class TableResult extends React.Component<{ heroes: Array<hero> }> {
 */
 
 export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
+  const params = useParams();
   const navigate = useNavigate();
 
   // текущий id героя для описания
-  const [currentHeroId, setCurrentHeroId] = useState<string>('');
+  const [currentHeroId, setCurrentHeroId] = useState<number>(
+    Number(params.heroId)
+  );
 
-  function changeHeroId(stringData: string): string {
-    const heroId = stringData.split('/').filter(Boolean).pop() || '';
+  // текущая страница (или 1)
+  const currentPage = params.pageId || 1;
+
+  function changeHeroId(stringData: string): number {
+    const heroId = Number(stringData.split('/').filter(Boolean).pop()) || 0;
     setCurrentHeroId(heroId);
 
-    navigate(`${heroId}`);
+    navigate(`/${currentPage}/${heroId}`);
     return heroId;
   }
 

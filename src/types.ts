@@ -54,7 +54,7 @@ export interface PeopleResponse {
 
 // тип для пагинации (всего героев, функция активной страницы)
 export interface PaginationProps {
-  countHeroes: number;
+  countPages: number;
   currentPage: number;
   fyncChangePage: (page: number) => number;
 }

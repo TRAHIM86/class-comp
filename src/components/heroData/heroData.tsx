@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Requests from '../../requests';
 import type { hero } from '../../types';
 import { Loading } from '../loading/loading';
 import { ErrorBoundary } from '../error/errorBoundary';
+import { Btn } from '../../ui/btn';
 
 export const HeroData = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const heroId = params.heroId || undefined;
 
@@ -14,7 +16,6 @@ export const HeroData = () => {
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(false);
-  console.log(loading);
 
   useEffect(() => {
     if (heroId) {
@@ -42,6 +43,11 @@ export const HeroData = () => {
             <div>Gender : {heroData?.gender}</div>
             <div>Birth year : {heroData?.birth_year}</div>
             <div>Height : {heroData?.height}</div>
+            <Btn
+              btnText="HIDE"
+              disabled={loading}
+              onClickFunc={() => navigate('..')}
+            />
           </div>
         </ErrorBoundary>
       )}
