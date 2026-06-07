@@ -7,7 +7,7 @@ export interface ChildProps {
 export interface SearchProps {
   value: string;
   onChangeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClickFunc: (value: string) => void;
+  onClickFunc: (value: string, numPage: number) => void;
   disabled: boolean;
   btnText?: string;
 }
@@ -18,11 +18,13 @@ export interface BtnProps extends ChildProps {
   btnText?: string;
 }
 
+// тип героя
 export interface hero {
   name: string;
   gender: string;
   birth_year: string;
   height: string;
+  url: string;
 }
 
 export interface ErrorBtnProps {
@@ -41,4 +43,18 @@ export interface StateErrorBoundary {
   errorStatus?: string;
 }
 
+// тип для тестов
 export type DataTestId = string;
+
+// ответ количество героев и сами герои
+export interface PeopleResponse {
+  countAll: number;
+  peopleArr: hero[];
+}
+
+// тип для пагинации (всего героев, функция активной страницы)
+export interface PaginationProps {
+  countPages: number;
+  currentPage: number;
+  fyncChangePage: (page: number) => number;
+}

@@ -30,7 +30,7 @@ describe('Request getAllPeople', () => {
 
     vi.spyOn(axios, 'get').mockRejectedValue(errorResponse);
 
-    const result = await Requests.getAllPeople('darth');
+    const result = await Requests.getAllPeople('darth', 1);
 
     expect(consoleSpy).toHaveBeenCalledWith(errorResponse);
     expect(result).toBeUndefined();

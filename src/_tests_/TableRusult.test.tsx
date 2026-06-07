@@ -1,17 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import { TableResult } from '../components/result-bottom/tableresult';
-import { heroes } from './test-utils/dataForTests';
+import { heroesResponse } from './test-utils/dataForTests';
 
 describe('TableResult test', () => {
   test('Length of heroes', () => {
-    render(<TableResult heroes={heroes} />);
+    render(<TableResult heroes={heroesResponse} />);
 
     const quantityHeroes = screen.getAllByTestId(/hero-item/i);
     expect(quantityHeroes).toHaveLength(2);
   });
 
   test('Names  of heroes', () => {
-    render(<TableResult heroes={heroes} />);
+    render(<TableResult heroes={heroesResponse} />);
 
     const quantityHeroes = screen.getAllByTestId(/hero-item/i);
     expect(quantityHeroes[0]).toHaveTextContent('r2-d2');
@@ -19,7 +19,7 @@ describe('TableResult test', () => {
   });
 
   test('All description of hero', () => {
-    render(<TableResult heroes={heroes} />);
+    render(<TableResult heroes={heroesResponse} />);
 
     const quantityHeroes = screen.getAllByTestId(/hero-item/i);
     expect(quantityHeroes[0]).toHaveTextContent('r2-d2');
