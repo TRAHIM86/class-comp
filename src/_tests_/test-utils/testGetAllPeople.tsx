@@ -9,7 +9,7 @@ export async function testGetAllPeople(valueSearch: string, arrHero: hero[]) {
     },
   });
 
-  const result = await Requests.getAllPeople(valueSearch);
+  const result = await Requests.getAllPeople(valueSearch, 1);
 
   expect(result).toEqual(arrHero);
 }

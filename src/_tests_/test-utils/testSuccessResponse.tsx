@@ -2,7 +2,7 @@ import Requests from '../../requests';
 
 export async function testSuccessResponse(
   method: keyof typeof Requests,
-  value: string | null
+  value: string
 ) {
   window.fetch = vi.fn().mockResolvedValue({
     ok: true,
@@ -10,7 +10,7 @@ export async function testSuccessResponse(
     json: async () => ({ name: 'testNetwork' }),
   } as Response);
 
-  const result = await Requests[method](value);
+  const result = await Requests[method](value, 1);
 
   expect(result).toEqual({ name: 'testNetwork' });
 }
