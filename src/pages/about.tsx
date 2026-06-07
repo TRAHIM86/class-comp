@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { container1280 } from '../styles/styles';
 
 export const About = () => {
