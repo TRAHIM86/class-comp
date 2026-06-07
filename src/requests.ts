@@ -27,7 +27,7 @@ const Requests = {
     }
   },
 
-  async getHeroData(heroId: string): Promise<hero> {
+  async getHeroData(heroId: string): Promise<hero | null> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
@@ -36,7 +36,7 @@ const Requests = {
       return heroData.data;
     } catch (err) {
       console.log(err);
-      throw err;
+      return null;
     }
   },
 

@@ -210,14 +210,14 @@ export const MainPage = () => {
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(true);
 
-  console.log(
+  /*console.log(
     'countAll :',
     people.countAll,
     'people :',
     people.peopleArr,
     'loading :',
     loading
-  );
+  );*/
 
   // state ошибка (булеан и текс ошибки)
   const [error, setError] = useState<StateError | null>(null);

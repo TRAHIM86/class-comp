@@ -5,6 +5,7 @@ import type { hero } from '../../types';
 import { Loading } from '../loading/loading';
 import { ErrorBoundary } from '../error/errorBoundary';
 import { Btn } from '../../ui/btn';
+import { ErrorResponse } from '../error/errorResponse';
 
 export const HeroData = () => {
   const params = useParams();
@@ -13,6 +14,7 @@ export const HeroData = () => {
   const heroId = params.heroId || undefined;
 
   const [heroData, setHeroData] = useState<hero | null>(null);
+  console.log(heroData);
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,6 +38,8 @@ export const HeroData = () => {
         <div className="flex items-center justify-center w-full">
           <Loading quantity={5} />
         </div>
+      ) : !heroData ? (
+        <ErrorResponse />
       ) : (
         <ErrorBoundary>
           <div className="flex flex-col px-5">
