@@ -31,7 +31,7 @@ export const HeroData = () => {
   }, [heroId]);
 
   return (
-    <div className="flex items-center flex-1">
+    <div className="flex items-center flex-1 border-2 border-green-300">
       {loading ? (
         <div className="flex items-center justify-center w-full">
           <Loading quantity={5} />

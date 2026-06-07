@@ -74,7 +74,7 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
             );
           })}
         </div>
-        {currentHeroId && <Outlet />}
+        {currentHeroId ? <Outlet /> : null}
       </div>
     </div>
   );

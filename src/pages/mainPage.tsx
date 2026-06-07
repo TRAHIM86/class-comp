@@ -189,6 +189,8 @@ export const MainPage = () => {
   // state search для инпута {countAll: 0, peopleArr: [],}
   const [inputValue, setInputValue] = useState(searchValue);
 
+  console.log('searchValue :', searchValue, 'inputValue', inputValue);
+
   // выбрать текущую страницу
   function changePage(num: number): number {
     navigate(`/${num}?search=${searchStr}`);
@@ -206,8 +208,6 @@ export const MainPage = () => {
   // текущая страница
   const currentPage = Number(params.pageId) || 1;
 
-  console.log('currentPage :', currentPage);
-
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -215,6 +215,11 @@ export const MainPage = () => {
   const [error, setError] = useState<StateError | null>(null);
 
   function updateSearchAndPage(value: string) {
+    if (searchValue.trim() === inputValue.trim()) {
+      console.log('Please enter new data for search');
+      return;
+    }
+
     setSearchValue(value);
     navigate(`/1?search=${value}`);
     //setCurrentPage(1);
@@ -235,7 +240,7 @@ export const MainPage = () => {
     }
 
     fetchAllPeople();
-  }, [searchValue, params.pageId]);
+  }, [searchValue, currentPage]);
 
   // блок с имитацией ошибок
   async function imitateErrorRender() {
