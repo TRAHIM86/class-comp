@@ -204,7 +204,7 @@ export const MainPage = () => {
   const countPages = Math.ceil(people.countAll / 10);
 
   // текущая страница
-  const currentPage = Number(params.pageId);
+  const currentPage = Number(params.pageId) || 1;
 
   console.log('currentPage :', currentPage);
 
