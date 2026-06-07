@@ -3,6 +3,8 @@ import { app } from './styles/styles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Navigation } from './components/navigation/navigation';
 import { HeroData } from './components/heroData/heroData';
+import { ErrorPage404 } from './pages/errorPage404';
+import { About } from './pages/about';
 
 export const App = () => {
   return (
@@ -20,7 +22,8 @@ export const App = () => {
             <Route path=":heroId" element={<HeroData />} />
           </Route>
 
-          <Route path="/about" element={<div>ABOUT</div>}></Route>
+          <Route path="/about" element={<About />} />
+          <Route path="/*" element={<ErrorPage404 />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -7,7 +7,7 @@ export const Navigation = () => {
     isActive ? boldText : '';
 
   return (
-    <nav>
+    <nav className="flex gap-5">
       <NavLink to="/" className={styleNavLink}>
         HOME
       </NavLink>
