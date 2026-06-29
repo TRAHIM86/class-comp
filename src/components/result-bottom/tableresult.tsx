@@ -8,8 +8,6 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
   const selectedHeroes = useStore((state) => state.selectedHeroes);
   const toggleSelectHero = useStore((state) => state.toggleSelectHero);
 
-  console.log('selectedHeroes :', selectedHeroes);
-
   const params = useParams();
   const navigate = useNavigate();
 
@@ -63,7 +61,11 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
             );
           })}
         </div>
+
         {currentHeroId ? <Outlet /> : null}
+      </div>
+      <div className=" border-1 border-red-700">
+        Selected heroes: {selectedHeroes.map((hero) => hero.name).join(', ')}
       </div>
     </div>
   );
