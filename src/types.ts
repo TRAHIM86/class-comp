@@ -19,7 +19,7 @@ export interface BtnProps extends ChildProps {
 }
 
 // тип героя
-export interface hero {
+export interface Hero {
   name: string;
   gender: string;
   birth_year: string;
@@ -49,7 +49,7 @@ export type DataTestId = string;
 // ответ количество героев и сами герои
 export interface PeopleResponse {
   countAll: number;
-  peopleArr: hero[];
+  peopleArr: Hero[];
 }
 
 // тип для пагинации (всего героев, функция активной страницы)
@@ -58,3 +58,18 @@ export interface PaginationProps {
   currentPage: number;
   fyncChangePage: (page: number) => number;
 }
+
+// тип для STORE
+export type Store = {
+  people: Hero[];
+  searchTerm: string;
+  currentPage: number;
+  totalCount: number;
+  selectedHeroes: Hero[];
+  setPeople: (people: Hero[]) => void;
+  setSearchTerm: (searchTerm: string) => void;
+  setCurrentPage: (currentPage: number) => void;
+  setTotalCount: (totalCount: number) => void;
+  toggleSelectHero: (hero: Hero) => void;
+  //clearSelected: () => void;
+};
