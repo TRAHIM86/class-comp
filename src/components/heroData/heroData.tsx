@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Requests from '../../requests';
-import type { hero } from '../../types';
+import type { Hero } from '../../types';
 import { Loading } from '../loading/loading';
 import { ErrorBoundary } from '../error/errorBoundary';
 import { Btn } from '../../ui/btn';
@@ -13,7 +13,7 @@ export const HeroData = () => {
 
   const heroId = params.heroId || undefined;
 
-  const [heroData, setHeroData] = useState<hero | null>(null);
+  const [heroData, setHeroData] = useState<Hero | null>(null);
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(false);

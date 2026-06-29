@@ -15,6 +15,7 @@ export const useStore = create<Store>((set) => ({
   setCurrentPage: (currentPage: number) => set({ currentPage }),
   setTotalCount: (totalCount: number) => set({ totalCount }),
 
+  // метод длобавить/удалить избранное
   toggleSelectHero: (hero) =>
     set((state) => ({
       selectedHeroes: state.selectedHeroes.some((h) => h.name === hero.name)

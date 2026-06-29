@@ -9,7 +9,7 @@ import { About } from './pages/about';
 export const App = () => {
   return (
     <div className={app}>
-      <BrowserRouter>
+      <BrowserRouter basename="/class-comp/">
         <Navigation />
 
         <Routes>

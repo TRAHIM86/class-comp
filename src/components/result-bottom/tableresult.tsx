@@ -2,36 +2,14 @@ import { useState } from 'react';
 import { result_table, result_block, title_item } from '../../styles/styles';
 import type { PeopleResponse } from '../../types';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-
-/*
-export class TableResult extends React.Component<{ heroes: Array<hero> }> {
-  render() {
-    return (
-      <div className={result_table}>
-        <div className={result_block}>
-          <div className={`${title_item} w-1/3`}>Hero</div>
-          <div className={`${title_item} w-2/3`}>Hero description</div>
-        </div>
-
-        {this.props.heroes?.map((p, index) => {
-          return (
-            <div className={result_block} key={index} data-testid="hero-item">
-              <div className={`${result_item} w-1/3`}>{p.name}</div>
-              <div className={`${result_item} w-2/3`}>
-                <div>Gender: {p.gender},</div>
-                <div>B.y.: {p.birth_year},</div>
-                <div>Height: {p.height}.</div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-}
-*/
+import { useStore } from '../../store/store';
 
 export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
+  const selectedHeroes = useStore((state) => state.selectedHeroes);
+  const toggleSelectHero = useStore((state) => state.toggleSelectHero);
+
+  console.log('selectedHeroes :', selectedHeroes);
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -67,14 +45,20 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
           {heroes?.peopleArr.map((hero, index) => {
             return (
               <div
-                className={result_block}
                 key={index}
+                className={result_block}
                 data-testid="hero=item"
                 onClick={() => {
                   changeHeroId(hero.url);
                 }}
               >
-                {hero.name}
+                <div className=" border-1 border-red-700">{hero.name}</div>
+                <input
+                  type="checkbox"
+                  checked={selectedHeroes.some((h) => h.name === hero.name)}
+                  onChange={() => toggleSelectHero(hero)}
+                  onClick={(e) => e.stopPropagation()}
+                ></input>
               </div>
             );
           })}
