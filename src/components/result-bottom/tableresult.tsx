@@ -9,6 +9,7 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
   const selectedHeroes = useStore((state) => state.selectedHeroes);
   const toggleSelectHero = useStore((state) => state.toggleSelectHero);
   const clearSelected = useStore((state) => state.clearSelected);
+  const downloadSelected = useStore((state) => state.downloadSelected);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -65,12 +66,16 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
 
         {currentHeroId ? <Outlet /> : null}
       </div>
-      <div className=" border-1 border-red-700">
-        Selected heroes: {selectedHeroes.map((hero) => hero.name).join(', ')}
-      </div>
-      <button onClick={clearSelected}>Deselect all</button>
+      {!!selectedHeroes.length && (
+        <div className="flex flex-col items-center border-1 border-red-700 sticky bottom-0 bg-black">
+          Selected heroes: {selectedHeroes.length}
+          <div className="w-4 flex flex-col gap-1 items-center">
+            <Btn btnText="Clear" onClickFunc={clearSelected} />
 
-      <Btn btnText="Clear" onClickFunc={clearSelected} />
+            <Btn btnText="Load" onClickFunc={() => downloadSelected()} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -72,4 +72,5 @@ export type Store = {
   setTotalCount: (totalCount: number) => void;
   toggleSelectHero: (hero: Hero) => void;
   clearSelected: () => void;
+  downloadSelected: () => void;
 };
