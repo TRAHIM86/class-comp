@@ -22,4 +22,6 @@ export const useStore = create<Store>((set) => ({
         ? state.selectedHeroes.filter((h) => h.name !== hero.name)
         : [...state.selectedHeroes, hero],
     })),
+
+  clearSelected: () => set({ selectedHeroes: [] }),
 }));

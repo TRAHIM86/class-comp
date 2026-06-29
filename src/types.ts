@@ -14,7 +14,7 @@ export interface SearchProps {
 
 export interface BtnProps extends ChildProps {
   onClickFunc: () => void;
-  disabled: boolean;
+  disabled?: boolean;
   btnText?: string;
 }
 
@@ -71,5 +71,5 @@ export type Store = {
   setCurrentPage: (currentPage: number) => void;
   setTotalCount: (totalCount: number) => void;
   toggleSelectHero: (hero: Hero) => void;
-  //clearSelected: () => void;
+  clearSelected: () => void;
 };

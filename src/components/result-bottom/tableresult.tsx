@@ -3,10 +3,12 @@ import { result_table, result_block, title_item } from '../../styles/styles';
 import type { PeopleResponse } from '../../types';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useStore } from '../../store/store';
+import { Btn } from '../../ui/btn';
 
 export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
   const selectedHeroes = useStore((state) => state.selectedHeroes);
   const toggleSelectHero = useStore((state) => state.toggleSelectHero);
+  const clearSelected = useStore((state) => state.clearSelected);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -37,7 +39,6 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
       <div className={result_block}>
         <div className={`${title_item} w-1/2`}>HERO</div>
       </div>
-
       <div className="flex flex-row w-full border-2 border-blue-300">
         <div className="flex flex-col w-1/2 border-2 border-red-700">
           {heroes?.peopleArr.map((hero, index) => {
@@ -67,6 +68,9 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
       <div className=" border-1 border-red-700">
         Selected heroes: {selectedHeroes.map((hero) => hero.name).join(', ')}
       </div>
+      <button onClick={clearSelected}>Deselect all</button>
+
+      <Btn btnText="Clear" onClickFunc={clearSelected} />
     </div>
   );
 };
