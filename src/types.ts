@@ -74,3 +74,9 @@ export type Store = {
   clearSelected: () => void;
   downloadSelected: () => void;
 };
+
+// тип ThemeContext
+export type ThemeContextType = {
+  theme: string;
+  toggleTheme: () => void;
+};

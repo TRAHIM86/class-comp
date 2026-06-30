@@ -3,8 +3,13 @@ export const app = 'bg-black flex flex-col justify-center items-center';
 export const container1280 =
   'w-[clamp(650px,80%,1024px)] min-h-screen flex flex-col justify-between items-center';
 
+export const container1280_ligth = 'bg-green-800';
+
 export const btn_base =
   'p-3 border-1 border-gray-500 bg-gray-500 text-white rounded cursor-pointer hover:border-yellow-300 flex-1';
+
+export const btn_ligth =
+  'p-3 border-1 border-green-500 bg-green-500 text-black rounded cursor-pointer hover:border-yellow-300 flex-1';
 
 export const btn_disabled = 'opacity-50 cursor-not-allowed';
 
@@ -42,3 +47,5 @@ export const paginationBlock =
 export const activePage = 'p-1 border-1 border-yellow-300';
 
 export const boldText = 'font-bold';
+
+export const lightTheme = 'bg-white color-black';

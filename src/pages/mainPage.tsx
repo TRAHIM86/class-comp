@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { container1280, errorBlock } from '../styles/styles';
+import React, { useContext, useEffect, useState } from 'react';
+import {
+  container1280,
+  container1280_ligth,
+  errorBlock,
+} from '../styles/styles';
 import { ErrorBtn } from '../components/error/errorBtn';
 import { Result } from '../components/result-bottom/results';
 import { Search } from '../components/search-top/search';
@@ -11,6 +15,7 @@ import { useLocalStorage } from '../customHooks/useLocalStorage';
 import { Pagination } from '../components/pagination/pagination';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { ErrorResponse } from '../components/error/errorResponse';
+import { ThemeContext } from '../store/ThemeContext';
 
 /*
 export class MainPage extends React.Component {
@@ -178,6 +183,8 @@ export class MainPage extends React.Component {
 */
 
 export const MainPage = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   const params = useParams();
   const [searchParams] = useSearchParams();
   const searchStr = searchParams.get('search') || '';
@@ -215,15 +222,6 @@ export const MainPage = () => {
 
   // state загрузка до ответа сервера
   const [loading, setLoading] = useState<boolean>(true);
-
-  /*console.log(
-    'countAll :',
-    people.countAll,
-    'people :',
-    people.peopleArr,
-    'loading :',
-    loading
-  );*/
 
   // state ошибка (булеан и текс ошибки)
   const [error, setError] = useState<StateError | null>(null);
@@ -318,7 +316,10 @@ export const MainPage = () => {
   }
 
   return (
-    <div data-testid="container" className={container1280}>
+    <div
+      data-testid="container"
+      className={`${container1280} ${theme === 'light' ? container1280_ligth : ''}`}
+    >
       <Search
         btnText="SEARCH"
         value={inputValue}
