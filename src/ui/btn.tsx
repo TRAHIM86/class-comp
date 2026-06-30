@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { btn_base, btn_disabled, btn_ligth } from '../styles/styles';
 import type { BtnProps } from '../types';
 import { ThemeContext } from '../store/ThemeContext';

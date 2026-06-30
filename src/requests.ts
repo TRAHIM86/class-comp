@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { hero, PeopleResponse } from './types';
+import type { Hero, PeopleResponse } from './types';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.py4e.com/api/people/';
 const ERROR_4XX_URL = 'https://swapi.py4e.com/api/people404';
@@ -27,7 +27,7 @@ const Requests = {
     }
   },
 
-  async getHeroData(heroId: string): Promise<hero | null> {
+  async getHeroData(heroId: string): Promise<Hero | null> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {

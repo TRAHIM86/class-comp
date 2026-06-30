@@ -1,4 +1,4 @@
-import type { hero } from '../../types';
+import type { Hero } from '../../types';
 
 // Result.test, TableResult.test ***********************
 export const heroes = [
@@ -42,7 +42,7 @@ export const responseSearchDarth = [
   },
 ];
 
-export const responseSearchEmpty: hero[] = [];
+export const responseSearchEmpty: Hero[] = [];
 
 export const responseSearchAllPeople = [
   {
