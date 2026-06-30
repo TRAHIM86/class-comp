@@ -183,7 +183,7 @@ export class MainPage extends React.Component {
 */
 
 export const MainPage = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const params = useParams();
   const [searchParams] = useSearchParams();
