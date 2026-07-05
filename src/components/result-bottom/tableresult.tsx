@@ -4,12 +4,30 @@ import type { PeopleResponse } from '../../types';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useStore } from '../../store/store';
 import { Btn } from '../../ui/btn';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
   const selectedHeroes = useStore((state) => state.selectedHeroes);
   const toggleSelectHero = useStore((state) => state.toggleSelectHero);
   const clearSelected = useStore((state) => state.clearSelected);
   const downloadSelected = useStore((state) => state.downloadSelected);
+
+  const queryClient = useQueryClient();
+
+  // только имитация мутации, т.к. https://swapi.py4e.com/api не
+  // дает делать изменения, только чтение. Поэтому просто имитация
+  // запроса и обновление кэша по ключу "heroData". Глупо, т.к.
+  // убирает нужный кэш, но нужно для задания
+  const imitateMutation = useMutation({
+    mutationFn: (heroId: number) => {
+      console.log('Имитация мутации:', heroId);
+      return new Promise((resolve) => setTimeout(resolve, 1000));
+    },
+    onSuccess: (_data, heroId) => {
+      queryClient.invalidateQueries({ queryKey: ['heroData', String(heroId)] });
+      console.log('Мутация выполнена');
+    },
+  });
 
   const params = useParams();
   const navigate = useNavigate();
@@ -32,6 +50,7 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
     setCurrentHeroId(heroId);
 
     navigate(`/${currentPage}/${heroId}`);
+    imitateMutation.mutate(heroId);
     return heroId;
   }
 
