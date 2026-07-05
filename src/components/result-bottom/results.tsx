@@ -1,19 +1,28 @@
 import { errorMessage, result_sec } from '../../styles/styles';
 import { TableResult } from './tableresult';
-import type { PeopleResponse, StateError } from '../../types';
+import type { ErrorRequest, PeopleResponse } from '../../types';
 
 export const Result = ({
   heroes,
-  stateError,
+  error,
+  renderError,
+  errorRequest,
 }: {
   heroes: PeopleResponse;
-  stateError?: StateError | null;
+  error?: Error | null;
+  renderError: number[];
+  errorRequest: ErrorRequest | null;
 }) => {
   return (
     <section data-testid="result" className={result_sec}>
-      {stateError?.isError ? (
+      {renderError?.map((num) => (
+        <div key={num}></div>
+      ))}
+
+      {error || errorRequest ? (
         <div className={errorMessage}>
-          Error. Status: {stateError.errorStatus}. Please try again.
+          Error. Status: {error?.message || errorRequest?.status}. Please try
+          again.
         </div>
       ) : (
         <TableResult heroes={heroes} />

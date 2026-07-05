@@ -5,12 +5,13 @@ const SWAPI_PEOPLE_URL = 'https://swapi.py4e.com/api/people/';
 const ERROR_4XX_URL = 'https://swapi.py4e.com/api/people404';
 const ERROR_NETWORK = 'https://swapi123.dev/api/people';
 
+// получить всех героев (параметры "поисковая строка" и "страница")
 const Requests = {
   async getAllPeople(
     value: string | null,
     numPage: number
   ): Promise<PeopleResponse | null> {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     try {
       const allPeople = await axios.get(
@@ -27,6 +28,7 @@ const Requests = {
     }
   },
 
+  // получить данные о выбранном герое
   async getHeroData(heroId: string): Promise<Hero | null> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 

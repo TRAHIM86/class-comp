@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   container1280,
   container1280_ligth,
@@ -8,7 +8,6 @@ import { ErrorBtn } from '../components/error/errorBtn';
 import { Result } from '../components/result-bottom/results';
 import { Search } from '../components/search-top/search';
 import Requests from '../requests';
-import type { PeopleResponse, StateError } from '../types';
 import { Loading } from '../components/loading/loading';
 import { ErrorBoundary } from '../components/error/errorBoundary';
 import { useLocalStorage } from '../customHooks/useLocalStorage';
@@ -16,6 +15,7 @@ import { Pagination } from '../components/pagination/pagination';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { ErrorResponse } from '../components/error/errorResponse';
 import { ThemeContext } from '../store/ThemeContext';
+import { useQuery } from '@tanstack/react-query';
 
 /*
 export class MainPage extends React.Component {
@@ -197,34 +197,36 @@ export const MainPage = () => {
   // state search для инпута {countAll: 0, peopleArr: [],}
   const [inputValue, setInputValue] = useState(searchValue);
 
+  // текущая страница
+  const currentPage = Number(params.pageId) || 1;
+
+  // специальные состония для имитации ошибок (рендер + 2 запроса)
+  const [renderError, setRenderError] = useState([1]);
+  const [errorRequest, setErrorRequest] = useState<{
+    isError: boolean;
+    status: string;
+  } | null>(null);
+
+  const {
+    data: people,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['people', searchValue, currentPage],
+    queryFn: () => Requests.getAllPeople(searchValue, currentPage),
+  });
+
   // выбрать текущую страницу
   function changePage(num: number): number {
     navigate(`/${num}?search=${searchStr}`);
     return num;
   }
 
-  // state найденых персонажей
-  const [people, setPeople] = useState<PeopleResponse>({
-    countAll: 0,
-    peopleArr: [],
-  });
-
-  const countPages = Math.ceil(people.countAll / 10);
+  const countPages = people ? Math.ceil(people.countAll / 10) : 0;
 
   if (params.pageId && isNaN(Number(params.pageId))) {
     navigate('/1');
   }
-
-  // текущая страница
-  const currentPage = Number(params.pageId) || 1;
-
-  //console.log('currentPage :', currentPage);
-
-  // state загрузка до ответа сервера
-  const [loading, setLoading] = useState<boolean>(true);
-
-  // state ошибка (булеан и текс ошибки)
-  const [error, setError] = useState<StateError | null>(null);
 
   function updateSearchAndPage(value: string) {
     if (searchValue.trim() === inputValue.trim()) {
@@ -237,77 +239,31 @@ export const MainPage = () => {
     //setCurrentPage(1);
   }
 
-  useEffect(() => {
-    async function fetchAllPeople() {
-      setLoading(true);
-      const allPeople = await Requests.getAllPeople(searchValue, currentPage);
-
-      if (allPeople) {
-        setPeople(allPeople);
-      }
-
-      setLoading(false);
-      setError(null);
-      //setCurrentPage(Number(params.pageId));
-    }
-
-    fetchAllPeople();
-  }, [searchValue, currentPage]);
-
   // блок с имитацией ошибок
   async function imitateErrorRender() {
-    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log('render error');
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setError({ isError: true, errorStatus: 'error render' });
-    setLoading(false);
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    setPeople('123'); // специально для ошибки рендера, вызовет ErrorBoundary
+    // @ts-expect-error - имитация ошибки для ErrorBoundary
+    setRenderError('123');
   }
 
   async function fetchError4xx() {
-    setLoading(true);
-
+    console.log('imitation4xx');
     const error4xx = await Requests.imitation4xx();
 
-    if (error4xx.isError) {
-      setError({ isError: true, errorStatus: error4xx.status });
-      setPeople({
-        countAll: 0,
-        peopleArr: [],
-      });
-
-      // сюда никогда не дойдет, т.к. имитиация вернет ТОЛЬКО ошибку
-    } else {
-      setPeople(error4xx.data);
-      setError(null);
+    if (error4xx) {
+      console.log('error4xx :', error4xx);
+      setErrorRequest(error4xx);
     }
-
-    setLoading(false);
   }
 
   async function fetchErrorNetwork() {
-    setLoading(true);
-
     const errorNetwork = await Requests.imitationErrNetwork();
 
-    if (errorNetwork instanceof Error) {
-      setError({ isError: true, errorStatus: 'Unknown error' });
-      setPeople({
-        countAll: 0,
-        peopleArr: [],
-      });
+    setErrorRequest({ isError: true, status: 'Unknown error' });
 
-      // сюда никогда не дойдет, т.к. имитиация вернет ТОЛЬКО ошибку
-    } else {
-      setPeople(errorNetwork.data);
-      setError(null);
-    }
-
-    setLoading(false);
+    return errorNetwork;
   }
 
   function changeInputValue(event: React.ChangeEvent<HTMLInputElement>) {
@@ -325,16 +281,21 @@ export const MainPage = () => {
         value={inputValue}
         onChangeFunc={changeInputValue}
         onClickFunc={updateSearchAndPage}
-        disabled={loading}
+        disabled={isLoading}
       />
 
-      {loading ? (
+      {isLoading || !people ? (
         <Loading quantity={8} />
-      ) : people.peopleArr.length === 0 ? (
+      ) : people?.peopleArr.length === 0 ? (
         <ErrorResponse />
       ) : (
         <ErrorBoundary>
-          <Result stateError={error} heroes={people} />
+          <Result
+            heroes={people}
+            error={error}
+            renderError={renderError}
+            errorRequest={errorRequest}
+          />
           <Pagination
             countPages={countPages}
             currentPage={currentPage}
@@ -346,17 +307,17 @@ export const MainPage = () => {
       <div data-testid="error-block" className={errorBlock}>
         <ErrorBtn
           btnText="render error"
-          disabled={loading}
+          disabled={isLoading}
           onClickErrorFunc={imitateErrorRender}
         />
         <ErrorBtn
           btnText="404 error (!response.ok)"
-          disabled={loading}
+          disabled={isLoading}
           onClickErrorFunc={fetchError4xx}
         />
         <ErrorBtn
           btnText="network error (catch)"
-          disabled={loading}
+          disabled={isLoading}
           onClickErrorFunc={fetchErrorNetwork}
         />
       </div>

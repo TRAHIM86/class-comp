@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MainPage } from './pages/mainPage';
 import { app } from './styles/styles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -8,31 +9,35 @@ import { About } from './pages/about';
 import { ThemeProvider } from './store/ThemeContext';
 
 export const App = () => {
+  const queryClient = new QueryClient();
+
   return (
-    <div className={app}>
-      <ThemeProvider>
-        <BrowserRouter basename="/class-comp/">
-          <Navigation />
+    <QueryClientProvider client={queryClient}>
+      <div className={app}>
+        <ThemeProvider>
+          <BrowserRouter basename="/class-comp/">
+            <Navigation />
 
-          <Routes>
-            <Route
-              path="/"
-              element={<MainPage data-testid="main-page" />}
-            ></Route>
+            <Routes>
+              <Route
+                path="/"
+                element={<MainPage data-testid="main-page" />}
+              ></Route>
 
-            <Route
-              path="/:pageId"
-              element={<MainPage data-testid="main-page" />}
-            >
-              <Route path=":heroId" element={<HeroData />} />
-            </Route>
+              <Route
+                path="/:pageId"
+                element={<MainPage data-testid="main-page" />}
+              >
+                <Route path=":heroId" element={<HeroData />} />
+              </Route>
 
-            <Route path="/about" element={<About />} />
-            <Route path="/*" element={<ErrorPage404 />} />
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    </div>
+              <Route path="/about" element={<About />} />
+              <Route path="/*" element={<ErrorPage404 />} />
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </div>
+    </QueryClientProvider>
   );
 };
 

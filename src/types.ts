@@ -33,9 +33,9 @@ export interface ErrorBtnProps {
   btnText?: string;
 }
 
-export interface StateError {
+export interface ErrorRequest {
   isError: boolean;
-  errorStatus?: string;
+  status?: string;
 }
 
 export interface StateErrorBoundary {
