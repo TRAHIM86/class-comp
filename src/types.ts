@@ -61,15 +61,9 @@ export interface PaginationProps {
 
 // тип для STORE
 export type Store = {
-  people: Hero[];
   searchTerm: string;
-  currentPage: number;
-  totalCount: number;
   selectedHeroes: Hero[];
-  setPeople: (people: Hero[]) => void;
   setSearchTerm: (searchTerm: string) => void;
-  setCurrentPage: (currentPage: number) => void;
-  setTotalCount: (totalCount: number) => void;
   toggleSelectHero: (hero: Hero) => void;
   clearSelected: () => void;
   downloadSelected: () => void;

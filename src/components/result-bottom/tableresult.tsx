@@ -44,6 +44,7 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
 
   // текущая страница (или 1)
   const currentPage = params.pageId || 1;
+  console.log('currentPage :', currentPage);
 
   function changeHeroId(stringData: string): number {
     const heroId = Number(stringData.split('/').filter(Boolean).pop()) || 0;

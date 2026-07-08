@@ -214,6 +214,7 @@ export const MainPage = () => {
   } = useQuery({
     queryKey: ['people', searchValue, currentPage],
     queryFn: () => Requests.getAllPeople(searchValue, currentPage),
+    staleTime: Number(import.meta.env.VITE_CACHE_TTL),
   });
 
   // выбрать текущую страницу
@@ -236,7 +237,6 @@ export const MainPage = () => {
 
     setSearchValue(value);
     navigate(`/1?search=${value}`);
-    //setCurrentPage(1);
   }
 
   // блок с имитацией ошибок
