@@ -71,7 +71,7 @@ export const Loading = ({ quantity }: { quantity: number }) => {
       {arrRange.map((_, index) => {
         return (
           <div
-            data-test="dot"
+            data-testid="dot"
             key={index}
             className={index === activeDot ? dotLoadActive : dotLoad}
           ></div>

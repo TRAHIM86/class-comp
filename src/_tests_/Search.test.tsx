@@ -28,7 +28,8 @@ describe('Search test', () => {
     await userEvent.click(searchBtn);
     expect(SearchComponent.mockOnClick).toHaveBeenCalledTimes(1);
     expect(SearchComponent.mockOnClick).toHaveBeenLastCalledWith(
-      SearchComponent.value
+      SearchComponent.value,
+      1
     );
   });
 
