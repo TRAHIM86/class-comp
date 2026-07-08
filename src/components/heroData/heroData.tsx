@@ -16,6 +16,8 @@ export const HeroData = () => {
     data: heroData,
     isLoading,
     error,
+    refetch,
+    isFetching,
   } = useQuery({
     queryKey: ['heroData', heroId],
     queryFn: () => {
@@ -26,9 +28,16 @@ export const HeroData = () => {
 
   if (error) return <div>Sorry some error: {error.message}</div>;
 
+  // принудительное обновление героев
+  async function updateHeroData() {
+    console.log('updating heroData');
+    await refetch();
+    console.log('updated');
+  }
+
   return (
     <div className="flex items-center flex-1 border-2 border-green-300">
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <div className="flex items-center justify-center w-full">
           <Loading quantity={5} />
         </div>
@@ -46,6 +55,7 @@ export const HeroData = () => {
               disabled={isLoading}
               onClickFunc={() => navigate('..')}
             />
+            <Btn btnText="Update" onClickFunc={updateHeroData} />
           </div>
         </ErrorBoundary>
       )}

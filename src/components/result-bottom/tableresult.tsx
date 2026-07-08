@@ -44,7 +44,6 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
 
   // текущая страница (или 1)
   const currentPage = params.pageId || 1;
-  console.log('currentPage :', currentPage);
 
   function changeHeroId(stringData: string): number {
     const heroId = Number(stringData.split('/').filter(Boolean).pop()) || 0;
@@ -55,10 +54,18 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
     return heroId;
   }
 
+  // принудительное обновление героев
+  async function updateHeroes() {
+    console.log('updating');
+    await queryClient.invalidateQueries({ queryKey: ['people'] });
+    console.log('updated');
+  }
+
   return (
     <div className={result_table}>
       <div className={result_block}>
         <div className={`${title_item} w-1/2`}>HERO</div>
+        <Btn onClickFunc={updateHeroes} btnText="Update"></Btn>
       </div>
       <div className="flex flex-row w-full border-2 border-blue-300">
         <div className="flex flex-col w-1/2 border-2 border-red-700">
