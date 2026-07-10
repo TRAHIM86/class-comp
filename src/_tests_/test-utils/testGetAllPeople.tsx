@@ -2,10 +2,14 @@ import axios from 'axios';
 import Requests from '../../requests';
 import type { Hero } from '../../types';
 
-export async function testGetAllPeople(valueSearch: string, arrHero: Hero[]) {
+export async function testGetAllPeople(
+  valueSearch: string,
+  arrHero: { countAll: number; peopleArr: Hero[] }
+) {
   vi.spyOn(axios, 'get').mockResolvedValue({
     data: {
-      results: arrHero,
+      count: arrHero.countAll,
+      results: arrHero.peopleArr,
     },
   });
 

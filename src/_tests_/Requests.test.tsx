@@ -33,7 +33,7 @@ describe('Request getAllPeople', () => {
     const result = await Requests.getAllPeople('darth', 1);
 
     expect(consoleSpy).toHaveBeenCalledWith(errorResponse);
-    expect(result).toBeUndefined();
+    expect(result).toBeNull();
 
     consoleSpy.mockRestore();
   });

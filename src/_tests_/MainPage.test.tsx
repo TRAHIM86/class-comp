@@ -3,11 +3,25 @@ import { MainPage } from '../pages/mainPage';
 import userEvent from '@testing-library/user-event';
 import { container1280 } from '../styles/styles';
 import { imitateError } from './test-utils/imitateError';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
 
 vi.mock('../requests', () => {
   return {
     default: {
-      getAllPeople: vi.fn(),
+      getAllPeople: vi.fn().mockImplementation(() => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({
+              peopleArr: [
+                { name: 'Luke', url: '1' },
+                { name: 'Vader', url: '2' },
+              ],
+              countAll: 0,
+            });
+          }, 100);
+        });
+      }),
       imitation4xx: vi.fn().mockResolvedValue({ isError: true, status: 404 }),
       imitationErrNetwork: vi
         .fn()
@@ -17,8 +31,19 @@ vi.mock('../requests', () => {
 });
 
 describe('MainPage test render', () => {
+  const queryClientTest = new QueryClient();
+
   test('MainPage render and having class 1280px', () => {
-    render(<MainPage />);
+    // имитация URL-адреса для теста (для useSearchParams())
+    window.history.pushState({}, 'Test page', '/class-comp/');
+
+    render(
+      <QueryClientProvider client={queryClientTest}>
+        <BrowserRouter basename="/class-comp/">
+          <MainPage />
+        </BrowserRouter>
+      </QueryClientProvider>
+    );
 
     expect(screen.getByTestId('container')).toBeInTheDocument();
     expect(screen.getByTestId('container')).toHaveClass(container1280);
@@ -26,7 +51,16 @@ describe('MainPage test render', () => {
   });
 
   test('Loading state and its disappearance', async () => {
-    render(<MainPage />);
+    // имитация URL-адреса для теста (для useSearchParams())
+    window.history.pushState({}, 'Test page', '/class-comp/');
+
+    render(
+      <QueryClientProvider client={queryClientTest}>
+        <BrowserRouter basename="/class-comp/">
+          <MainPage />
+        </BrowserRouter>
+      </QueryClientProvider>
+    );
     expect(screen.getByTestId('loading')).toBeInTheDocument();
 
     await screen.findByTestId('result');
@@ -35,8 +69,19 @@ describe('MainPage test render', () => {
 });
 
 describe('FetchAllPeople test', async () => {
+  const queryClientTest = new QueryClient();
+
   test('fetchAllPeople sets loading true', async () => {
-    render(<MainPage />);
+    // имитация URL-адреса для теста (для useSearchParams())
+    window.history.pushState({}, 'Test page', '/class-comp/');
+
+    render(
+      <QueryClientProvider client={queryClientTest}>
+        <BrowserRouter basename="/class-comp/">
+          <MainPage />
+        </BrowserRouter>
+      </QueryClientProvider>
+    );
 
     const input = screen.getByRole('textbox');
     const button = screen.getByRole('button', { name: /search/i });
@@ -50,7 +95,16 @@ describe('FetchAllPeople test', async () => {
   });
 
   test('Prev === valueInput! Please enter data', async () => {
-    render(<MainPage />);
+    // имитация URL-адреса для теста (для useSearchParams())
+    window.history.pushState({}, 'Test page', '/class-comp/');
+
+    render(
+      <QueryClientProvider client={queryClientTest}>
+        <BrowserRouter basename="/class-comp/">
+          <MainPage />
+        </BrowserRouter>
+      </QueryClientProvider>
+    );
 
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
@@ -64,9 +118,7 @@ describe('FetchAllPeople test', async () => {
 
     await userEvent.click(button);
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'Prev === valueInput! Please enter data.'
-    );
+    expect(consoleSpy).toHaveBeenCalledWith('Please enter new data for search');
 
     await userEvent.type(input, 'darth');
 

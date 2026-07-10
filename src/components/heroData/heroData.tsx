@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export const HeroData = () => {
   const params = useParams();
+  console.log('PARAMS:', params);
   const navigate = useNavigate();
 
   const heroId = params.heroId || undefined;

@@ -74,7 +74,7 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
               <div
                 key={index}
                 className={result_block}
-                data-testid="hero=item"
+                data-testid="hero-item"
                 onClick={() => {
                   changeHeroId(hero.url);
                 }}

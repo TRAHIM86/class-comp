@@ -200,7 +200,7 @@ export const MainPage = () => {
   // текущая страница
   const currentPage = Number(params.pageId) || 1;
 
-  // специальные состония для имитации ошибок (рендер + 2 запроса)
+  // специальные состояния для имитации ошибок (рендер + 2 запроса)
   const [renderError, setRenderError] = useState([1]);
   const [errorRequest, setErrorRequest] = useState<{
     isError: boolean;
@@ -285,7 +285,7 @@ export const MainPage = () => {
       />
 
       {isLoading || !people ? (
-        <Loading quantity={8} />
+        <Loading quantity={8} data-testid="loading" />
       ) : people?.peopleArr.length === 0 ? (
         <ErrorResponse />
       ) : (
@@ -295,6 +295,7 @@ export const MainPage = () => {
             error={error}
             renderError={renderError}
             errorRequest={errorRequest}
+            data-testid="result"
           />
           <Pagination
             countPages={countPages}
