@@ -18,7 +18,6 @@ export const HeroData = () => {
     isLoading,
     error,
     refetch,
-    isFetching,
   } = useQuery({
     queryKey: ['heroData', heroId],
     queryFn: () => {
@@ -38,7 +37,7 @@ export const HeroData = () => {
 
   return (
     <div className="flex items-center flex-1 border-2 border-green-300">
-      {isLoading || isFetching ? (
+      {isLoading ? (
         <div className="flex items-center justify-center w-full">
           <Loading quantity={5} />
         </div>
