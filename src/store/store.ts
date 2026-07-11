@@ -2,15 +2,20 @@ import { create } from 'zustand';
 import type { Store } from '../types';
 
 export const useStore = create<Store>((set, get) => ({
-  // состояния (справочно, пока не используются). Для примера, по факту
-  // данные полученные при использовании useQuery, useParams или
-  // useSearchParams (searchTerm в копоменте использует useSearchParams) -
-  // store НЕ НУЖЕН!
-  searchTerm: '',
+  // состояния
+  inputValue: localStorage.getItem('searchStr') || '',
+  currentPage: 1,
   selectedHeroes: [],
 
-  // методы (справочно, пока не используются)
-  setSearchTerm: (searchTerm: string) => set({ searchTerm }),
+  // метод строки в инпуте
+  setInputValue: (value: string) => {
+    set({ inputValue: value });
+  },
+
+  // метод изменить страницу
+  setCurrentPage: (page: number) => {
+    set({ currentPage: page });
+  },
 
   // метод добавить/удалить избранное
   toggleSelectHero: (hero) =>

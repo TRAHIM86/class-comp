@@ -5,11 +5,8 @@ export interface ChildProps {
 }
 
 export interface SearchProps {
-  value: string;
-  onChangeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickFunc: (value: string, numPage: number) => void;
   disabled: boolean;
-  btnText?: string;
 }
 
 export interface BtnProps extends ChildProps {
@@ -35,7 +32,7 @@ export interface ErrorBtnProps {
 
 export interface ErrorRequest {
   isError: boolean;
-  status?: string;
+  status: string;
 }
 
 export interface StateErrorBoundary {
@@ -55,15 +52,15 @@ export interface PeopleResponse {
 // тип для пагинации (всего героев, функция активной страницы)
 export interface PaginationProps {
   countPages: number;
-  currentPage: number;
-  fyncChangePage: (page: number) => number;
 }
 
 // тип для STORE
 export type Store = {
-  searchTerm: string;
+  inputValue: string;
+  currentPage: number;
   selectedHeroes: Hero[];
-  setSearchTerm: (searchTerm: string) => void;
+  setInputValue: (value: string) => void;
+  setCurrentPage: (page: number) => void;
   toggleSelectHero: (hero: Hero) => void;
   clearSelected: () => void;
   downloadSelected: () => void;

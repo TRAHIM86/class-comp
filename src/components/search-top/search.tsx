@@ -2,41 +2,17 @@ import { search_form, search_sec } from '../../styles/styles';
 import { Btn } from '../../ui/btn';
 import { InputSearch } from '../../ui/inputSearch';
 import type { SearchProps } from '../../types';
+import { useStore } from '../../store/store';
 
-/*
-export class Search extends React.Component<SearchProps> {
-  render() {
-    const { value, onChangeFunc, onClickFunc, disabled, btnText } = this.props;
+export const Search = ({ onClickFunc, disabled }: SearchProps) => {
+  const inputValue = useStore((state) => state.inputValue);
+  const setInputValue = useStore((state) => state.setInputValue);
 
-    return (
-      <section className={search_sec} data-testid="search-section">
-        <form
-          className={search_form}
-          onSubmit={(e) => e.preventDefault()}
-          data-testid="form"
-        >
-          <InputSearch value={value} onChangeFunc={onChangeFunc} />
-          <Btn
-            btnText={btnText}
-            disabled={disabled}
-            onClickFunc={() => onClickFunc(value)}
-          >
-            SEARCH
-          </Btn>
-        </form>
-      </section>
-    );
+  function changeInputValue(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    setInputValue(value);
   }
-}
-*/
 
-export const Search = ({
-  btnText,
-  value,
-  onChangeFunc,
-  onClickFunc,
-  disabled,
-}: SearchProps) => {
   return (
     <section className={search_sec} data-testid="search-section">
       <form
@@ -44,11 +20,11 @@ export const Search = ({
         onSubmit={(e) => e.preventDefault()}
         data-testid="form"
       >
-        <InputSearch value={value} onChangeFunc={onChangeFunc} />
+        <InputSearch value={inputValue} onChangeFunc={changeInputValue} />
         <Btn
-          btnText={btnText}
+          btnText={'SEARCH'}
           disabled={disabled}
-          onClickFunc={() => onClickFunc(value, 1)}
+          onClickFunc={() => onClickFunc(inputValue, 1)}
         />
       </form>
     </section>
