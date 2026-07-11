@@ -1,0 +1,48 @@
+import { create } from 'zustand';
+import type { Store } from '../types';
+
+export const useStore = create<Store>((set, get) => ({
+  // состояния (справочно, пока не используются). Для примера, по факту
+  // данные полученные при использовании useQuery, useParams или
+  // useSearchParams (searchTerm в копоменте использует useSearchParams) -
+  // store НЕ НУЖЕН!
+  searchTerm: '',
+  selectedHeroes: [],
+
+  // методы (справочно, пока не используются)
+  setSearchTerm: (searchTerm: string) => set({ searchTerm }),
+
+  // метод добавить/удалить избранное
+  toggleSelectHero: (hero) =>
+    set((state) => ({
+      selectedHeroes: state.selectedHeroes.some((h) => h.name === hero.name)
+        ? state.selectedHeroes.filter((h) => h.name !== hero.name)
+        : [...state.selectedHeroes, hero],
+    })),
+
+  // очистить все избранное
+  clearSelected: () => set({ selectedHeroes: [] }),
+
+  // для скачивания героев
+  downloadSelected: () => {
+    const heroes = get().selectedHeroes;
+
+    const csv = [
+      'name;gender;birth_year;height',
+      ...heroes.map((h) => `${h.name};${h.gender};${h.birth_year};${h.height}`),
+    ].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+
+    const link = document.createElement('a');
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = `${heroes.length}_items.csv`;
+
+    link.click();
+
+    link.remove();
+    URL.revokeObjectURL(link.href);
+  },
+}));
