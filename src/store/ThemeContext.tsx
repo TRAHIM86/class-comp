@@ -1,4 +1,4 @@
-import React, { useState, type ReactNode } from 'react';
+import React, { useEffect, useState, type ReactNode } from 'react';
 import type { ThemeContextType } from '../types';
 
 export const ThemeContext = React.createContext<ThemeContextType>({
@@ -12,6 +12,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   function toggleTheme() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   }
+
+  // при каждой смене "theme" обновить атрибут 'data-theme' у всего <html>
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

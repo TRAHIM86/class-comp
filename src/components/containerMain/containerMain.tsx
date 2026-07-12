@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
-import { ThemeContext } from '../../store/ThemeContext';
+import { useEffect, useState } from 'react';
 import { useLocalStorage } from '../../customHooks/useLocalStorage';
 import { useQuery } from '@tanstack/react-query';
-import { container1280, container1280_ligth } from '../../styles/styles';
+import { container1280 } from '../../styles/styles';
 import { Search } from '../search-top/search';
 import { Loading } from '../loading/loading';
 import { ErrorResponse } from '../error/errorResponse';
@@ -15,8 +14,6 @@ import { useStore } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 
 export const ContainerMain = () => {
-  const { theme } = useContext(ThemeContext);
-
   const navigate = useNavigate();
 
   // state search для поиска
@@ -25,7 +22,7 @@ export const ContainerMain = () => {
   // store для инпута
   const inputValue = useStore((state) => state.inputValue);
 
-  // store для текущей страница
+  // store для текущая страница
   const currentPage = useStore((state) => state.currentPage);
   const setCurrentPage = useStore((state) => state.setCurrentPage);
 
@@ -67,10 +64,7 @@ export const ContainerMain = () => {
   }
 
   return (
-    <div
-      data-testid="container"
-      className={`${container1280} ${theme === 'light' ? container1280_ligth : ''}`}
-    >
+    <div data-testid="container" className={container1280}>
       <Search onClickFunc={updateSearchAndPage} disabled={isLoading} />
 
       {isLoading || !people ? (
