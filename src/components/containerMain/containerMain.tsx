@@ -1,6 +1,5 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../store/ThemeContext';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useLocalStorage } from '../../customHooks/useLocalStorage';
 import { useQuery } from '@tanstack/react-query';
 import { container1280, container1280_ligth } from '../../styles/styles';
@@ -13,24 +12,28 @@ import { Pagination } from '../pagination/pagination';
 import { ErrorBlock } from '../error/errorBtnBlock';
 import Requests from '../../requests';
 import { useStore } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 
 export const ContainerMain = () => {
   const { theme } = useContext(ThemeContext);
 
-  const params = useParams();
   const navigate = useNavigate();
 
   // state search для поиска
   const [searchValue, setSearchValue] = useLocalStorage('searchStr', '');
 
-  // state search для инпута {countAll: 0, peopleArr: [],}
-  //const [inputValue, setInputValue] = useState(searchValue);
-
+  // store для инпута
   const inputValue = useStore((state) => state.inputValue);
 
-  // текущая страница
+  // store для текущей страница
   const currentPage = useStore((state) => state.currentPage);
   const setCurrentPage = useStore((state) => state.setCurrentPage);
+
+  useEffect(() => {
+    // при первой загрузке, даже если в url есть search=da,
+    // перебросить на значение из локалстордж (условие таска)
+    navigate(`/${currentPage}?search=${searchValue}`);
+  }, []);
 
   // специальные состояния для имитации ошибок (рендер + 2 запроса)
   const [renderError, setRenderError] = useState([1]);
@@ -49,12 +52,10 @@ export const ContainerMain = () => {
     staleTime: Number(import.meta.env.VITE_CACHE_TTL),
   });
 
+  // количество страниц для пагинации
   const countPages = people ? Math.ceil(people.countAll / 10) : 0;
 
-  if (params.pageId && isNaN(Number(params.pageId))) {
-    navigate('/1');
-  }
-
+  // функция обновить поиск и страницу
   function updateSearchAndPage(value: string) {
     if (searchValue.trim() === inputValue.trim()) {
       console.log('Please enter new data for search');

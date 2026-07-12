@@ -5,7 +5,7 @@ export interface ChildProps {
 }
 
 export interface SearchProps {
-  onClickFunc: (value: string, numPage: number) => void;
+  onClickFunc: (value: string) => void;
   disabled: boolean;
 }
 
