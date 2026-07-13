@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocalStorage } from '../../customHooks/useLocalStorage';
-import { useQuery } from '@tanstack/react-query';
 import { container1280 } from '../../styles/styles';
 import { Search } from '../search-top/search';
 import { Loading } from '../loading/loading';
@@ -9,22 +7,14 @@ import { ErrorBoundary } from '../error/errorBoundary';
 import { Result } from '../result-bottom/results';
 import { Pagination } from '../pagination/pagination';
 import { ErrorBlock } from '../error/errorBtnBlock';
-import Requests from '../../requests';
-import { useStore } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
+import { usePeople } from '../../customHooks/usePeople';
+import { usePeopleSearch } from '../../customHooks/usePeopleSearch';
 
 export const ContainerMain = () => {
   const navigate = useNavigate();
 
-  // state search для поиска
-  const [searchValue, setSearchValue] = useLocalStorage('searchStr', '');
-
-  // store для инпута
-  const inputValue = useStore((state) => state.inputValue);
-
-  // store для текущая страница
-  const currentPage = useStore((state) => state.currentPage);
-  const setCurrentPage = useStore((state) => state.setCurrentPage);
+  const { searchValue, currentPage, handleSearch } = usePeopleSearch();
 
   useEffect(() => {
     // при первой загрузке, даже если в url есть search=da,
@@ -39,33 +29,15 @@ export const ContainerMain = () => {
     status: string;
   } | null>(null);
 
-  const {
-    data: people,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['people', searchValue, currentPage],
-    queryFn: () => Requests.getAllPeople(searchValue, currentPage),
-    staleTime: Number(import.meta.env.VITE_CACHE_TTL),
-  });
-
-  // количество страниц для пагинации
-  const countPages = people ? Math.ceil(people.countAll / 10) : 0;
-
-  // функция обновить поиск и страницу
-  function updateSearchAndPage(value: string) {
-    if (searchValue.trim() === inputValue.trim()) {
-      console.log('Please enter new data for search');
-      return;
-    }
-
-    setSearchValue(value);
-    setCurrentPage(1);
-  }
+  // состояния из кастомного хука для основного рендера
+  const { people, isLoading, error, countPages } = usePeople(
+    searchValue,
+    currentPage
+  );
 
   return (
     <div data-testid="container" className={container1280}>
-      <Search onClickFunc={updateSearchAndPage} disabled={isLoading} />
+      <Search onClickFunc={handleSearch} disabled={isLoading} />
 
       {isLoading || !people ? (
         <Loading quantity={8} data-testid="loading" />
