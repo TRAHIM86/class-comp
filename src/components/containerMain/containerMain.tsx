@@ -14,13 +14,14 @@ import { usePeopleSearch } from '../../customHooks/usePeopleSearch';
 export const ContainerMain = () => {
   const navigate = useNavigate();
 
+  // данные из кастомного хука для поиска
   const { searchValue, currentPage, handleSearch } = usePeopleSearch();
 
-  useEffect(() => {
-    // при первой загрузке, даже если в url есть search=da,
-    // перебросить на значение из локалстордж (условие таска)
-    navigate(`/${currentPage}?search=${searchValue}`);
-  }, []);
+  // данные из кастомного хука для основного рендера
+  const { people, isLoading, error, countPages } = usePeople(
+    searchValue,
+    currentPage
+  );
 
   // специальные состояния для имитации ошибок (рендер + 2 запроса)
   const [renderError, setRenderError] = useState([1]);
@@ -29,11 +30,11 @@ export const ContainerMain = () => {
     status: string;
   } | null>(null);
 
-  // состояния из кастомного хука для основного рендера
-  const { people, isLoading, error, countPages } = usePeople(
-    searchValue,
-    currentPage
-  );
+  useEffect(() => {
+    // при первой загрузке, даже если в url есть search=da,
+    // перебросить на значение из локалстордж (условие таска)
+    navigate(`/${currentPage}?search=${searchValue}`);
+  }, []);
 
   return (
     <div data-testid="container" className={container1280}>
