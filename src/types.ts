@@ -5,24 +5,23 @@ export interface ChildProps {
 }
 
 export interface SearchProps {
-  value: string;
-  onChangeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickFunc: (value: string) => void;
   disabled: boolean;
-  btnText?: string;
 }
 
 export interface BtnProps extends ChildProps {
   onClickFunc: () => void;
-  disabled: boolean;
+  disabled?: boolean;
   btnText?: string;
 }
 
-export interface hero {
+// тип героя
+export interface Hero {
   name: string;
   gender: string;
   birth_year: string;
   height: string;
+  url: string;
 }
 
 export interface ErrorBtnProps {
@@ -31,12 +30,44 @@ export interface ErrorBtnProps {
   btnText?: string;
 }
 
-export interface StateError {
+export interface ErrorRequest {
   isError: boolean;
-  errorStatus?: string;
+  status: string;
 }
 
 export interface StateErrorBoundary {
   isError: boolean;
   errorStatus?: string;
 }
+
+// тип для тестов
+export type DataTestId = string;
+
+// ответ количество героев и сами герои
+export interface PeopleResponse {
+  countAll: number;
+  peopleArr: Hero[];
+}
+
+// тип для пагинации (всего героев, функция активной страницы)
+export interface PaginationProps {
+  countPages: number;
+}
+
+// тип для STORE
+export type Store = {
+  inputValue: string;
+  currentPage: number;
+  selectedHeroes: Hero[];
+  setInputValue: (value: string) => void;
+  setCurrentPage: (page: number) => void;
+  toggleSelectHero: (hero: Hero) => void;
+  clearSelected: () => void;
+  downloadSelected: () => void;
+};
+
+// тип ThemeContext
+export type ThemeContextType = {
+  theme: string;
+  toggleTheme: () => void;
+};

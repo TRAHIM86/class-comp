@@ -1,23 +1,49 @@
 import axios from 'axios';
+import type { Hero, PeopleResponse } from './types';
 
-const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
-const ERROR_4XX_URL = 'https://swapi.dev/api/people404';
+const SWAPI_PEOPLE_URL = 'https://swapi.py4e.com/api/people/';
+const ERROR_4XX_URL = 'https://swapi.py4e.com/api/people404';
 const ERROR_NETWORK = 'https://swapi123.dev/api/people';
 
+// получить всех героев (параметры "поисковая строка" и "страница")
 const Requests = {
-  async getAllPeople(value: string | null) {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    try {
-      const allPeople = await axios.get(`${SWAPI_PEOPLE_URL}?search=${value}`);
+  async getAllPeople(
+    value: string | null,
+    numPage: number
+  ): Promise<PeopleResponse | null> {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      return allPeople.data.results;
+    try {
+      const allPeople = await axios.get(
+        `${SWAPI_PEOPLE_URL}?search=${value}&page=${numPage}`
+      );
+
+      return {
+        countAll: allPeople.data.count,
+        peopleArr: allPeople.data.results,
+      };
     } catch (err) {
       console.log(err);
+      return null;
+    }
+  },
+
+  // получить данные о выбранном герое
+  async getHeroData(heroId: string): Promise<Hero | null> {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    try {
+      const heroData = await axios.get(`${SWAPI_PEOPLE_URL}${heroId}`);
+
+      return heroData.data;
+    } catch (err) {
+      console.log(err);
+      return null;
     }
   },
 
   async imitation4xx() {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     try {
       const response = await fetch(`${ERROR_4XX_URL}`);
@@ -38,7 +64,7 @@ const Requests = {
   },
 
   async imitationErrNetwork() {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     try {
       const response = await fetch(`${ERROR_NETWORK}`);

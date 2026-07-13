@@ -1,19 +1,15 @@
-import React from 'react';
-import { btn_base, btn_disabled } from '../styles/styles';
+import { btn, btn_disabled } from '../styles/styles';
 import type { BtnProps } from '../types';
 
-export class Btn extends React.Component<BtnProps> {
-  render(): React.ReactNode {
-    const { onClickFunc, disabled, btnText } = this.props;
-
-    return (
-      <button
-        className={`${btn_base} ${this.props.disabled ? btn_disabled : ''}`}
-        onClick={onClickFunc}
-        disabled={disabled}
-      >
-        {btnText}
-      </button>
-    );
-  }
-}
+export const Btn = ({ onClickFunc, disabled, btnText }: BtnProps) => {
+  return (
+    <button
+      data-testid="test-btn"
+      className={`${btn} ${disabled ? btn_disabled : ''}`}
+      onClick={onClickFunc}
+      disabled={disabled}
+    >
+      {btnText}
+    </button>
+  );
+};
