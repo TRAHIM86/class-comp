@@ -13,7 +13,7 @@ import { ErrorBlock } from '../components/error/errorBtnBlock';
 
 import { container1280 } from '../styles/styles';
 
-export const ContainerMain = () => {
+export const MainPage = () => {
   const navigate = useNavigate();
 
   // данные из кастомного хука для поиска
