@@ -24,7 +24,11 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   return createPortal(
     <div className={modalOverlay} onClick={onClose}>
       <div className={modalBox} onClick={(e) => e.stopPropagation()}>
+        <input type="text" placeholder="Имя" autoFocus />
+        <input type="email" placeholder="Email" />
+
         {children}
+
         <Btn btnText="CLOSE" onClickFunc={onClose}></Btn>
       </div>
     </div>,
