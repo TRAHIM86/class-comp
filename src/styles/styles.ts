@@ -46,3 +46,8 @@ export const activePage = 'p-1 border-1 border-yellow-300';
 export const boldText = 'font-bold';
 
 export const lightTheme = 'bg-white color-black';
+
+export const modalOverlay =
+  'fixed inset-0 bg-gray-500/50 flex items-center justify-center';
+
+export const modalBox = 'bg-black p-4 rounded';

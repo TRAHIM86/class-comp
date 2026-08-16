@@ -7,9 +7,12 @@ import { HeroData } from './components/heroData/heroData';
 import { ErrorPage404 } from './pages/errorPage404';
 import { About } from './pages/about';
 import { ThemeProvider } from './store/ThemeContext';
+import { useState } from 'react';
+import { Modal } from './components/modal/modal';
 
 export const App = () => {
   const queryClient = new QueryClient();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -17,6 +20,14 @@ export const App = () => {
         <ThemeProvider>
           <BrowserRouter basename="/class-comp/">
             <Navigation />
+
+            <button
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            >
+              OPEN FORM
+            </button>
 
             <Routes>
               <Route
@@ -34,6 +45,10 @@ export const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/*" element={<ErrorPage404 />} />
             </Routes>
+
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+              <p>MODAL WINDOW</p>
+            </Modal>
           </BrowserRouter>
         </ThemeProvider>
       </div>
