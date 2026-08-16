@@ -9,6 +9,7 @@ import { About } from './pages/about';
 import { ThemeProvider } from './store/ThemeContext';
 import { useState } from 'react';
 import { Modal } from './components/modal/modal';
+import { Btn } from './ui/btn';
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -21,13 +22,12 @@ export const App = () => {
           <BrowserRouter basename="/class-comp/">
             <Navigation />
 
-            <button
-              onClick={() => {
+            <Btn
+              btnText="OPEN FORM"
+              onClickFunc={() => {
                 setIsOpen(true);
               }}
-            >
-              OPEN FORM
-            </button>
+            ></Btn>
 
             <Routes>
               <Route
