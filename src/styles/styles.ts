@@ -48,6 +48,6 @@ export const boldText = 'font-bold';
 export const lightTheme = 'bg-white color-black';
 
 export const modalOverlay =
-  'fixed inset-0 bg-gray-500/50 flex items-center justify-center';
+  'fixed inset-0 bg-gray-500/50 flex items-center justify-center cursor-pointer';
 
-export const modalBox = 'bg-black p-4 rounded';
+export const modalBox = 'bg-black p-4 rounded cursor-default';
