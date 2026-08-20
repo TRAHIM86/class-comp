@@ -6,14 +6,17 @@ import { useEffect } from 'react';
 
 export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   useEffect(() => {
+    // функция закрыть модалку при клике 'Escape'
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       }
     };
 
+    // слушатель на клик
     document.addEventListener('keydown', handleEsc);
 
+    // отписка от слушателя при закрытии модалки
     return () => {
       document.removeEventListener('keydown', handleEsc);
     };
@@ -24,9 +27,6 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   return createPortal(
     <div className={modalOverlay} onClick={onClose}>
       <div className={modalBox} onClick={(e) => e.stopPropagation()}>
-        <input type="text" placeholder="Имя" autoFocus />
-        <input type="email" placeholder="Email" />
-
         {children}
 
         <Btn btnText="CLOSE" onClickFunc={onClose}></Btn>

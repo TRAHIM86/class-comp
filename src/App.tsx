@@ -10,6 +10,7 @@ import { ThemeProvider } from './store/ThemeContext';
 import { useState } from 'react';
 import { Modal } from './components/modal/modal';
 import { Btn } from './ui/btn';
+import { FormUnControled } from './components/formUnControled/formUnControled';
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -47,7 +48,7 @@ export const App = () => {
             </Routes>
 
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <p>MODAL WINDOW</p>
+              <FormUnControled />
             </Modal>
           </BrowserRouter>
         </ThemeProvider>
