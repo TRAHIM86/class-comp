@@ -10,11 +10,27 @@ import { ThemeProvider } from './store/ThemeContext';
 import { useState } from 'react';
 import { Modal } from './components/modal/modal';
 import { Btn } from './ui/btn';
-import { FormUnControled } from './components/formUnControled/formUnControled';
+import { FormUnControled } from './components/formUnControlled/formUnControlled';
+import { FormControlled } from './components/formControlled/formControlled';
 
 export const App = () => {
   const queryClient = new QueryClient();
-  const [isOpen, setIsOpen] = useState(false);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [formType, setFormType] = useState<
+    'uncontrolled' | 'controlled' | null
+  >(null);
+
+  function openModal(typeForm: 'uncontrolled' | 'controlled') {
+    setFormType(typeForm);
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+    setFormType(null);
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -24,9 +40,16 @@ export const App = () => {
             <Navigation />
 
             <Btn
-              btnText="OPEN FORM"
+              btnText="OPEN UNCONTROLLED FORM"
               onClickFunc={() => {
-                setIsOpen(true);
+                openModal('uncontrolled');
+              }}
+            ></Btn>
+
+            <Btn
+              btnText="OPEN CONTROLLED FORM"
+              onClickFunc={() => {
+                openModal('controlled');
               }}
             ></Btn>
 
@@ -47,8 +70,12 @@ export const App = () => {
               <Route path="/*" element={<ErrorPage404 />} />
             </Routes>
 
-            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <FormUnControled />
+            <Modal isOpen={modalIsOpen} onClose={closeModal}>
+              <h2>
+                {formType === 'uncontrolled' ? 'uncontrolled' : 'controlled'}
+              </h2>
+              {formType === 'uncontrolled' && <FormUnControled />}
+              {formType === 'controlled' && <FormControlled />}
             </Modal>
           </BrowserRouter>
         </ThemeProvider>

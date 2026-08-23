@@ -28,6 +28,8 @@ export const FormUnControled = () => {
           <input type="email" placeholder="Email" ref={emailRef} />
         </label>
       </div>
+
+      <button type="submit">SEND</button>
     </form>
   );
 };
