@@ -1,11 +1,19 @@
 import { create } from 'zustand';
-import type { Store } from '../types';
+import type { Store, User } from '../types';
 
 export const useStore = create<Store>((set, get) => ({
-  // состояния
+  // *********** СОСТОЯНИЯ ***********//
   inputValue: localStorage.getItem('searchStr') || '',
   currentPage: 1,
   selectedHeroes: [],
+  users: [],
+
+  // метод добавить юзера
+  addUser: (newUser: User) => {
+    set((state) => ({
+      users: [...state.users, newUser],
+    }));
+  },
 
   // метод строки в инпуте
   setInputValue: (value: string) => {

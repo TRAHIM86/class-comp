@@ -59,6 +59,7 @@ export type Store = {
   inputValue: string;
   currentPage: number;
   selectedHeroes: Hero[];
+  users: User[];
   setInputValue: (value: string) => void;
   setCurrentPage: (page: number) => void;
   toggleSelectHero: (hero: Hero) => void;
@@ -77,4 +78,10 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+}
+
+// тип нового юзера
+export interface User {
+  name: string;
+  email: string;
 }
