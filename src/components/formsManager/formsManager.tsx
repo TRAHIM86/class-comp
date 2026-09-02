@@ -5,17 +5,21 @@ import { FormUnControled } from '../formUnControlled/formUnControlled';
 import { FormControlled } from '../formControlled/formControlled';
 
 export const FormManager = () => {
+  // состояние модалки (открыта/закрыта)
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  // состояние открываемой формы (контроль/онКонтроль)
   const [formType, setFormType] = useState<
     'uncontrolled' | 'controlled' | null
   >(null);
 
+  // открыть модалку с передаваемой формой
   function openModal(typeForm: 'uncontrolled' | 'controlled') {
     setFormType(typeForm);
     setModalIsOpen(true);
   }
 
+  // закрыть модалку
   function closeModal() {
     setModalIsOpen(false);
     setFormType(null);

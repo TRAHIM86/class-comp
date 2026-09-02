@@ -51,3 +51,5 @@ export const modalOverlay =
   'fixed inset-0 bg-gray-500/50 flex items-center justify-center cursor-pointer';
 
 export const modalBox = 'bg-black p-4 rounded cursor-default';
+
+export const modalBtnSend = 'border-3 border-yellow-300 cursor-pointer';

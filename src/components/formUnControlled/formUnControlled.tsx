@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { modalBtnSend } from '../../styles/styles';
 
 export const FormUnControled = () => {
   // рефы для полей
@@ -29,7 +30,9 @@ export const FormUnControled = () => {
         </label>
       </div>
 
-      <button type="submit">SEND</button>
+      <button className={modalBtnSend} type="submit">
+        SEND
+      </button>
     </form>
   );
 };
