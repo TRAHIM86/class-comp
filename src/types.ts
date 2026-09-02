@@ -65,6 +65,7 @@ export type Store = {
   toggleSelectHero: (hero: Hero) => void;
   clearSelected: () => void;
   downloadSelected: () => void;
+  addUser: (user: User) => void;
 };
 
 // тип ThemeContext

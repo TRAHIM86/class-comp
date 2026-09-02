@@ -1,16 +1,23 @@
 import { useState } from 'react';
 import { modalBtnSend } from '../../styles/styles';
+import { useStore } from '../../store/store';
 
 export const FormControlled = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
+  // функция добавить юзера в глобальный стор
+  const addUser = useStore((state) => state.addUser);
+
   // функция отправки формы
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    console.log('Name:', name);
-    console.log('Email:', email);
+    addUser({ name: name, email: email });
+    console.log('USERS', useStore.getState().users);
+
+    setName('');
+    setEmail('');
   }
 
   function changeName(e: React.ChangeEvent<HTMLInputElement>) {

@@ -28,14 +28,14 @@ export const FormManager = () => {
   return (
     <div>
       <Btn
-        btnText="OPEN UNCONTROLLED FORM"
+        btnText="UNCONTROLLED FORM"
         onClickFunc={() => {
           openModal('uncontrolled');
         }}
       ></Btn>
 
       <Btn
-        btnText="OPEN CONTROLLED FORM"
+        btnText="CONTROLLED FORM"
         onClickFunc={() => {
           openModal('controlled');
         }}
