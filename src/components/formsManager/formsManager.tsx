@@ -59,7 +59,8 @@ export const FormManager = () => {
         {users.map((user, index) => {
           return (
             <div key={index} className={usersCards}>
-              {index + 1} Name: {user.name}, Email: {user.email},
+              {index + 1} Name: {user.name}, Age: {user.age}, Email:{' '}
+              {user.email},
               <button
                 className={modalBtnSend}
                 onClick={() => removeUser(index)}

@@ -85,5 +85,6 @@ export interface ModalProps {
 // тип нового юзера
 export interface User {
   name: string;
+  age: number;
   email: string;
 }

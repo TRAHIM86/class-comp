@@ -52,6 +52,8 @@ export const modalOverlay =
 
 export const modalBox = 'bg-black p-4 rounded cursor-default';
 
+export const modalInput = 'border-1 border-yellow-300';
+
 export const modalBtnSend =
   'border-3 border-yellow-300 cursor-pointer hover:bg-green-300';
 

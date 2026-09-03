@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { modalBtnSend, btnDisabled } from '../../styles/styles';
+import React, { useState } from 'react';
+import { modalBtnSend, btnDisabled, modalInput } from '../../styles/styles';
 import { useStore } from '../../store/store';
 
 export const FormControlled = ({
@@ -8,6 +8,7 @@ export const FormControlled = ({
   closeModalFunc: () => void;
 }) => {
   const [name, setName] = useState('');
+  const [age, setAge] = useState<number>(18);
   const [email, setEmail] = useState('');
 
   //валидация на name и email
@@ -21,7 +22,7 @@ export const FormControlled = ({
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    addUser({ name: name, email: email });
+    addUser({ name: name, age: age, email: email });
     console.log('USERS', useStore.getState().users);
 
     setName('');
@@ -29,8 +30,13 @@ export const FormControlled = ({
     closeModalFunc();
   }
 
+  /************* функции изменения полей *************/
   function changeName(e: React.ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
+  }
+
+  function changeAge(e: React.ChangeEvent<HTMLInputElement>) {
+    setAge(Number(e.target.value));
   }
 
   function changeEmail(e: React.ChangeEvent<HTMLInputElement>) {
@@ -43,6 +49,7 @@ export const FormControlled = ({
         <label>
           Name:
           <input
+            className={modalInput}
             type="text"
             value={name}
             placeholder="Name"
@@ -55,10 +62,25 @@ export const FormControlled = ({
         </label>
       </div>
 
+      <label>
+        Age:
+        <input
+          className={modalInput}
+          type="number"
+          value={age}
+          placeholder="Age"
+          required
+          onChange={(e) => {
+            changeAge(e);
+          }}
+        />
+      </label>
+
       <div>
-        <label>
+        <label className={modalInput}>
           Email:
           <input
+            className={modalInput}
             type="email"
             value={email}
             placeholder="Email"
