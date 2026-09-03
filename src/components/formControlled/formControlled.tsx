@@ -46,25 +46,25 @@ export const FormControlled = ({
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>
-          Name:
-          <input
-            className={modalInput}
-            type="text"
-            value={name}
-            placeholder="Name"
-            autoFocus
-            required
-            onChange={(e) => {
-              changeName(e);
-            }}
-          />
-        </label>
+        <label htmlFor="name">Name:</label>
+        <input
+          id="name"
+          className={modalInput}
+          type="text"
+          value={name}
+          placeholder="Name"
+          autoFocus
+          required
+          onChange={(e) => {
+            changeName(e);
+          }}
+        />
       </div>
 
-      <label>
-        Age:
+      <div>
+        <label htmlFor="age">Age:</label>
         <input
+          id="age"
           className={modalInput}
           type="number"
           value={age}
@@ -74,22 +74,21 @@ export const FormControlled = ({
             changeAge(e);
           }}
         />
-      </label>
+      </div>
 
       <div>
-        <label className={modalInput}>
-          Email:
-          <input
-            className={modalInput}
-            type="email"
-            value={email}
-            placeholder="Email"
-            required
-            onChange={(e) => {
-              changeEmail(e);
-            }}
-          />
-        </label>
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          className={modalInput}
+          type="email"
+          value={email}
+          placeholder="Email"
+          required
+          onChange={(e) => {
+            changeEmail(e);
+          }}
+        />
       </div>
 
       <button

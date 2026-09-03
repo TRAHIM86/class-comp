@@ -18,7 +18,7 @@ export const FormUnControled = ({
   // функция проверки валидности формы
   function isValidForm() {
     const name = nameRef.current?.value || '';
-    const age = ageRef.current?.value || 18;
+    const age = Number(ageRef.current?.value) || 18;
     const email = emailRef.current?.value || '';
 
     setIsValid(
@@ -57,40 +57,37 @@ export const FormUnControled = ({
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>
-          Name:
-          <input
-            type="text"
-            placeholder="Name"
-            autoFocus
-            ref={nameRef}
-            onChange={isValidForm}
-          />
-        </label>
+        <label htmlFor="name">Name:</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Name"
+          autoFocus
+          ref={nameRef}
+          onChange={isValidForm}
+        />
       </div>
 
       <div>
-        <label>
-          Age:
-          <input
-            type="number"
-            placeholder="Age"
-            ref={ageRef}
-            onChange={isValidForm}
-          />
-        </label>
+        <label htmlFor="age">Age:</label>
+        <input
+          id="age"
+          type="number"
+          placeholder="Age"
+          ref={ageRef}
+          onChange={isValidForm}
+        />
       </div>
 
       <div>
-        <label>
-          Email:
-          <input
-            type="email"
-            placeholder="Email"
-            ref={emailRef}
-            onChange={isValidForm}
-          />
-        </label>
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Email"
+          ref={emailRef}
+          onChange={isValidForm}
+        />
       </div>
 
       <button
