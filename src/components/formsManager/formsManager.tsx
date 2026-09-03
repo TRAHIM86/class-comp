@@ -3,6 +3,8 @@ import { Btn } from '../../ui/btn';
 import { Modal } from '../modal/modal';
 import { FormUnControled } from '../formUnControlled/formUnControlled';
 import { FormControlled } from '../formControlled/formControlled';
+import { formManagerStyle, usersCards } from '../../styles/styles';
+import { useStore } from '../../store/store';
 
 export const FormManager = () => {
   // состояние модалки (открыта/закрыта)
@@ -25,26 +27,45 @@ export const FormManager = () => {
     setFormType(null);
   }
 
-  return (
-    <div>
-      <Btn
-        btnText="UNCONTROLLED FORM"
-        onClickFunc={() => {
-          openModal('uncontrolled');
-        }}
-      ></Btn>
+  // текущие юзеры в стор
+  const users = useStore((state) => state.users);
 
-      <Btn
-        btnText="CONTROLLED FORM"
-        onClickFunc={() => {
-          openModal('controlled');
-        }}
-      ></Btn>
+  return (
+    <div className={formManagerStyle}>
+      <div>
+        <Btn
+          btnText="UNCONTROLLED FORM"
+          onClickFunc={() => {
+            openModal('uncontrolled');
+          }}
+        ></Btn>
+
+        <Btn
+          btnText="CONTROLLED FORM"
+          onClickFunc={() => {
+            openModal('controlled');
+          }}
+        ></Btn>
+      </div>
+
+      <div className={usersCards}>
+        {users.map((user, index) => {
+          return (
+            <div key={index} className={usersCards}>
+              Name: {user.name}, Email: {user.email}
+            </div>
+          );
+        })}
+      </div>
 
       <Modal isOpen={modalIsOpen} onClose={closeModal}>
         <h2>{formType === 'uncontrolled' ? 'uncontrolled' : 'controlled'}</h2>
-        {formType === 'uncontrolled' && <FormUnControled />}
-        {formType === 'controlled' && <FormControlled />}
+        {formType === 'uncontrolled' && (
+          <FormUnControled closeModalFunc={closeModal} />
+        )}
+        {formType === 'controlled' && (
+          <FormControlled closeModalFunc={closeModal} />
+        )}
       </Modal>
     </div>
   );

@@ -1,10 +1,18 @@
 import { useState } from 'react';
-import { modalBtnSend } from '../../styles/styles';
+import { modalBtnSend, btnDisabled } from '../../styles/styles';
 import { useStore } from '../../store/store';
 
-export const FormControlled = () => {
+export const FormControlled = ({
+  closeModalFunc,
+}: {
+  closeModalFunc: () => void;
+}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+
+  //валидация на name и email
+  const isValid =
+    name.trim() !== '' && email.includes('@') && email.includes('.');
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
@@ -18,6 +26,7 @@ export const FormControlled = () => {
 
     setName('');
     setEmail('');
+    closeModalFunc();
   }
 
   function changeName(e: React.ChangeEvent<HTMLInputElement>) {
@@ -38,6 +47,7 @@ export const FormControlled = () => {
             value={name}
             placeholder="Name"
             autoFocus
+            required
             onChange={(e) => {
               changeName(e);
             }}
@@ -52,6 +62,7 @@ export const FormControlled = () => {
             type="email"
             value={email}
             placeholder="Email"
+            required
             onChange={(e) => {
               changeEmail(e);
             }}
@@ -59,7 +70,11 @@ export const FormControlled = () => {
         </label>
       </div>
 
-      <button className={modalBtnSend} type="submit">
+      <button
+        className={`${modalBtnSend} ${!isValid ? btnDisabled : ''}`}
+        type="submit"
+        disabled={!isValid}
+      >
         SEND
       </button>
     </form>

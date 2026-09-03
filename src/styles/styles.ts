@@ -52,4 +52,12 @@ export const modalOverlay =
 
 export const modalBox = 'bg-black p-4 rounded cursor-default';
 
-export const modalBtnSend = 'border-3 border-yellow-300 cursor-pointer';
+export const modalBtnSend =
+  'border-3 border-yellow-300 cursor-pointer hover:bg-green-300';
+
+export const btnDisabled = 'opacity-50 !cursor-default hover:bg-transparent';
+
+export const formManagerStyle =
+  'border-1 border-green-300 p-1 flex gap-2 flex-col';
+
+export const usersCards = 'border-1 border-yellow-300 p-1';
