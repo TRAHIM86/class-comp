@@ -6,12 +6,22 @@ export const useStore = create<Store>((set, get) => ({
   inputValue: localStorage.getItem('searchStr') || '',
   currentPage: 1,
   selectedHeroes: [],
-  users: [],
+  users: [
+    { name: 'ppp', email: 'pp@p.pu' },
+    { name: 'gf', email: 'ggf@ff.tu' },
+  ],
 
   // метод добавить юзера
   addUser: (newUser: User) => {
     set((state) => ({
       users: [...state.users, newUser],
+    }));
+  },
+
+  // метод удалить юзера
+  removeUser: (RemovedIndex: number) => {
+    set((state) => ({
+      users: [...state.users.filter((_, index) => index !== RemovedIndex)],
     }));
   },
 

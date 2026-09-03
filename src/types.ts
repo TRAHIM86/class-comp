@@ -60,12 +60,13 @@ export type Store = {
   currentPage: number;
   selectedHeroes: Hero[];
   users: User[];
+  addUser: (user: User) => void;
+  removeUser: (RemovedIndex: number) => void;
   setInputValue: (value: string) => void;
   setCurrentPage: (page: number) => void;
   toggleSelectHero: (hero: Hero) => void;
   clearSelected: () => void;
   downloadSelected: () => void;
-  addUser: (user: User) => void;
 };
 
 // тип ThemeContext

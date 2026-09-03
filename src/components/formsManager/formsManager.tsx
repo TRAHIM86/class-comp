@@ -3,7 +3,11 @@ import { Btn } from '../../ui/btn';
 import { Modal } from '../modal/modal';
 import { FormUnControled } from '../formUnControlled/formUnControlled';
 import { FormControlled } from '../formControlled/formControlled';
-import { formManagerStyle, usersCards } from '../../styles/styles';
+import {
+  formManagerStyle,
+  modalBtnSend,
+  usersCards,
+} from '../../styles/styles';
 import { useStore } from '../../store/store';
 
 export const FormManager = () => {
@@ -30,6 +34,9 @@ export const FormManager = () => {
   // текущие юзеры в стор
   const users = useStore((state) => state.users);
 
+  // функция удалить юзера
+  const removeUser = useStore((state) => state.removeUser);
+
   return (
     <div className={formManagerStyle}>
       <div>
@@ -52,7 +59,13 @@ export const FormManager = () => {
         {users.map((user, index) => {
           return (
             <div key={index} className={usersCards}>
-              Name: {user.name}, Email: {user.email}
+              {index + 1} Name: {user.name}, Email: {user.email},
+              <button
+                className={modalBtnSend}
+                onClick={() => removeUser(index)}
+              >
+                Remove
+              </button>
             </div>
           );
         })}
