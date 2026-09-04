@@ -13,21 +13,24 @@ export const FormUnControled = ({
   const emailRef = useRef<HTMLInputElement>(null);
   const maleRef = useRef<HTMLInputElement>(null);
   const femaleRef = useRef<HTMLInputElement>(null);
+  const igreeRef = useRef<HTMLInputElement>(null);
 
   // состояния валидна ли форма
   const [isValid, setIsValid] = useState(false);
 
   // функция проверки валидности формы
   function isValidForm() {
-    const name = nameRef.current?.value || '';
-    const age = Number(ageRef.current?.value) || 18;
-    const email = emailRef.current?.value || '';
+    const nameValid = nameRef.current?.value || '';
+    const ageValid = Number(ageRef.current?.value) || 18;
+    const emailValid = emailRef.current?.value || '';
+    const igreeValid = igreeRef.current?.checked || false;
 
     setIsValid(
-      name.trim() !== '' &&
-        email.includes('@') &&
-        email.includes('.') &&
-        age >= 18
+      nameValid.trim() !== '' &&
+        emailValid.includes('@') &&
+        emailValid.includes('.') &&
+        ageValid >= 18 &&
+        igreeValid
     );
   }
 
@@ -79,6 +82,7 @@ export const FormUnControled = ({
           placeholder="Age"
           ref={ageRef}
           onChange={isValidForm}
+          defaultValue="18"
         />
       </div>
 
@@ -101,6 +105,8 @@ export const FormUnControled = ({
           name="gender"
           value="male"
           ref={maleRef}
+          onChange={isValidForm}
+          defaultChecked
         ></input>
         <label htmlFor="female">Female</label>
         <input
@@ -109,7 +115,19 @@ export const FormUnControled = ({
           name="gender"
           value="female"
           ref={femaleRef}
+          onChange={isValidForm}
         ></input>
+      </div>
+
+      <div>
+        <label htmlFor="agree">Agree</label>
+        <input
+          type="checkbox"
+          id="agree"
+          ref={igreeRef}
+          required
+          onChange={isValidForm}
+        />
       </div>
 
       <button

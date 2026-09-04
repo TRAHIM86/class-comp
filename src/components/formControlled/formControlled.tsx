@@ -15,7 +15,11 @@ export const FormControlled = ({
 
   //валидация на name и email
   const isValid =
-    name.trim() !== '' && email.includes('@') && email.includes('.') && isAgree;
+    name.trim() !== '' &&
+    age >= 18 &&
+    email.includes('@') &&
+    email.includes('.') &&
+    isAgree;
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
