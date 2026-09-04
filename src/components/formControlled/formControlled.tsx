@@ -11,10 +11,11 @@ export const FormControlled = ({
   const [age, setAge] = useState<number>(18);
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
+  const [isAgree, setIsAgree] = useState<boolean>(false);
 
   //валидация на name и email
   const isValid =
-    name.trim() !== '' && email.includes('@') && email.includes('.');
+    name.trim() !== '' && email.includes('@') && email.includes('.') && isAgree;
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
@@ -42,6 +43,10 @@ export const FormControlled = ({
 
   function changeEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
+  }
+
+  function changeAgree() {
+    setIsAgree(!isAgree);
   }
 
   return (
@@ -111,6 +116,11 @@ export const FormControlled = ({
           checked={gender === 'female'}
           onChange={() => setGender('female')}
         ></input>
+      </div>
+
+      <div>
+        <label htmlFor="agree">Agree</label>
+        <input type="checkbox" id="agree" required onChange={changeAgree} />
       </div>
 
       <button
