@@ -11,6 +11,8 @@ export const FormUnControled = ({
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const maleRef = useRef<HTMLInputElement>(null);
+  const femaleRef = useRef<HTMLInputElement>(null);
 
   // состояния валидна ли форма
   const [isValid, setIsValid] = useState(false);
@@ -40,6 +42,7 @@ export const FormUnControled = ({
       name: nameRef.current?.value || '',
       age: Number(ageRef.current?.value) || 0,
       email: emailRef.current?.value || '',
+      gender: maleRef.current?.checked ? 'male' : 'female',
     });
     console.log('USERS', useStore.getState().users);
 
@@ -88,6 +91,25 @@ export const FormUnControled = ({
           ref={emailRef}
           onChange={isValidForm}
         />
+      </div>
+
+      <div>
+        <label htmlFor="male">Male</label>
+        <input
+          id="male"
+          type="radio"
+          name="gender"
+          value="male"
+          ref={maleRef}
+        ></input>
+        <label htmlFor="female">Female</label>
+        <input
+          id="female"
+          type="radio"
+          name="gender"
+          value="female"
+          ref={femaleRef}
+        ></input>
       </div>
 
       <button

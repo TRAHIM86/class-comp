@@ -10,6 +10,7 @@ export const FormControlled = ({
   const [name, setName] = useState('');
   const [age, setAge] = useState<number>(18);
   const [email, setEmail] = useState('');
+  const [gender, setGender] = useState<'male' | 'female'>('male');
 
   //валидация на name и email
   const isValid =
@@ -22,7 +23,7 @@ export const FormControlled = ({
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    addUser({ name: name, age: age, email: email });
+    addUser({ name: name, age: age, email: email, gender: gender });
     console.log('USERS', useStore.getState().users);
 
     setName('');
@@ -89,6 +90,27 @@ export const FormControlled = ({
             changeEmail(e);
           }}
         />
+      </div>
+
+      <div>
+        <label htmlFor="male">Male</label>
+        <input
+          id="male"
+          type="radio"
+          name="gender"
+          value="male"
+          checked={gender === 'male'}
+          onChange={() => setGender('male')}
+        ></input>
+        <label htmlFor="female">Female</label>
+        <input
+          id="female"
+          type="radio"
+          name="gender"
+          value="female"
+          checked={gender === 'female'}
+          onChange={() => setGender('female')}
+        ></input>
       </div>
 
       <button

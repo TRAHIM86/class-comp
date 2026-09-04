@@ -41,16 +41,16 @@ export const FormManager = () => {
     <div className={formManagerStyle}>
       <div>
         <Btn
-          btnText="UNCONTROLLED FORM"
+          btnText="CONTROLLED FORM"
           onClickFunc={() => {
-            openModal('uncontrolled');
+            openModal('controlled');
           }}
         ></Btn>
 
         <Btn
-          btnText="CONTROLLED FORM"
+          btnText="UNCONTROLLED FORM"
           onClickFunc={() => {
-            openModal('controlled');
+            openModal('uncontrolled');
           }}
         ></Btn>
       </div>
@@ -60,7 +60,7 @@ export const FormManager = () => {
           return (
             <div key={index} className={usersCards}>
               {index + 1} Name: {user.name}, Age: {user.age}, Email:{' '}
-              {user.email},
+              {user.email}, {user.gender},
               <button
                 className={modalBtnSend}
                 onClick={() => removeUser(index)}
