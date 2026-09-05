@@ -5,6 +5,7 @@ import { FormUnControled } from '../formUnControlled/formUnControlled';
 import { FormControlled } from '../formControlled/formControlled';
 import {
   formManagerStyle,
+  imageUser,
   modalBtnSend,
   usersCards,
 } from '../../styles/styles';
@@ -61,6 +62,7 @@ export const FormManager = () => {
             <div key={index} className={usersCards}>
               {index + 1} Name: {user.name}, Age: {user.age}, Email:{' '}
               {user.email}, {user.gender},
+              <img src={user.image} alt="avatar" className={imageUser} />
               <button
                 className={modalBtnSend}
                 onClick={() => removeUser(index)}

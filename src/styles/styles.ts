@@ -63,3 +63,5 @@ export const formManagerStyle =
   'border-1 border-green-300 p-1 flex gap-2 flex-col';
 
 export const usersCards = 'border-1 border-yellow-300 p-1';
+
+export const imageUser = 'w-20 h-20 object-cover';
