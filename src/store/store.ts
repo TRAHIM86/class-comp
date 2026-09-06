@@ -7,8 +7,22 @@ export const useStore = create<Store>((set, get) => ({
   currentPage: 1,
   selectedHeroes: [],
   users: [
-    { name: 'ppp', age: 42, email: 'pp@p.pu', gender: 'male' },
-    { name: 'gf', age: 48, email: 'ggf@ff.tu', gender: 'female' },
+    {
+      name: 'ppp',
+      age: 42,
+      email: 'pp@p.pu',
+      gender: 'male',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+    },
+    {
+      name: 'gf',
+      age: 48,
+      email: 'ggf@ff.tu',
+      gender: 'female',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+    },
   ],
 
   // метод добавить юзера
