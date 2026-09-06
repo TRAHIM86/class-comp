@@ -89,4 +89,5 @@ export interface User {
   email: string;
   gender: 'male' | 'female';
   image?: string;
+  password: string;
 }

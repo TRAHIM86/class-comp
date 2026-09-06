@@ -5,6 +5,8 @@ import {
   modalInput,
   relative,
   eyes,
+  flexRow,
+  opacity,
 } from '../../styles/styles';
 import { useStore } from '../../store/store';
 import { handleImage } from '../../utils/imageHelpers';
@@ -23,6 +25,14 @@ export const FormControlled = ({
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  /******** тесты на содержание символов в пароле ************/
+  const hasDigit = /\d/.test(password);
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasSpecial = /[!@#$%^&*]/.test(password);
+  const isPasswordDifficult =
+    hasDigit && hasUpperCase && hasLowerCase && hasSpecial;
+
   // состояние фотки в формате base64 (строка бинарная)
   const [image, setImage] = useState<string>('');
 
@@ -32,7 +42,8 @@ export const FormControlled = ({
     age >= 18 &&
     email.includes('@') &&
     email.includes('.') &&
-    isAgree;
+    isAgree &&
+    isPasswordDifficult;
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
@@ -47,6 +58,7 @@ export const FormControlled = ({
       email: email,
       gender: gender,
       image: image,
+      password: password,
     });
     console.log('USERS', useStore.getState().users);
 
@@ -85,6 +97,7 @@ export const FormControlled = ({
 
   function changePassword(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
+    console.log('password', e.target.value);
   }
 
   return (
@@ -171,29 +184,38 @@ export const FormControlled = ({
         />
       </div>
 
-      <div className={relative}>
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          className={`${modalInput} pr-8`}
-          type={!showPassword ? 'password' : 'text'}
-          value={password}
-          placeholder="password"
-          required
-          onChange={changePassword}
-        ></input>
+      <div>
+        <div className={relative}>
+          <label htmlFor="password">Password:</label>
+          <input
+            id="password"
+            className={`${modalInput} pr-8`}
+            type={!showPassword ? 'password' : 'text'}
+            value={password}
+            placeholder="password"
+            required
+            onChange={changePassword}
+          ></input>
+          {!showPassword ? (
+            <Eye
+              className={eyes}
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          ) : (
+            <EyeOff
+              className={eyes}
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          )}
+        </div>
 
-        {!showPassword ? (
-          <Eye
-            className={eyes}
-            onClick={() => setShowPassword(!showPassword)}
-          />
-        ) : (
-          <EyeOff
-            className={eyes}
-            onClick={() => setShowPassword(!showPassword)}
-          />
-        )}
+        <div className={flexRow}>
+          <div className={isPasswordDifficult ? '' : opacity}>Min</div>
+          <div className={hasDigit ? '' : opacity}>&nbsp;1 digit</div>
+          <div className={hasUpperCase ? '' : opacity}>&nbsp;1 UP letter</div>
+          <div className={hasLowerCase ? '' : opacity}>&nbsp;1 low letter</div>
+          <div className={hasSpecial ? '' : opacity}>&nbsp;1 special</div>
+        </div>
       </div>
 
       <button

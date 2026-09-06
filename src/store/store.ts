@@ -14,6 +14,7 @@ export const useStore = create<Store>((set, get) => ({
       gender: 'male',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+      password: '1Pp!',
     },
     {
       name: 'gf',
@@ -22,6 +23,7 @@ export const useStore = create<Store>((set, get) => ({
       gender: 'female',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+      password: '2Gg@',
     },
   ],
 

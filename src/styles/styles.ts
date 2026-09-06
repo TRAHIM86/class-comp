@@ -7,6 +7,10 @@ export const container1280_ligth = 'bg-green-200';
 
 export const relative = 'relative';
 
+export const flexRow = 'flex flex-row';
+
+export const opacity = 'opacity-50';
+
 export const btn =
   'btn p-3 border-1 rounded cursor-pointer hover:border-yellow-300 flex-1';
 
