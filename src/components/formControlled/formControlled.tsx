@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
-import { modalBtnSend, btnDisabled, modalInput } from '../../styles/styles';
+import {
+  modalBtnSend,
+  btnDisabled,
+  modalInput,
+  relative,
+  eyes,
+} from '../../styles/styles';
 import { useStore } from '../../store/store';
 import { handleImage } from '../../utils/imageHelpers';
+import { Eye, EyeOff } from 'lucide-react';
 
 export const FormControlled = ({
   closeModalFunc,
@@ -13,6 +20,8 @@ export const FormControlled = ({
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const [isAgree, setIsAgree] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   // состояние фотки в формате base64 (строка бинарная)
   const [image, setImage] = useState<string>('');
@@ -72,6 +81,10 @@ export const FormControlled = ({
     } catch (err) {
       console.log(err);
     }
+  }
+
+  function changePassword(e: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(e.target.value);
   }
 
   return (
@@ -156,6 +169,31 @@ export const FormControlled = ({
           style={{ display: 'none' }}
           onChange={changeImage}
         />
+      </div>
+
+      <div className={relative}>
+        <label htmlFor="password">Password:</label>
+        <input
+          id="password"
+          className={`${modalInput} pr-8`}
+          type={!showPassword ? 'password' : 'text'}
+          value={password}
+          placeholder="password"
+          required
+          onChange={changePassword}
+        ></input>
+
+        {!showPassword ? (
+          <Eye
+            className={eyes}
+            onClick={() => setShowPassword(!showPassword)}
+          />
+        ) : (
+          <EyeOff
+            className={eyes}
+            onClick={() => setShowPassword(!showPassword)}
+          />
+        )}
       </div>
 
       <button

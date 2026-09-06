@@ -5,6 +5,8 @@ export const container1280 =
 
 export const container1280_ligth = 'bg-green-200';
 
+export const relative = 'relative';
+
 export const btn =
   'btn p-3 border-1 rounded cursor-pointer hover:border-yellow-300 flex-1';
 
@@ -65,3 +67,5 @@ export const formManagerStyle =
 export const usersCards = 'border-1 border-yellow-300 p-1';
 
 export const imageUser = 'w-20 h-20 object-cover';
+
+export const eyes = 'absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer';
