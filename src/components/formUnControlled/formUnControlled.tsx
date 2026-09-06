@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { btnDisabled, modalBtnSend } from '../../styles/styles';
 import { useStore } from '../../store/store';
+import { handleImage } from '../../utils/imageHelpers';
 
 export const FormUnControled = ({
   closeModalFunc,
@@ -66,30 +67,15 @@ export const FormUnControled = ({
   }
 
   // функция выбора и загрузки картинки
-  function handleImage(e: React.ChangeEvent<HTMLInputElement>) {
-    const currentFile = e.target.files?.[0];
-
-    if (!currentFile) return;
-
-    if (!['image/png', 'image/jpeg'].includes(currentFile.type)) {
-      alert('Only PNG or JPEG format image');
-      return;
-    }
-
-    if (currentFile.size > 5 * 1024 * 1024) {
-      alert('Size image must not be more 5 MB');
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        setImage(reader.result);
+  async function changeImage(e: React.ChangeEvent<HTMLInputElement>) {
+    try {
+      const result = await handleImage(e);
+      if (result) {
+        setImage(result);
       }
-    };
-
-    reader.readAsDataURL(currentFile);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -169,7 +155,7 @@ export const FormUnControled = ({
           ref={imageRef}
           type="file"
           style={{ display: 'none' }}
-          onChange={handleImage}
+          onChange={changeImage}
         />
       </div>
 
