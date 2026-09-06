@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { btnDisabled, modalBtnSend } from '../../styles/styles';
 import { useStore } from '../../store/store';
 
@@ -14,9 +14,13 @@ export const FormUnControled = ({
   const maleRef = useRef<HTMLInputElement>(null);
   const femaleRef = useRef<HTMLInputElement>(null);
   const igreeRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
 
   // состояния валидна ли форма
   const [isValid, setIsValid] = useState(false);
+
+  // состяние строки картинки в формате base64
+  const [image, setImage] = useState<string>('');
 
   // функция проверки валидности формы
   function isValidForm() {
@@ -46,6 +50,7 @@ export const FormUnControled = ({
       age: Number(ageRef.current?.value) || 0,
       email: emailRef.current?.value || '',
       gender: maleRef.current?.checked ? 'male' : 'female',
+      image: image,
     });
     console.log('USERS', useStore.getState().users);
 
@@ -58,6 +63,33 @@ export const FormUnControled = ({
     }
 
     closeModalFunc();
+  }
+
+  // функция выбора и загрузки картинки
+  function handleImage(e: React.ChangeEvent<HTMLInputElement>) {
+    const currentFile = e.target.files?.[0];
+
+    if (!currentFile) return;
+
+    if (!['image/png', 'image/jpeg'].includes(currentFile.type)) {
+      alert('Only PNG or JPEG format image');
+      return;
+    }
+
+    if (currentFile.size > 5 * 1024 * 1024) {
+      alert('Size image must not be more 5 MB');
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      if (typeof reader.result === 'string') {
+        setImage(reader.result);
+      }
+    };
+
+    reader.readAsDataURL(currentFile);
   }
 
   return (
@@ -127,6 +159,17 @@ export const FormUnControled = ({
           ref={igreeRef}
           required
           onChange={isValidForm}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="image">Load photo</label>
+        <input
+          id="image"
+          ref={imageRef}
+          type="file"
+          style={{ display: 'none' }}
+          onChange={handleImage}
         />
       </div>
 
