@@ -62,7 +62,11 @@ export const FormManager = () => {
             <div key={index} className={usersCards}>
               {index + 1} Name: {user.name}, Age: {user.age}, Email:{' '}
               {user.email}, {user.gender},
-              <img src={user.image} alt="avatar" className={imageUser} />
+              <img
+                src={user.image || 'src/assets/imgs/default.jpg'}
+                alt="avatar"
+                className={imageUser}
+              />
               <button
                 className={modalBtnSend}
                 onClick={() => removeUser(index)}
