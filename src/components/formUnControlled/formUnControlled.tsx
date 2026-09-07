@@ -26,6 +26,7 @@ export const FormUnControled = ({
   const igreeRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmRef = useRef<HTMLInputElement>(null);
 
   // состояния валидна ли форма
   const [isValid, setIsValid] = useState(false);
@@ -40,10 +41,12 @@ export const FormUnControled = ({
     hasLowerCase: false,
     hasSpecial: false,
     isPasswordDifficult: false,
+    isConfirm: false,
   });
 
   // состояние показывать/скрыть пароль
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   // функция проверки валидности формы
   function isValidForm() {
@@ -52,8 +55,14 @@ export const FormUnControled = ({
     const emailValid = emailRef.current?.value || '';
     const igreeValid = igreeRef.current?.checked || false;
     const passwordValid = passwordComplexity(
-      passwordRef.current?.value || ''
+      passwordRef.current?.value || '',
+      confirmRef.current?.value || ''
     ).isPasswordDifficult;
+
+    const passwordConfirm = passwordComplexity(
+      passwordRef.current?.value || '',
+      confirmRef.current?.value || ''
+    ).isConfirm;
 
     setIsValid(
       nameValid.trim() !== '' &&
@@ -61,7 +70,8 @@ export const FormUnControled = ({
         emailValid.includes('@') &&
         emailValid.includes('.') &&
         igreeValid &&
-        passwordValid
+        passwordValid &&
+        passwordConfirm
     );
   }
 
@@ -70,7 +80,10 @@ export const FormUnControled = ({
 
   /******** тесты на содержание символов в пароле ************/
   function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const checkPassword = passwordComplexity(e.target.value);
+    const checkPassword = passwordComplexity(
+      e.target.value,
+      confirmRef.current?.value || ''
+    );
     setPasswordDifficult(checkPassword);
     isValidForm();
   }
@@ -237,6 +250,36 @@ export const FormUnControled = ({
           </div>
           <div className={passwordDifficult.hasSpecial ? '' : opacity}>
             &nbsp;1 special
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="flex">
+          <label htmlFor="confirm" className="whitespace-nowrap">
+            Confirm:
+          </label>
+          <div className="relative w-1/2">
+            <input
+              id="confirm"
+              className={`${modalInput} w-full pr-8`}
+              type={!showConfirm ? 'password' : 'text'}
+              ref={confirmRef}
+              placeholder="confirm"
+              required
+              onChange={handlePasswordChange}
+            />
+            {!showConfirm ? (
+              <Eye
+                className={eyes}
+                onClick={() => setShowConfirm(!showConfirm)}
+              />
+            ) : (
+              <EyeOff
+                className={eyes}
+                onClick={() => setShowConfirm(!showConfirm)}
+              />
+            )}
           </div>
         </div>
       </div>

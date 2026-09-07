@@ -241,7 +241,7 @@ export const FormControlled = ({
               className={`${modalInput} w-full pr-8`}
               type={!showConfirm ? 'password' : 'text'}
               value={confirm}
-              placeholder="password"
+              placeholder="confirm"
               required
               onChange={changeConfirm}
             />
