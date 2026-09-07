@@ -3,7 +3,6 @@ import {
   modalBtnSend,
   btnDisabled,
   modalInput,
-  relative,
   eyes,
   flexRow,
   opacity,
@@ -11,6 +10,7 @@ import {
 import { useStore } from '../../store/store';
 import { handleImage } from '../../utils/imageHelpers';
 import { Eye, EyeOff } from 'lucide-react';
+import { passwordComplexity } from '../../utils/passwordHelpers';
 
 export const FormControlled = ({
   closeModalFunc,
@@ -26,12 +26,13 @@ export const FormControlled = ({
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   /******** тесты на содержание символов в пароле ************/
-  const hasDigit = /\d/.test(password);
-  const hasUpperCase = /[A-Z]/.test(password);
-  const hasLowerCase = /[a-z]/.test(password);
-  const hasSpecial = /[!@#$%^&*]/.test(password);
-  const isPasswordDifficult =
-    hasDigit && hasUpperCase && hasLowerCase && hasSpecial;
+  const {
+    hasDigit,
+    hasUpperCase,
+    hasLowerCase,
+    hasSpecial,
+    isPasswordDifficult,
+  } = passwordComplexity(password);
 
   // состояние фотки в формате base64 (строка бинарная)
   const [image, setImage] = useState<string>('');
@@ -185,28 +186,32 @@ export const FormControlled = ({
       </div>
 
       <div>
-        <div className={relative}>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            className={`${modalInput} pr-8`}
-            type={!showPassword ? 'password' : 'text'}
-            value={password}
-            placeholder="password"
-            required
-            onChange={changePassword}
-          ></input>
-          {!showPassword ? (
-            <Eye
-              className={eyes}
-              onClick={() => setShowPassword(!showPassword)}
+        <div className="flex">
+          <label htmlFor="password" className="whitespace-nowrap">
+            Password:
+          </label>
+          <div className="relative w-1/2">
+            <input
+              id="password"
+              className={`${modalInput} w-full pr-8`}
+              type={!showPassword ? 'password' : 'text'}
+              value={password}
+              placeholder="password"
+              required
+              onChange={changePassword}
             />
-          ) : (
-            <EyeOff
-              className={eyes}
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          )}
+            {!showPassword ? (
+              <Eye
+                className={eyes}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <EyeOff
+                className={eyes}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+          </div>
         </div>
 
         <div className={flexRow}>

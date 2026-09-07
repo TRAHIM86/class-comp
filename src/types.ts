@@ -91,3 +91,11 @@ export interface User {
   image?: string;
   password: string;
 }
+
+export interface PasswordComplexity {
+  hasDigit: boolean;
+  hasUpperCase: boolean;
+  hasLowerCase: boolean;
+  hasSpecial: boolean;
+  isPasswordDifficult: boolean;
+}
