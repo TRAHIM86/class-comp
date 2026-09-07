@@ -54,15 +54,14 @@ export const FormUnControled = ({
     const ageValid = Number(ageRef.current?.value) || 18;
     const emailValid = emailRef.current?.value || '';
     const igreeValid = igreeRef.current?.checked || false;
-    const passwordValid = passwordComplexity(
-      passwordRef.current?.value || '',
-      confirmRef.current?.value || ''
-    ).isPasswordDifficult;
 
-    const passwordConfirm = passwordComplexity(
+    const passwordData = passwordComplexity(
       passwordRef.current?.value || '',
       confirmRef.current?.value || ''
-    ).isConfirm;
+    );
+
+    const passwordValid = passwordData.isPasswordDifficult;
+    const passwordConfirm = passwordData.isConfirm;
 
     setIsValid(
       nameValid.trim() !== '' &&
