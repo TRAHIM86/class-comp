@@ -98,4 +98,5 @@ export interface PasswordComplexity {
   hasLowerCase: boolean;
   hasSpecial: boolean;
   isPasswordDifficult: boolean;
+  isConfirm: boolean;
 }

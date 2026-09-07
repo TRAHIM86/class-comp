@@ -24,6 +24,8 @@ export const FormControlled = ({
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [confirm, setConfirm] = useState<string>('');
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   /******** тесты на содержание символов в пароле ************/
   const {
@@ -32,7 +34,8 @@ export const FormControlled = ({
     hasLowerCase,
     hasSpecial,
     isPasswordDifficult,
-  } = passwordComplexity(password);
+    isConfirm,
+  } = passwordComplexity(password, confirm);
 
   // состояние фотки в формате base64 (строка бинарная)
   const [image, setImage] = useState<string>('');
@@ -44,7 +47,8 @@ export const FormControlled = ({
     email.includes('@') &&
     email.includes('.') &&
     isAgree &&
-    isPasswordDifficult;
+    isPasswordDifficult &&
+    isConfirm;
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
@@ -98,7 +102,10 @@ export const FormControlled = ({
 
   function changePassword(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
-    console.log('password', e.target.value);
+  }
+
+  function changeConfirm(e: React.ChangeEvent<HTMLInputElement>) {
+    setConfirm(e.target.value);
   }
 
   return (
@@ -220,6 +227,36 @@ export const FormControlled = ({
           <div className={hasUpperCase ? '' : opacity}>&nbsp;1 UP letter</div>
           <div className={hasLowerCase ? '' : opacity}>&nbsp;1 low letter</div>
           <div className={hasSpecial ? '' : opacity}>&nbsp;1 special</div>
+        </div>
+      </div>
+
+      <div>
+        <div className="flex">
+          <label htmlFor="confirm" className="whitespace-nowrap">
+            Confirm:
+          </label>
+          <div className="relative w-1/2">
+            <input
+              id="confirm"
+              className={`${modalInput} w-full pr-8`}
+              type={!showConfirm ? 'password' : 'text'}
+              value={confirm}
+              placeholder="password"
+              required
+              onChange={changeConfirm}
+            />
+            {!showConfirm ? (
+              <Eye
+                className={eyes}
+                onClick={() => setShowConfirm(!showConfirm)}
+              />
+            ) : (
+              <EyeOff
+                className={eyes}
+                onClick={() => setShowConfirm(!showConfirm)}
+              />
+            )}
+          </div>
         </div>
       </div>
 

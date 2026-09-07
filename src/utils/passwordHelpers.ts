@@ -1,7 +1,8 @@
 import type { PasswordComplexity } from '../types';
 
 export function passwordComplexity(
-  currentPassword: string
+  currentPassword: string,
+  confirm: string
 ): PasswordComplexity {
   const hasDigit = /\d/.test(currentPassword);
   const hasUpperCase = /[A-Z]/.test(currentPassword);
@@ -10,11 +11,14 @@ export function passwordComplexity(
   const isPasswordDifficult =
     hasDigit && hasUpperCase && hasLowerCase && hasSpecial;
 
+  const isConfirm = currentPassword === confirm;
+
   return {
     hasDigit,
     hasUpperCase,
     hasLowerCase,
     hasSpecial,
     isPasswordDifficult,
+    isConfirm,
   };
 }
