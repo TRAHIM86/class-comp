@@ -1,7 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { btnDisabled, modalBtnSend } from '../../styles/styles';
+import {
+  btnDisabled,
+  eyes,
+  flexRow,
+  modalBtnSend,
+  modalInput,
+  opacity,
+} from '../../styles/styles';
 import { useStore } from '../../store/store';
 import { handleImage } from '../../utils/imageHelpers';
+import { Eye, EyeOff } from 'lucide-react';
+import { passwordComplexity } from '../../utils/passwordHelpers';
 
 export const FormUnControled = ({
   closeModalFunc,
@@ -16,6 +25,7 @@ export const FormUnControled = ({
   const femaleRef = useRef<HTMLInputElement>(null);
   const igreeRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   // состояния валидна ли форма
   const [isValid, setIsValid] = useState(false);
@@ -23,24 +33,47 @@ export const FormUnControled = ({
   // состяние строки картинки в формате base64
   const [image, setImage] = useState<string>('');
 
+  // состояние сложности пароля
+  const [passwordDifficult, setPasswordDifficult] = useState({
+    hasDigit: false,
+    hasUpperCase: false,
+    hasLowerCase: false,
+    hasSpecial: false,
+    isPasswordDifficult: false,
+  });
+
+  // состояние показывать/скрыть пароль
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   // функция проверки валидности формы
   function isValidForm() {
     const nameValid = nameRef.current?.value || '';
     const ageValid = Number(ageRef.current?.value) || 18;
     const emailValid = emailRef.current?.value || '';
     const igreeValid = igreeRef.current?.checked || false;
+    const passwordValid = passwordComplexity(
+      passwordRef.current?.value || ''
+    ).isPasswordDifficult;
 
     setIsValid(
       nameValid.trim() !== '' &&
+        ageValid >= 18 &&
         emailValid.includes('@') &&
         emailValid.includes('.') &&
-        ageValid >= 18 &&
-        igreeValid
+        igreeValid &&
+        passwordValid
     );
   }
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
+
+  /******** тесты на содержание символов в пароле ************/
+  function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const checkPassword = passwordComplexity(e.target.value);
+    setPasswordDifficult(checkPassword);
+    isValidForm();
+  }
 
   // функция отправки формы
   function handleSubmit(e: React.FormEvent) {
@@ -52,6 +85,7 @@ export const FormUnControled = ({
       email: emailRef.current?.value || '',
       gender: maleRef.current?.checked ? 'male' : 'female',
       image: image,
+      password: passwordRef.current?.value || '',
     });
     console.log('USERS', useStore.getState().users);
 
@@ -157,6 +191,54 @@ export const FormUnControled = ({
           style={{ display: 'none' }}
           onChange={changeImage}
         />
+      </div>
+
+      <div>
+        <div className="flex">
+          <label htmlFor="password" className="whitespace-nowrap">
+            Password:
+          </label>
+          <div className="relative w-1/2">
+            <input
+              id="password"
+              className={`${modalInput} w-full pr-8`}
+              type={!showPassword ? 'password' : 'text'}
+              ref={passwordRef}
+              placeholder="password"
+              required
+              onChange={handlePasswordChange}
+            />
+            {!showPassword ? (
+              <Eye
+                className={eyes}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <EyeOff
+                className={eyes}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+          </div>
+        </div>
+
+        <div className={flexRow}>
+          <div className={passwordDifficult.isPasswordDifficult ? '' : opacity}>
+            Min
+          </div>
+          <div className={passwordDifficult.hasDigit ? '' : opacity}>
+            &nbsp;1 digit
+          </div>
+          <div className={passwordDifficult.hasUpperCase ? '' : opacity}>
+            &nbsp;1 UP letter
+          </div>
+          <div className={passwordDifficult.hasLowerCase ? '' : opacity}>
+            &nbsp;1 low letter
+          </div>
+          <div className={passwordDifficult.hasSpecial ? '' : opacity}>
+            &nbsp;1 special
+          </div>
+        </div>
       </div>
 
       <button
