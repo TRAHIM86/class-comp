@@ -27,12 +27,16 @@ export const FormUnControled = ({
   const imageRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmRef = useRef<HTMLInputElement>(null);
+  const counryRef = useRef<HTMLInputElement>(null);
 
   // состояния валидна ли форма
   const [isValid, setIsValid] = useState(false);
 
   // состяние строки картинки в формате base64
   const [image, setImage] = useState<string>('');
+
+  // список стран из стора
+  const countriesEU = useStore((state) => state.countries);
 
   // состояние сложности пароля
   const [passwordDifficult, setPasswordDifficult] = useState({
@@ -63,6 +67,8 @@ export const FormUnControled = ({
     const passwordValid = passwordData.isPasswordDifficult;
     const passwordConfirm = passwordData.isConfirm;
 
+    const countryValid = countriesEU.includes(counryRef.current?.value || '');
+
     setIsValid(
       nameValid.trim() !== '' &&
         ageValid >= 18 &&
@@ -70,7 +76,8 @@ export const FormUnControled = ({
         emailValid.includes('.') &&
         igreeValid &&
         passwordValid &&
-        passwordConfirm
+        passwordConfirm &&
+        countryValid
     );
   }
 
@@ -98,6 +105,7 @@ export const FormUnControled = ({
       gender: maleRef.current?.checked ? 'male' : 'female',
       image: image,
       password: passwordRef.current?.value || '',
+      country: counryRef.current?.value || '',
     });
     console.log('USERS', useStore.getState().users);
 
@@ -281,6 +289,21 @@ export const FormUnControled = ({
             )}
           </div>
         </div>
+      </div>
+
+      <div>
+        <input
+          className={modalInput}
+          type="text"
+          list="countriesEU"
+          ref={counryRef}
+          onChange={isValidForm}
+        />
+        <datalist id="countriesEU">
+          {countriesEU.map((country) => (
+            <option key={country} value={country} />
+          ))}
+        </datalist>
       </div>
 
       <button
