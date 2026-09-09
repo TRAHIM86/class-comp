@@ -61,7 +61,7 @@ export const FormManager = () => {
           return (
             <div key={index} className={usersCards}>
               {index + 1} Name: {user.name}, Age: {user.age}, Email:{' '}
-              {user.email}, {user.gender},
+              {user.email}, {user.gender}, {user.country}
               <img
                 src={user.image || 'src/assets/imgs/default.jpg'}
                 alt="avatar"

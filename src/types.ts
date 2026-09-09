@@ -60,6 +60,7 @@ export type Store = {
   currentPage: number;
   selectedHeroes: Hero[];
   users: User[];
+  countries: string[];
   addUser: (user: User) => void;
   removeUser: (RemovedIndex: number) => void;
   setInputValue: (value: string) => void;
@@ -90,6 +91,7 @@ export interface User {
   gender: 'male' | 'female';
   image?: string;
   password: string;
+  country: string;
 }
 
 export interface PasswordComplexity {

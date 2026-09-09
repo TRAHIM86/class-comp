@@ -26,6 +26,7 @@ export const FormControlled = ({
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [confirm, setConfirm] = useState<string>('');
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [country, setCountry] = useState<string>('');
 
   /******** тесты на содержание символов в пароле ************/
   const {
@@ -40,6 +41,9 @@ export const FormControlled = ({
   // состояние фотки в формате base64 (строка бинарная)
   const [image, setImage] = useState<string>('');
 
+  // список стран из стора
+  const countriesEU = useStore((state) => state.countries);
+
   //валидация на name и email
   const isValid =
     name.trim() !== '' &&
@@ -48,7 +52,8 @@ export const FormControlled = ({
     email.includes('.') &&
     isAgree &&
     isPasswordDifficult &&
-    isConfirm;
+    isConfirm &&
+    countriesEU.includes(country);
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
@@ -64,6 +69,7 @@ export const FormControlled = ({
       gender: gender,
       image: image,
       password: password,
+      country: country,
     });
     console.log('USERS', useStore.getState().users);
 
@@ -106,6 +112,10 @@ export const FormControlled = ({
 
   function changeConfirm(e: React.ChangeEvent<HTMLInputElement>) {
     setConfirm(e.target.value);
+  }
+
+  function changeCountry(e: React.ChangeEvent<HTMLInputElement>) {
+    setCountry(e.target.value);
   }
 
   return (
@@ -258,6 +268,21 @@ export const FormControlled = ({
             )}
           </div>
         </div>
+      </div>
+
+      <div>
+        <input
+          className={modalInput}
+          type="text"
+          list="countriesEU"
+          value={country}
+          onChange={changeCountry}
+        />
+        <datalist id="countriesEU">
+          {countriesEU.map((country) => (
+            <option key={country} value={country} />
+          ))}
+        </datalist>
       </div>
 
       <button
