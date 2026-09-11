@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   modalBtnSend,
   btnDisabled,
@@ -6,134 +6,94 @@ import {
   eyes,
   flexRow,
   opacity,
+  hints,
 } from '../../styles/styles';
 import { useStore } from '../../store/store';
-import { handleImage } from '../../utils/imageHelpers';
 import { Eye, EyeOff } from 'lucide-react';
-import { passwordComplexity } from '../../utils/passwordHelpers';
+import { useForm } from 'react-hook-form';
+
+// схема валидации на форму (zod)
+import { userSchema } from '../../schemas/userSchema';
+
+// zodResolver - это адаптер, который связывает Zod-схему
+// с React Hook Form для валидации
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { FormData } from '../../types';
+import { fileToBase64 } from '../../utils/imageHelpers';
+import { checkPassword } from '../../utils/passwordHelpers';
 
 export const FormControlled = ({
   closeModalFunc,
 }: {
   closeModalFunc: () => void;
 }) => {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState<number>(18);
-  const [email, setEmail] = useState('');
-  const [gender, setGender] = useState<'male' | 'female'>('male');
-  const [isAgree, setIsAgree] = useState<boolean>(false);
-  const [password, setPassword] = useState<string>('');
+  // показывать/скрывать пароли
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [confirm, setConfirm] = useState<string>('');
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
-  const [country, setCountry] = useState<string>('');
-
-  /******** тесты на содержание символов в пароле ************/
-  const {
-    hasDigit,
-    hasUpperCase,
-    hasLowerCase,
-    hasSpecial,
-    isPasswordDifficult,
-    isConfirm,
-  } = passwordComplexity(password, confirm);
-
-  // состояние фотки в формате base64 (строка бинарная)
-  const [image, setImage] = useState<string>('');
 
   // список стран из стора
   const countriesEU = useStore((state) => state.countries);
 
-  //валидация на name и email
-  const isValid =
-    name.trim() !== '' &&
-    age >= 18 &&
-    email.includes('@') &&
-    email.includes('.') &&
-    isAgree &&
-    isPasswordDifficult &&
-    isConfirm &&
-    countriesEU.includes(country);
+  // вызываем нашу функцию-схему валидации (передаем список стран)
+  const schemaValid = userSchema(countriesEU);
+
+  // управление формой через useForm
+  const {
+    register, // функция для привязки инпутов в форме
+    handleSubmit, // функция для обработки отправки формы
+    watch, // функция для получения текущего значения поля
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: zodResolver(schemaValid),
+    mode: 'onChange',
+
+    // собирает ВСЕ ошибки (при пароле покажет все 4, а не только первую)
+    criteriaMode: 'all',
+  });
+
+  // тесты на сложность пароля (для рендера чего не хватает)
+
+  const currentPassword = watch('password') || '';
+
+  const { hasDigit, hasUpperCase, hasLowerCase, hasSpecial } =
+    checkPassword(currentPassword);
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
 
   // функция отправки формы
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function submitForm(data: FormData) {
+    const base64Img = await fileToBase64(data.image[0]);
 
     addUser({
-      name: name,
-      age: age,
-      email: email,
-      gender: gender,
-      image: image,
-      password: password,
-      country: country,
+      name: data.name,
+      age: data.age,
+      email: data.email,
+      gender: data.gender,
+      image: base64Img,
+      password: data.password,
+      country: data.country,
     });
     console.log('USERS', useStore.getState().users);
 
-    setName('');
-    setEmail('');
+    //setName('');
+    //setEmail('');
     closeModalFunc();
   }
 
-  /************* функции изменения полей *************/
-  function changeName(e: React.ChangeEvent<HTMLInputElement>) {
-    setName(e.target.value);
-  }
-
-  function changeAge(e: React.ChangeEvent<HTMLInputElement>) {
-    setAge(Number(e.target.value));
-  }
-
-  function changeEmail(e: React.ChangeEvent<HTMLInputElement>) {
-    setEmail(e.target.value);
-  }
-
-  function changeAgree() {
-    setIsAgree(!isAgree);
-  }
-
-  async function changeImage(e: React.ChangeEvent<HTMLInputElement>) {
-    try {
-      const result = await handleImage(e);
-      if (result) {
-        setImage(result);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  function changePassword(e: React.ChangeEvent<HTMLInputElement>) {
-    setPassword(e.target.value);
-  }
-
-  function changeConfirm(e: React.ChangeEvent<HTMLInputElement>) {
-    setConfirm(e.target.value);
-  }
-
-  function changeCountry(e: React.ChangeEvent<HTMLInputElement>) {
-    setCountry(e.target.value);
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(submitForm)}>
       <div>
         <label htmlFor="name">Name:</label>
         <input
           id="name"
           className={modalInput}
           type="text"
-          value={name}
           placeholder="Name"
           autoFocus
-          required
-          onChange={(e) => {
-            changeName(e);
-          }}
+          {...register('name')}
         />
+        {errors.name && <p className={hints}>{String(errors.name.message)}</p>}
       </div>
 
       <div>
@@ -142,13 +102,10 @@ export const FormControlled = ({
           id="age"
           className={modalInput}
           type="number"
-          value={age}
           placeholder="Age"
-          required
-          onChange={(e) => {
-            changeAge(e);
-          }}
+          {...register('age')}
         />
+        {errors.age && <p className={hints}>{errors.age.message}</p>}
       </div>
 
       <div>
@@ -157,13 +114,10 @@ export const FormControlled = ({
           id="email"
           className={modalInput}
           type="email"
-          value={email}
           placeholder="Email"
-          required
-          onChange={(e) => {
-            changeEmail(e);
-          }}
+          {...register('email')}
         />
+        {errors.email && <p className={hints}>{errors.email.message}</p>}
       </div>
 
       <div>
@@ -171,25 +125,27 @@ export const FormControlled = ({
         <input
           id="male"
           type="radio"
-          name="gender"
           value="male"
-          checked={gender === 'male'}
-          onChange={() => setGender('male')}
+          {...register('gender')}
         ></input>
         <label htmlFor="female">Female</label>
         <input
           id="female"
           type="radio"
-          name="gender"
           value="female"
-          checked={gender === 'female'}
-          onChange={() => setGender('female')}
+          {...register('gender')}
         ></input>
+        {(errors.gender || !watch('gender')) && (
+          <p className={hints}>{errors.gender?.message || 'Select gender'}</p>
+        )}
       </div>
 
       <div>
         <label htmlFor="agree">Agree</label>
-        <input type="checkbox" id="agree" required onChange={changeAgree} />
+        <input type="checkbox" id="agree" {...register('agree')} />
+        {(errors.agree || !watch('agree')) && (
+          <p className={hints}>{errors.agree?.message || 'Accept the terms'}</p>
+        )}
       </div>
 
       <div>
@@ -198,8 +154,9 @@ export const FormControlled = ({
           id="image"
           type="file"
           style={{ display: 'none' }}
-          onChange={changeImage}
+          {...register('image')}
         />
+        {errors.image && <p className={hints}>{errors.image.message}</p>}
       </div>
 
       <div>
@@ -212,10 +169,8 @@ export const FormControlled = ({
               id="password"
               className={`${modalInput} w-full pr-8`}
               type={!showPassword ? 'password' : 'text'}
-              value={password}
               placeholder="password"
-              required
-              onChange={changePassword}
+              {...register('password')}
             />
             {!showPassword ? (
               <Eye
@@ -231,12 +186,19 @@ export const FormControlled = ({
           </div>
         </div>
 
-        <div className={flexRow}>
-          <div className={isPasswordDifficult ? '' : opacity}>Min</div>
-          <div className={hasDigit ? '' : opacity}>&nbsp;1 digit</div>
-          <div className={hasUpperCase ? '' : opacity}>&nbsp;1 UP letter</div>
-          <div className={hasLowerCase ? '' : opacity}>&nbsp;1 low letter</div>
-          <div className={hasSpecial ? '' : opacity}>&nbsp;1 special</div>
+        <div className={`${flexRow} gap-4`}>
+          <div className={`${hints} ${hasDigit ? hints : opacity}`}>
+            &nbsp;1 digit
+          </div>
+          <div className={`${hints} ${hasUpperCase ? hints : opacity}`}>
+            &nbsp;1 UP letter
+          </div>
+          <div className={`${hints} ${hasLowerCase ? hints : opacity}`}>
+            &nbsp;1 low letter
+          </div>
+          <div className={`${hints} ${hasSpecial ? hints : opacity}`}>
+            &nbsp;1 special
+          </div>
         </div>
       </div>
 
@@ -250,10 +212,8 @@ export const FormControlled = ({
               id="confirm"
               className={`${modalInput} w-full pr-8`}
               type={!showConfirm ? 'password' : 'text'}
-              value={confirm}
               placeholder="confirm"
-              required
-              onChange={changeConfirm}
+              {...register('confirm')}
             />
             {!showConfirm ? (
               <Eye
@@ -268,6 +228,7 @@ export const FormControlled = ({
             )}
           </div>
         </div>
+        {errors.confirm && <p className={hints}>{errors.confirm.message}</p>}
       </div>
 
       <div>
@@ -275,14 +236,18 @@ export const FormControlled = ({
           className={modalInput}
           type="text"
           list="countriesEU"
-          value={country}
-          onChange={changeCountry}
+          {...register('country')}
         />
         <datalist id="countriesEU">
           {countriesEU.map((country) => (
             <option key={country} value={country} />
           ))}
         </datalist>
+        {(errors.country || !watch('country')) && (
+          <p className={hints}>
+            {errors.country?.message || 'Select a country from the list'}
+          </p>
+        )}
       </div>
 
       <button

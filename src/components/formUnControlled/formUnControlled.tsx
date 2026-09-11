@@ -1,16 +1,19 @@
 import React, { useRef, useState } from 'react';
 import {
-  btnDisabled,
   eyes,
   flexRow,
+  hints,
   modalBtnSend,
   modalInput,
   opacity,
 } from '../../styles/styles';
 import { useStore } from '../../store/store';
-import { handleImage } from '../../utils/imageHelpers';
+import { fileToBase64 } from '../../utils/imageHelpers';
 import { Eye, EyeOff } from 'lucide-react';
-import { passwordComplexity } from '../../utils/passwordHelpers';
+import { checkPassword } from '../../utils/passwordHelpers';
+
+// схема валидации на форму (zod)
+import { userSchema } from '../../schemas/userSchema';
 
 export const FormUnControled = ({
   closeModalFunc,
@@ -29,85 +32,84 @@ export const FormUnControled = ({
   const confirmRef = useRef<HTMLInputElement>(null);
   const counryRef = useRef<HTMLInputElement>(null);
 
-  // состояния валидна ли форма
-  const [isValid, setIsValid] = useState(false);
-
-  // состяние строки картинки в формате base64
-  const [image, setImage] = useState<string>('');
+  // текущий пароль из инпута (для проверки на сложность)
+  const [currentPassword, setCurrentPassword] = useState('');
 
   // список стран из стора
   const countriesEU = useStore((state) => state.countries);
 
-  // состояние сложности пароля
-  const [passwordDifficult, setPasswordDifficult] = useState({
-    hasDigit: false,
-    hasUpperCase: false,
-    hasLowerCase: false,
-    hasSpecial: false,
-    isPasswordDifficult: false,
-    isConfirm: false,
-  });
+  // сотояния ошибок валидации по схеме. Тип Record -
+  // ключи - строки, значения - строки
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   // состояние показывать/скрыть пароль
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
-  // функция проверки валидности формы
-  function isValidForm() {
-    const nameValid = nameRef.current?.value || '';
-    const ageValid = Number(ageRef.current?.value) || 18;
-    const emailValid = emailRef.current?.value || '';
-    const igreeValid = igreeRef.current?.checked || false;
-
-    const passwordData = passwordComplexity(
-      passwordRef.current?.value || '',
-      confirmRef.current?.value || ''
-    );
-
-    const passwordValid = passwordData.isPasswordDifficult;
-    const passwordConfirm = passwordData.isConfirm;
-
-    const countryValid = countriesEU.includes(counryRef.current?.value || '');
-
-    setIsValid(
-      nameValid.trim() !== '' &&
-        ageValid >= 18 &&
-        emailValid.includes('@') &&
-        emailValid.includes('.') &&
-        igreeValid &&
-        passwordValid &&
-        passwordConfirm &&
-        countryValid
-    );
-  }
+  // вызываем нашу функцию-схему валидации (передаем список стран)
+  const schemaValid = userSchema(countriesEU);
 
   // функция добавить юзера в глобальный стор
   const addUser = useStore((state) => state.addUser);
 
   /******** тесты на содержание символов в пароле ************/
-  function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const checkPassword = passwordComplexity(
-      e.target.value,
-      confirmRef.current?.value || ''
-    );
-    setPasswordDifficult(checkPassword);
-    isValidForm();
-  }
+  const { hasDigit, hasUpperCase, hasLowerCase, hasSpecial } =
+    checkPassword(currentPassword);
 
   // функция отправки формы
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    addUser({
+    const formData = {
       name: nameRef.current?.value || '',
-      age: Number(ageRef.current?.value) || 0,
+      age: ageRef.current?.value || '',
       email: emailRef.current?.value || '',
-      gender: maleRef.current?.checked ? 'male' : 'female',
-      image: image,
+      gender: maleRef.current?.checked
+        ? 'male'
+        : femaleRef.current?.checked
+          ? 'female'
+          : '',
+      agree: igreeRef.current?.checked || false,
+      image: imageRef.current?.files,
       password: passwordRef.current?.value || '',
+      confirm: confirmRef.current?.value || '',
       country: counryRef.current?.value || '',
-    });
-    console.log('USERS', useStore.getState().users);
+    };
+
+    // safeParse не бросает исключение. Вернет или результат
+    // или объект с полем success: false и ошибками
+    const result = schemaValid.safeParse(formData);
+
+    // еcли валидация не порошла
+    if (!result.success) {
+      // создать объект для ошибок
+      const newErrors: Record<string, string> = {};
+
+      // result.error.issues — массив ошибок от Zod
+      // Каждая ошибка содержит path (имя поля) и message (текст)
+      result.error.issues.forEach((issue) => {
+        newErrors[String(issue.path[0])] = issue.message;
+      });
+
+      console.log('newErrors:', newErrors);
+      console.log('result:', result);
+
+      // сохранить ошибки с стейт
+      setErrors(newErrors);
+
+      return;
+    } else {
+      // если валидация прошла
+      setErrors({});
+
+      const base64 = await fileToBase64(result.data.image[0]);
+
+      addUser({
+        ...result.data,
+        image: base64,
+      });
+      console.log('USERS', useStore.getState().users);
+    }
 
     if (nameRef.current) {
       nameRef.current.value = '';
@@ -120,18 +122,6 @@ export const FormUnControled = ({
     closeModalFunc();
   }
 
-  // функция выбора и загрузки картинки
-  async function changeImage(e: React.ChangeEvent<HTMLInputElement>) {
-    try {
-      const result = await handleImage(e);
-      if (result) {
-        setImage(result);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -142,8 +132,8 @@ export const FormUnControled = ({
           placeholder="Name"
           autoFocus
           ref={nameRef}
-          onChange={isValidForm}
         />
+        {errors.name && <p className={hints}>{errors.name}</p>}
       </div>
 
       <div>
@@ -153,20 +143,15 @@ export const FormUnControled = ({
           type="number"
           placeholder="Age"
           ref={ageRef}
-          onChange={isValidForm}
           defaultValue="18"
         />
+        {errors.age && <p className={hints}>{errors.age}</p>}
       </div>
 
       <div>
         <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Email"
-          ref={emailRef}
-          onChange={isValidForm}
-        />
+        <input id="email" type="email" placeholder="Email" ref={emailRef} />
+        {errors.email && <p className={hints}>{errors.email}</p>}
       </div>
 
       <div>
@@ -177,8 +162,6 @@ export const FormUnControled = ({
           name="gender"
           value="male"
           ref={maleRef}
-          onChange={isValidForm}
-          defaultChecked
         ></input>
         <label htmlFor="female">Female</label>
         <input
@@ -187,19 +170,14 @@ export const FormUnControled = ({
           name="gender"
           value="female"
           ref={femaleRef}
-          onChange={isValidForm}
         ></input>
+        {errors.gender && <p className={hints}>{errors.gender}</p>}
       </div>
 
       <div>
         <label htmlFor="agree">Agree</label>
-        <input
-          type="checkbox"
-          id="agree"
-          ref={igreeRef}
-          required
-          onChange={isValidForm}
-        />
+        <input type="checkbox" id="agree" ref={igreeRef} />
+        {errors.agree && <p className={hints}>{errors.agree}</p>}
       </div>
 
       <div>
@@ -209,8 +187,8 @@ export const FormUnControled = ({
           ref={imageRef}
           type="file"
           style={{ display: 'none' }}
-          onChange={changeImage}
         />
+        {errors.image && <p className={hints}>{errors.image}</p>}
       </div>
 
       <div>
@@ -225,8 +203,7 @@ export const FormUnControled = ({
               type={!showPassword ? 'password' : 'text'}
               ref={passwordRef}
               placeholder="password"
-              required
-              onChange={handlePasswordChange}
+              onChange={(e) => setCurrentPassword(e.target.value)}
             />
             {!showPassword ? (
               <Eye
@@ -242,20 +219,17 @@ export const FormUnControled = ({
           </div>
         </div>
 
-        <div className={flexRow}>
-          <div className={passwordDifficult.isPasswordDifficult ? '' : opacity}>
-            Min
-          </div>
-          <div className={passwordDifficult.hasDigit ? '' : opacity}>
+        <div className={`${flexRow} gap-4`}>
+          <div className={`${hints} ${hasDigit ? hints : opacity}`}>
             &nbsp;1 digit
           </div>
-          <div className={passwordDifficult.hasUpperCase ? '' : opacity}>
+          <div className={`${hints} ${hasUpperCase ? hints : opacity}`}>
             &nbsp;1 UP letter
           </div>
-          <div className={passwordDifficult.hasLowerCase ? '' : opacity}>
+          <div className={`${hints} ${hasLowerCase ? hints : opacity}`}>
             &nbsp;1 low letter
           </div>
-          <div className={passwordDifficult.hasSpecial ? '' : opacity}>
+          <div className={`${hints} ${hasSpecial ? hints : opacity}`}>
             &nbsp;1 special
           </div>
         </div>
@@ -273,8 +247,6 @@ export const FormUnControled = ({
               type={!showConfirm ? 'password' : 'text'}
               ref={confirmRef}
               placeholder="confirm"
-              required
-              onChange={handlePasswordChange}
             />
             {!showConfirm ? (
               <Eye
@@ -288,6 +260,7 @@ export const FormUnControled = ({
               />
             )}
           </div>
+          {errors.confirm && <p className={hints}>{errors.confirm}</p>}
         </div>
       </div>
 
@@ -297,20 +270,16 @@ export const FormUnControled = ({
           type="text"
           list="countriesEU"
           ref={counryRef}
-          onChange={isValidForm}
         />
         <datalist id="countriesEU">
           {countriesEU.map((country) => (
             <option key={country} value={country} />
           ))}
         </datalist>
+        {errors.country && <p className={hints}>{errors.country}</p>}
       </div>
 
-      <button
-        className={`${modalBtnSend} ${!isValid ? btnDisabled : ''}`}
-        type="submit"
-        disabled={!isValid}
-      >
+      <button className={`${modalBtnSend}`} type="submit">
         SEND
       </button>
     </form>

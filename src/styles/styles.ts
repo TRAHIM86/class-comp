@@ -9,7 +9,7 @@ export const relative = 'relative';
 
 export const flexRow = 'flex flex-row';
 
-export const opacity = 'opacity-50';
+export const opacity = 'opacity-70';
 
 export const btn =
   'btn p-3 border-1 rounded cursor-pointer hover:border-yellow-300 flex-1';
@@ -73,3 +73,5 @@ export const usersCards = 'border-1 border-yellow-300 p-1';
 export const imageUser = 'w-20 h-20 object-cover';
 
 export const eyes = 'absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer';
+
+export const hints = '!text-pink-500 !text-xs !font-sans';

@@ -94,6 +94,19 @@ export interface User {
   country: string;
 }
 
+// тип формы (допилить)
+export type FormData = {
+  name: string;
+  age: number;
+  email: string;
+  gender: 'male' | 'female';
+  agree: boolean;
+  image: FileList;
+  password: string;
+  confirm: string;
+  country: string;
+};
+
 export interface PasswordComplexity {
   hasDigit: boolean;
   hasUpperCase: boolean;
