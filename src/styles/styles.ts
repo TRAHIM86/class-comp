@@ -75,3 +75,5 @@ export const imageUser = 'w-20 h-20 object-cover';
 export const eyes = 'absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer';
 
 export const hints = '!text-pink-500 !text-xs !font-sans';
+
+export const borderGreen = 'border-5 !border-green-500';

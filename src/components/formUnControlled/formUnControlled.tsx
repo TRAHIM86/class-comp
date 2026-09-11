@@ -17,8 +17,10 @@ import { userSchema } from '../../schemas/userSchema';
 
 export const FormUnControled = ({
   closeModalFunc,
+  setLastId,
 }: {
   closeModalFunc: () => void;
+  setLastId: (id: number) => void;
 }) => {
   // рефы для полей
   const nameRef = useRef<HTMLInputElement>(null);
@@ -104,10 +106,14 @@ export const FormUnControled = ({
 
       const base64 = await fileToBase64(result.data.image[0]);
 
+      const userId = Date.now();
+
       addUser({
         ...result.data,
+        id: userId,
         image: base64,
       });
+      setLastId(userId);
       console.log('USERS', useStore.getState().users);
     }
 

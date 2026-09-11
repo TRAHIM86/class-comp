@@ -24,8 +24,10 @@ import { checkPassword } from '../../utils/passwordHelpers';
 
 export const FormControlled = ({
   closeModalFunc,
+  setLastId,
 }: {
   closeModalFunc: () => void;
+  setLastId: (id: number) => void;
 }) => {
   // показывать/скрывать пароли
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -65,7 +67,10 @@ export const FormControlled = ({
   async function submitForm(data: FormData) {
     const base64Img = await fileToBase64(data.image[0]);
 
+    const userId = Date.now();
+
     addUser({
+      id: userId,
       name: data.name,
       age: data.age,
       email: data.email,
@@ -74,10 +79,8 @@ export const FormControlled = ({
       password: data.password,
       country: data.country,
     });
-    console.log('USERS', useStore.getState().users);
 
-    //setName('');
-    //setEmail('');
+    setLastId(userId);
     closeModalFunc();
   }
 

@@ -60,6 +60,7 @@ export const useStore = create<Store>((set, get) => ({
   ],
   users: [
     {
+      id: 111,
       name: 'ppp',
       age: 42,
       email: 'pp@p.pu',
@@ -70,6 +71,7 @@ export const useStore = create<Store>((set, get) => ({
       country: 'Poland',
     },
     {
+      id: 222,
       name: 'gf',
       age: 48,
       email: 'ggf@ff.tu',

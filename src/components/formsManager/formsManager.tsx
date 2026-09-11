@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Btn } from '../../ui/btn';
 import { Modal } from '../modal/modal';
 import { FormUnControled } from '../formUnControlled/formUnControlled';
 import { FormControlled } from '../formControlled/formControlled';
 import {
+  borderGreen,
   formManagerStyle,
   imageUser,
   modalBtnSend,
@@ -14,6 +15,10 @@ import { useStore } from '../../store/store';
 export const FormManager = () => {
   // состояние модалки (открыта/закрыта)
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  // состояние id последнего добаавленного юзера (для подсветки)
+  const [lastId, setLastId] = useState<number | null>(null);
+  console.log('lastId :', lastId);
 
   // состояние открываемой формы (контроль/онКонтроль)
   const [formType, setFormType] = useState<
@@ -38,6 +43,19 @@ export const FormManager = () => {
   // функция удалить юзера
   const removeUser = useStore((state) => state.removeUser);
 
+  // эффект для подсветки последнего добавленного юзера
+  useEffect(() => {
+    if (!lastId) {
+      return;
+    } else {
+      const timer = setTimeout(() => {
+        setLastId(null);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [lastId]);
+
   return (
     <div className={formManagerStyle}>
       <div>
@@ -59,7 +77,10 @@ export const FormManager = () => {
       <div className={usersCards}>
         {users.map((user, index) => {
           return (
-            <div key={index} className={usersCards}>
+            <div
+              key={index}
+              className={`${usersCards} ${user.id === lastId ? borderGreen : ''}`}
+            >
               {index + 1} Name: {user.name}, Age: {user.age}, Email:{' '}
               {user.email}, {user.gender}, {user.country}
               <img
@@ -81,10 +102,10 @@ export const FormManager = () => {
       <Modal isOpen={modalIsOpen} onClose={closeModal}>
         <h2>{formType === 'uncontrolled' ? 'uncontrolled' : 'controlled'}</h2>
         {formType === 'uncontrolled' && (
-          <FormUnControled closeModalFunc={closeModal} />
+          <FormUnControled closeModalFunc={closeModal} setLastId={setLastId} />
         )}
         {formType === 'controlled' && (
-          <FormControlled closeModalFunc={closeModal} />
+          <FormControlled closeModalFunc={closeModal} setLastId={setLastId} />
         )}
       </Modal>
     </div>
