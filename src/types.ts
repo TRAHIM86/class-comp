@@ -106,12 +106,3 @@ export type FormData = {
   confirm: string;
   country: string;
 };
-
-export interface PasswordComplexity {
-  hasDigit: boolean;
-  hasUpperCase: boolean;
-  hasLowerCase: boolean;
-  hasSpecial: boolean;
-  isPasswordDifficult: boolean;
-  isConfirm: boolean;
-}
