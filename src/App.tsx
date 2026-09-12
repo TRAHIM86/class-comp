@@ -7,7 +7,6 @@ import { HeroData } from './components/heroData/heroData';
 import { ErrorPage404 } from './pages/errorPage404';
 import { About } from './pages/about';
 import { ThemeProvider } from './store/ThemeContext';
-import { FormManager } from './components/formsManager/formsManager';
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -18,8 +17,6 @@ export const App = () => {
         <ThemeProvider>
           <BrowserRouter basename="/class-comp/">
             <Navigation />
-
-            <FormManager />
 
             <Routes>
               <Route

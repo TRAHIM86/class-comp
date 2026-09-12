@@ -5,6 +5,8 @@ import { FormUnControled } from '../formUnControlled/formUnControlled';
 import { FormControlled } from '../formControlled/formControlled';
 import {
   borderGreen,
+  flexCol,
+  flexRow,
   formManagerStyle,
   imageUser,
   modalBtnSend,
@@ -58,7 +60,7 @@ export const FormManager = () => {
 
   return (
     <div className={formManagerStyle}>
-      <div>
+      <div className={`${flexRow} justify-between gap-2 p-1`}>
         <Btn
           btnText="CONTROLLED FORM"
           onClickFunc={() => {
@@ -74,33 +76,52 @@ export const FormManager = () => {
         ></Btn>
       </div>
 
-      <div className={usersCards}>
+      <div className={`${usersCards} ${flexCol} gap-2`}>
         {users.map((user, index) => {
           return (
             <div
               key={index}
-              className={`${usersCards} ${user.id === lastId ? borderGreen : ''}`}
+              className={`${flexRow} p-1 bg-gray-500 gap-2 rounded-md ${user.id === lastId ? borderGreen : ''}`}
             >
-              {index + 1} Name: {user.name}, Age: {user.age}, Email:{' '}
-              {user.email}, {user.gender}, {user.country}
               <img
                 src={user.image || 'src/assets/imgs/default.jpg'}
                 alt="avatar"
                 className={imageUser}
               />
-              <button
-                className={modalBtnSend}
-                onClick={() => removeUser(index)}
-              >
-                Remove
-              </button>
+
+              <div className={`${flexCol}`}>
+                <div className={`${flexRow} justify-between w-100`}>
+                  <p className={`${'text-2xl'}`}>{user.name}</p>
+                  <p>{user.email}</p>
+                </div>
+
+                <div className={`${flexRow} justify-between w-100`}>
+                  <div className={`${flexRow} gap-2`}>
+                    <span>{user.age} y,</span>
+                    <span>{user.gender},</span>
+                    <span>{user.country}</span>
+                  </div>
+                </div>
+                <div className={`${flexRow} justify-end`}>
+                  <button
+                    className={`${modalBtnSend} text-sm`}
+                    onClick={() => removeUser(index)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
             </div>
           );
         })}
       </div>
 
       <Modal isOpen={modalIsOpen} onClose={closeModal}>
-        <h2>{formType === 'uncontrolled' ? 'uncontrolled' : 'controlled'}</h2>
+        <h2>
+          {formType === 'uncontrolled'
+            ? 'Uncontrolled form'
+            : 'Controlled form'}
+        </h2>
         {formType === 'uncontrolled' && (
           <FormUnControled closeModalFunc={closeModal} setLastId={setLastId} />
         )}

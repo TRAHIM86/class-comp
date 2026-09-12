@@ -25,12 +25,17 @@ export const Search = ({ onClickFunc, disabled }: SearchProps) => {
         onSubmit={(e) => e.preventDefault()}
         data-testid="form"
       >
-        <InputSearch value={inputValue} onChangeFunc={changeInputValue} />
-        <Btn
-          btnText={'SEARCH'}
-          disabled={disabled}
-          onClickFunc={() => onClickFunc(inputValue)}
-        />
+        <div className="w-1/2">
+          <InputSearch value={inputValue} onChangeFunc={changeInputValue} />
+        </div>
+
+        <div className="w-1/2">
+          <Btn
+            btnText={'SEARCH'}
+            disabled={disabled}
+            onClickFunc={() => onClickFunc(inputValue)}
+          />
+        </div>
       </form>
     </section>
   );

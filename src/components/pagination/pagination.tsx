@@ -1,4 +1,4 @@
-import { activePage, paginationBlock } from '../../styles/styles';
+import { activePage, paginationBlock, unActivePage } from '../../styles/styles';
 import type { PaginationProps } from '../../types';
 import { useStore } from '../../store/store';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -41,7 +41,7 @@ export const Pagination = ({ countPages }: PaginationProps) => {
       {arrRange.map((numPage) => {
         return (
           <div
-            className={currentPage === numPage ? activePage : ''}
+            className={currentPage === numPage ? activePage : unActivePage}
             key={numPage}
             onClick={() => changePage(numPage)}
           >

@@ -2,10 +2,13 @@ import React, { useRef, useState } from 'react';
 import {
   eyes,
   flexRow,
+  form,
   hints,
+  loadPhoto,
   modalBtnSend,
   modalInput,
   opacity,
+  sectionForm,
 } from '../../styles/styles';
 import { useStore } from '../../store/store';
 import { fileToBase64 } from '../../utils/imageHelpers';
@@ -129,8 +132,8 @@ export const FormUnControled = ({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className={form}>
+      <div className={sectionForm}>
         <label htmlFor="name">Name:</label>
         <input
           id="name"
@@ -138,29 +141,36 @@ export const FormUnControled = ({
           placeholder="Name"
           autoFocus
           ref={nameRef}
+          className={modalInput}
         />
-        {errors.name && <p className={hints}>{errors.name}</p>}
       </div>
+      {errors.name && <p className={hints}>{errors.name}</p>}
 
-      <div>
+      <div className={sectionForm}>
         <label htmlFor="age">Age:</label>
         <input
           id="age"
           type="number"
           placeholder="Age"
           ref={ageRef}
-          defaultValue="18"
+          className={modalInput}
         />
-        {errors.age && <p className={hints}>{errors.age}</p>}
       </div>
+      {errors.age && <p className={hints}>{errors.age}</p>}
 
-      <div>
+      <div className={sectionForm}>
         <label htmlFor="email">Email:</label>
-        <input id="email" type="email" placeholder="Email" ref={emailRef} />
-        {errors.email && <p className={hints}>{errors.email}</p>}
+        <input
+          id="email"
+          type="email"
+          placeholder="Email"
+          ref={emailRef}
+          className={modalInput}
+        />
       </div>
+      {errors.email && <p className={hints}>{errors.email}</p>}
 
-      <div>
+      <div className="flex gap-1">
         <label htmlFor="male">Male</label>
         <input
           id="male"
@@ -177,28 +187,30 @@ export const FormUnControled = ({
           value="female"
           ref={femaleRef}
         ></input>
-        {errors.gender && <p className={hints}>{errors.gender}</p>}
       </div>
+      {errors.gender && <p className={hints}>{errors.gender}</p>}
 
-      <div>
+      <div className="flex gap-1">
         <label htmlFor="agree">Agree</label>
         <input type="checkbox" id="agree" ref={igreeRef} />
-        {errors.agree && <p className={hints}>{errors.agree}</p>}
       </div>
+      {errors.agree && <p className={hints}>{errors.agree}</p>}
 
-      <div>
-        <label htmlFor="image">Load photo</label>
+      <div className={sectionForm}>
+        <label htmlFor="image" className={loadPhoto}>
+          Load photo
+        </label>
         <input
           id="image"
           ref={imageRef}
           type="file"
           style={{ display: 'none' }}
         />
-        {errors.image && <p className={hints}>{errors.image}</p>}
       </div>
+      {errors.image && <p className={hints}>{errors.image}</p>}
 
       <div>
-        <div className="flex">
+        <div className={sectionForm}>
           <label htmlFor="password" className="whitespace-nowrap">
             Password:
           </label>
@@ -242,7 +254,7 @@ export const FormUnControled = ({
       </div>
 
       <div>
-        <div className="flex">
+        <div className={sectionForm}>
           <label htmlFor="confirm" className="whitespace-nowrap">
             Confirm:
           </label>
@@ -266,11 +278,11 @@ export const FormUnControled = ({
               />
             )}
           </div>
-          {errors.confirm && <p className={hints}>{errors.confirm}</p>}
         </div>
+        {errors.confirm && <p className={hints}>{errors.confirm}</p>}
       </div>
 
-      <div>
+      <div className={sectionForm}>
         <input
           className={modalInput}
           type="text"
@@ -285,7 +297,7 @@ export const FormUnControled = ({
         {errors.country && <p className={hints}>{errors.country}</p>}
       </div>
 
-      <button className={`${modalBtnSend}`} type="submit">
+      <button className={`${modalBtnSend} mt-2`} type="submit">
         SEND
       </button>
     </form>

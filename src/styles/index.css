@@ -2,25 +2,45 @@
 
 * {
   box-sizing: border-box;
-  color: yellow;
 }
 
 [data-theme='dark'] .btn {
-  background: #4a5568 !important;
-  color: white !important;
+  background: rgb(255, 208, 0) !important;
+  color: black !important;
   border-color: #4a5568 !important;
 }
 
-[data-theme='light'] .btn {
-  background: #48bb78 !important;
-  color: black !important;
-  border-color: #48bb78 !important;
+[data-theme='dark'] .btn:hover {
+  background: rgb(77, 75, 75) !important;
+  color: rgb(255, 208, 0) !important;
+  border-color: rgb(255, 208, 0) !important;
 }
 
-[data-theme='dark'] .container {
+[data-theme='light'] .btn {
+  background: gray !important;
+  color: orange !important;
+  border-color: gray !important;
+}
+
+[data-theme='light'] .btn:hover {
+  background: orange !important;
+  color: gray !important;
+  border-color: orange !important;
+}
+
+[data-theme='dark'] .app {
   background: #000000 !important;
 }
 
-[data-theme='light'] .container {
-  background: #2f855d !important;
+[data-theme='light'] .app {
+  background: white !important;
+  color: black !important;
+}
+
+[data-theme='dark'] .modalBox {
+  color: rgb(255, 208, 0) !important;
+}
+
+[data-theme='light'] .modalBox {
+  background: white !important;
 }

@@ -12,11 +12,11 @@ export const Navigation = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <nav className="flex gap-5">
-      <NavLink to="/" className={styleNavLink}>
+    <nav className="flex items-center gap-5 p-2">
+      <NavLink to="/" className={`${styleNavLink} text-xl`}>
         HOME
       </NavLink>
-      <NavLink to="/about" className={styleNavLink}>
+      <NavLink to="/about" className={`${styleNavLink} text-xl`}>
         ABOUT
       </NavLink>
 

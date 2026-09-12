@@ -67,8 +67,8 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
         <div className={`${title_item} w-1/2`}>HERO</div>
         <Btn onClickFunc={updateHeroes} btnText="Update"></Btn>
       </div>
-      <div className="flex flex-row w-full border-2 border-blue-300">
-        <div className="flex flex-col w-1/2 border-2 border-red-700">
+      <div className="flex flex-row w-full">
+        <div className="flex flex-col w-1/2 border-1 border-gray-300 p-1">
           {heroes?.peopleArr.map((hero, index) => {
             return (
               <div
@@ -79,7 +79,7 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
                   changeHeroId(hero.url);
                 }}
               >
-                <div className=" border-1 border-red-700">{hero.name}</div>
+                <div>{hero.name}</div>
                 <input
                   type="checkbox"
                   checked={selectedHeroes.some((h) => h.name === hero.name)}
@@ -94,9 +94,9 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
         {currentHeroId ? <Outlet /> : null}
       </div>
       {!!selectedHeroes.length && (
-        <div className="flex flex-col items-center border-1 border-red-700 sticky bottom-0 bg-black">
+        <div className="flex flex-col items-center sticky bottom-0 bg-black w-1/2">
           Selected heroes: {selectedHeroes.length}
-          <div className="w-4 flex flex-col gap-1 items-center">
+          <div className="w-4 flex flex-col gap-1 items-center w-full">
             <Btn btnText="Clear" onClickFunc={clearSelected} />
 
             <Btn btnText="Load" onClickFunc={() => downloadSelected()} />

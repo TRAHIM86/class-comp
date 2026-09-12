@@ -7,6 +7,9 @@ import {
   flexRow,
   opacity,
   hints,
+  form,
+  sectionForm,
+  loadPhoto,
 } from '../../styles/styles';
 import { useStore } from '../../store/store';
 import { Eye, EyeOff } from 'lucide-react';
@@ -85,8 +88,8 @@ export const FormControlled = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(submitForm)}>
-      <div>
+    <form onSubmit={handleSubmit(submitForm)} className={form}>
+      <div className={sectionForm}>
         <label htmlFor="name">Name:</label>
         <input
           id="name"
@@ -99,7 +102,7 @@ export const FormControlled = ({
         {errors.name && <p className={hints}>{String(errors.name.message)}</p>}
       </div>
 
-      <div>
+      <div className={sectionForm}>
         <label htmlFor="age">Age:</label>
         <input
           id="age"
@@ -108,10 +111,10 @@ export const FormControlled = ({
           placeholder="Age"
           {...register('age')}
         />
-        {errors.age && <p className={hints}>{errors.age.message}</p>}
       </div>
+      {errors.age && <p className={hints}>{errors.age.message}</p>}
 
-      <div>
+      <div className={sectionForm}>
         <label htmlFor="email">Email:</label>
         <input
           id="email"
@@ -120,10 +123,10 @@ export const FormControlled = ({
           placeholder="Email"
           {...register('email')}
         />
-        {errors.email && <p className={hints}>{errors.email.message}</p>}
       </div>
+      {errors.email && <p className={hints}>{errors.email.message}</p>}
 
-      <div>
+      <div className="flex gap-1">
         <label htmlFor="male">Male</label>
         <input
           id="male"
@@ -138,32 +141,34 @@ export const FormControlled = ({
           value="female"
           {...register('gender')}
         ></input>
-        {(errors.gender || !watch('gender')) && (
-          <p className={hints}>{errors.gender?.message || 'Select gender'}</p>
-        )}
       </div>
+      {(errors.gender || !watch('gender')) && (
+        <p className={hints}>{errors.gender?.message || 'Select gender'}</p>
+      )}
 
-      <div>
+      <div className="flex gap-1">
         <label htmlFor="agree">Agree</label>
         <input type="checkbox" id="agree" {...register('agree')} />
-        {(errors.agree || !watch('agree')) && (
-          <p className={hints}>{errors.agree?.message || 'Accept the terms'}</p>
-        )}
       </div>
+      {(errors.agree || !watch('agree')) && (
+        <p className={hints}>{errors.agree?.message || 'Accept the terms'}</p>
+      )}
 
-      <div>
-        <label htmlFor="image">Load photo</label>
+      <div className={sectionForm}>
+        <label htmlFor="image" className={loadPhoto}>
+          Load photo
+        </label>
         <input
           id="image"
           type="file"
           style={{ display: 'none' }}
           {...register('image')}
         />
-        {errors.image && <p className={hints}>{errors.image.message}</p>}
       </div>
+      {errors.image && <p className={hints}>{errors.image.message}</p>}
 
       <div>
-        <div className="flex">
+        <div className={sectionForm}>
           <label htmlFor="password" className="whitespace-nowrap">
             Password:
           </label>
@@ -206,7 +211,7 @@ export const FormControlled = ({
       </div>
 
       <div>
-        <div className="flex">
+        <div className={sectionForm}>
           <label htmlFor="confirm" className="whitespace-nowrap">
             Confirm:
           </label>
@@ -234,9 +239,9 @@ export const FormControlled = ({
         {errors.confirm && <p className={hints}>{errors.confirm.message}</p>}
       </div>
 
-      <div>
+      <div className={sectionForm}>
         <input
-          className={modalInput}
+          className={`${modalInput} w-full`}
           type="text"
           list="countriesEU"
           {...register('country')}
@@ -246,15 +251,15 @@ export const FormControlled = ({
             <option key={country} value={country} />
           ))}
         </datalist>
-        {(errors.country || !watch('country')) && (
-          <p className={hints}>
-            {errors.country?.message || 'Select a country from the list'}
-          </p>
-        )}
       </div>
+      {(errors.country || !watch('country')) && (
+        <p className={hints}>
+          {errors.country?.message || 'Select a country from the list'}
+        </p>
+      )}
 
       <button
-        className={`${modalBtnSend} ${!isValid ? btnDisabled : ''}`}
+        className={`${modalBtnSend} ${!isValid ? btnDisabled : ''} mt-2`}
         type="submit"
         disabled={!isValid}
       >

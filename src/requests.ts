@@ -11,7 +11,7 @@ const Requests = {
     value: string | null,
     numPage: number
   ): Promise<PeopleResponse | null> {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     try {
       const allPeople = await axios.get(

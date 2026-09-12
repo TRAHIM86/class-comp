@@ -73,9 +73,14 @@ export const userSchema = (countriesEU: string[]) =>
     })
 
     // здесь refine для ВСЕГО объекта с валидациями, т.к.
-    // проверяем не конкретное поле, а всеь объект и в нем
+    // проверяем не конкретное поле, а весь объект и в нем
     // data.password === data.confirm
-    .refine((data) => data.password === data.confirm, {
-      message: 'Passwords do not match',
-      path: ['confirm'],
+    .superRefine((data, ctx) => {
+      if (data.password !== data.confirm) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Passwords do not match',
+          path: ['confirm'],
+        });
+      }
     });

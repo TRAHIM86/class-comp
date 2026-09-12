@@ -36,7 +36,7 @@ export const HeroData = () => {
   }
 
   return (
-    <div className="flex items-center flex-1 border-2 border-green-300">
+    <div className="flex items-center flex-1 border-1 border-gray-300">
       {isLoading ? (
         <div className="flex items-center justify-center w-full">
           <Loading quantity={5} />
@@ -45,11 +45,11 @@ export const HeroData = () => {
         <ErrorResponse />
       ) : (
         <ErrorBoundary>
-          <div className="flex flex-col px-5">
-            <div>Name : {heroData?.name}</div>
-            <div>Gender : {heroData?.gender}</div>
-            <div>Birth year : {heroData?.birth_year}</div>
-            <div>Height : {heroData?.height}</div>
+          <div className="flex flex-col px-5 w-full gap-1">
+            <div className="text-xl">Name : {heroData?.name}</div>
+            <div className="text-xl">Gender : {heroData?.gender}</div>
+            <div className="text-xl">Birth year : {heroData?.birth_year}</div>
+            <div className="text-xl">Height : {heroData?.height}</div>
             <Btn
               btnText="HIDE"
               disabled={isLoading}

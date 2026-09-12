@@ -12,6 +12,7 @@ import { Result } from '../components/result-bottom/results';
 import { ErrorBlock } from '../components/error/errorBtnBlock';
 
 import { container1280 } from '../styles/styles';
+import { FormManager } from '../components/formsManager/formsManager';
 
 export const MainPage = () => {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ export const MainPage = () => {
 
   return (
     <div data-testid="container" className={container1280}>
+      <FormManager />
+
       <Search onClickFunc={handleSearch} disabled={isLoading} />
 
       {isLoading || !people ? (

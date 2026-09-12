@@ -61,24 +61,24 @@ export const useStore = create<Store>((set, get) => ({
   users: [
     {
       id: 111,
-      name: 'ppp',
+      name: 'Simon',
       age: 42,
-      email: 'pp@p.pu',
+      email: 'simon_lewandowski@s.pl',
       gender: 'male',
       image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
-      password: '1Pp!',
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='gold'/%3E%3Ccircle cx='35' cy='40' r='6'/%3E%3Ccircle cx='65' cy='40' r='6'/%3E%3Cpath d='M30 60 Q50 80 70 60' stroke='black' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E",
+      password: '!2Qw',
       country: 'Poland',
     },
     {
       id: 222,
-      name: 'gf',
+      name: 'Diana',
       age: 48,
-      email: 'ggf@ff.tu',
+      email: 'diana@paris77.fr',
       gender: 'female',
       image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
-      password: '2Gg@',
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231E3A8A'/%3E%3Ccircle cx='50' cy='40' r='18' fill='%23FFDBAC'/%3E%3Cpath d='M30 35 Q50 10 70 35 Q70 20 50 15 Q30 20 30 35' fill='%238B4513'/%3E%3Ccircle cx='43' cy='40' r='3' fill='black'/%3E%3Ccircle cx='57' cy='40' r='3' fill='black'/%3E%3Cpath d='M45 50 Q50 55 55 50' stroke='%23C0392B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Cpath d='M50 60 L50 90 L30 90 Q50 70 50 60 Q50 70 70 90 L50 90' fill='%23E91E63'/%3E%3C/svg%3E",
+      password: '#4Er',
       country: 'France',
     },
   ],
