@@ -10,6 +10,7 @@ import {
   form,
   sectionForm,
   loadPhoto,
+  hintsPassword,
 } from '../../styles/styles';
 import { useStore } from '../../store/store';
 import { Eye, EyeOff } from 'lucide-react';
@@ -195,16 +196,16 @@ export const FormControlled = ({
         </div>
 
         <div className={`${flexRow} gap-4`}>
-          <div className={`${hints} ${hasDigit ? hints : opacity}`}>
+          <div className={`${hintsPassword} ${hasDigit ? '' : opacity}`}>
             &nbsp;1 digit
           </div>
-          <div className={`${hints} ${hasUpperCase ? hints : opacity}`}>
+          <div className={`${hintsPassword} ${hasUpperCase ? '' : opacity}`}>
             &nbsp;1 UP letter
           </div>
-          <div className={`${hints} ${hasLowerCase ? hints : opacity}`}>
+          <div className={`${hintsPassword} ${hasLowerCase ? '' : opacity}`}>
             &nbsp;1 low letter
           </div>
-          <div className={`${hints} ${hasSpecial ? hints : opacity}`}>
+          <div className={`${hintsPassword} ${hasSpecial ? '' : opacity}`}>
             &nbsp;1 special
           </div>
         </div>
