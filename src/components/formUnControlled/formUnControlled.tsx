@@ -4,6 +4,7 @@ import {
   flexRow,
   form,
   hints,
+  hintsPassword,
   loadPhoto,
   modalBtnSend,
   modalInput,
@@ -138,7 +139,7 @@ export const FormUnControled = ({
         <input
           id="name"
           type="text"
-          placeholder="Name"
+          placeholder="Name *"
           autoFocus
           ref={nameRef}
           className={modalInput}
@@ -151,7 +152,7 @@ export const FormUnControled = ({
         <input
           id="age"
           type="number"
-          placeholder="Age"
+          placeholder="Age *"
           ref={ageRef}
           className={modalInput}
         />
@@ -163,7 +164,7 @@ export const FormUnControled = ({
         <input
           id="email"
           type="email"
-          placeholder="Email"
+          placeholder="Email *"
           ref={emailRef}
           className={modalInput}
         />
@@ -220,7 +221,7 @@ export const FormUnControled = ({
               className={`${modalInput} w-full pr-8`}
               type={!showPassword ? 'password' : 'text'}
               ref={passwordRef}
-              placeholder="password"
+              placeholder="password *"
               onChange={(e) => setCurrentPassword(e.target.value)}
             />
             {!showPassword ? (
@@ -237,17 +238,19 @@ export const FormUnControled = ({
           </div>
         </div>
 
-        <div className={`${flexRow} gap-4`}>
-          <div className={`${hints} ${hasDigit ? hints : opacity}`}>
+        <div className={`${flexRow} gap-2`}>
+          <div className={`${hintsPassword} ${hasDigit ? '' : opacity}`}>
             &nbsp;1 digit
           </div>
-          <div className={`${hints} ${hasUpperCase ? hints : opacity}`}>
+          <div className={`${hintsPassword} ${hasUpperCase ? '' : opacity}`}>
             &nbsp;1 UP letter
           </div>
-          <div className={`${hints} ${hasLowerCase ? hints : opacity}`}>
+          <div
+            className={`${hintsPassword} ${hasLowerCase ? 'hints' : opacity}`}
+          >
             &nbsp;1 low letter
           </div>
-          <div className={`${hints} ${hasSpecial ? hints : opacity}`}>
+          <div className={`${hintsPassword} ${hasSpecial ? 'hints' : opacity}`}>
             &nbsp;1 special
           </div>
         </div>
@@ -264,7 +267,7 @@ export const FormUnControled = ({
               className={`${modalInput} w-full pr-8`}
               type={!showConfirm ? 'password' : 'text'}
               ref={confirmRef}
-              placeholder="confirm"
+              placeholder="confirm *"
             />
             {!showConfirm ? (
               <Eye
@@ -283,7 +286,12 @@ export const FormUnControled = ({
       </div>
 
       <div className={sectionForm}>
+        <label htmlFor="country" className="whitespace-nowrap">
+          Country:
+        </label>
+
         <input
+          id="country"
           className={modalInput}
           type="text"
           list="countriesEU"
@@ -294,8 +302,8 @@ export const FormUnControled = ({
             <option key={country} value={country} />
           ))}
         </datalist>
-        {errors.country && <p className={hints}>{errors.country}</p>}
       </div>
+      {errors.country && <p className={hints}>{errors.country}</p>}
 
       <button className={`${modalBtnSend} mt-2`} type="submit">
         SEND

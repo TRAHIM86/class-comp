@@ -20,7 +20,6 @@ export const FormManager = () => {
 
   // состояние id последнего добаавленного юзера (для подсветки)
   const [lastId, setLastId] = useState<number | null>(null);
-  console.log('lastId :', lastId);
 
   // состояние открываемой формы (контроль/онКонтроль)
   const [formType, setFormType] = useState<

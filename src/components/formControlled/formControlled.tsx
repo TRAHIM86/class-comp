@@ -95,12 +95,12 @@ export const FormControlled = ({
           id="name"
           className={modalInput}
           type="text"
-          placeholder="Name"
+          placeholder="Name *"
           autoFocus
           {...register('name')}
         />
-        {errors.name && <p className={hints}>{String(errors.name.message)}</p>}
       </div>
+      {errors.name && <p className={hints}>{String(errors.name.message)}</p>}
 
       <div className={sectionForm}>
         <label htmlFor="age">Age:</label>
@@ -108,7 +108,7 @@ export const FormControlled = ({
           id="age"
           className={modalInput}
           type="number"
-          placeholder="Age"
+          placeholder="Age *"
           {...register('age')}
         />
       </div>
@@ -120,7 +120,7 @@ export const FormControlled = ({
           id="email"
           className={modalInput}
           type="email"
-          placeholder="Email"
+          placeholder="Email *"
           {...register('email')}
         />
       </div>
@@ -140,7 +140,7 @@ export const FormControlled = ({
           type="radio"
           value="female"
           {...register('gender')}
-        ></input>
+        ></input>{' '}
       </div>
       {(errors.gender || !watch('gender')) && (
         <p className={hints}>{errors.gender?.message || 'Select gender'}</p>
@@ -177,7 +177,7 @@ export const FormControlled = ({
               id="password"
               className={`${modalInput} w-full pr-8`}
               type={!showPassword ? 'password' : 'text'}
-              placeholder="password"
+              placeholder="password *"
               {...register('password')}
             />
             {!showPassword ? (
@@ -220,7 +220,7 @@ export const FormControlled = ({
               id="confirm"
               className={`${modalInput} w-full pr-8`}
               type={!showConfirm ? 'password' : 'text'}
-              placeholder="confirm"
+              placeholder="confirm *"
               {...register('confirm')}
             />
             {!showConfirm ? (

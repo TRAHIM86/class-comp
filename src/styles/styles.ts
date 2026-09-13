@@ -12,7 +12,7 @@ export const flexRow = 'flex flex-row';
 
 export const flexCol = 'flex flex-col';
 
-export const opacity = 'opacity-70';
+export const opacity = 'opacity-50';
 
 export const btn =
   'btn p-3 border-1 rounded cursor-pointer hover:border-yellow-300 flex-1 w-full';
@@ -81,6 +81,8 @@ export const imageUser = 'w-20 h-20 object-cover rounded-md';
 export const eyes = 'absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer';
 
 export const hints = '!text-pink-500 !text-xs !font-sans p-0';
+
+export const hintsPassword = '!text-yellow-400 !text-xs !font-sans p-0';
 
 export const borderGreen = 'border-5 !border-green-500';
 

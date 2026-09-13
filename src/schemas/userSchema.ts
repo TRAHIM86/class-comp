@@ -5,7 +5,12 @@ import { z } from 'zod';
 export const userSchema = (countriesEU: string[]) =>
   z
     .object({
-      name: z.string().regex(/^[A-Z]/, 'The first letter is capitalized'),
+      name: z
+        .string()
+        .regex(
+          /^[A-Z][A-Za-z]*$/,
+          'First letter capitalized. Latin letters only'
+        ),
       age: z.coerce.number().positive('Positive number only'),
       email: z.string().refine((val) => {
         const parts = val.split('@');
@@ -45,24 +50,14 @@ export const userSchema = (countriesEU: string[]) =>
         .regex(/[!@#$%^&*]/, 'Min 1 special'),
       confirm: z.string(),
       image: z
-        // custom - ожидает значение типа FileList и не проверяет его,
-        // FileList - объект кот приходит в <input type="file"> (список файлов)
         .custom<FileList>()
-
-        // первая проверка - файл обязателен
-        .refine((files) => files?.length > 0, 'File is required')
-
-        // вторая проверка на формат
+        // Одна общая проверка: файл есть, тип png/jpeg, размер не больше 5MB
         .refine(
           (files) =>
-            ['image/png', 'image/jpeg', 'image/jpg'].includes(files?.[0]?.type),
-          'Only PNG or JPEG'
-        )
-
-        // третья проверка на размер
-        .refine(
-          (files) => files?.[0]?.size <= 5 * 1024 * 1024,
-          'No more than 5MB'
+            files?.length > 0 &&
+            ['image/png', 'image/jpeg', 'image/jpg'].includes(files[0]?.type) &&
+            files[0]?.size <= 5 * 1024 * 1024,
+          'Upload a PNG or JPEG image no larger than 5MB'
         ),
       country: z
         .string()
