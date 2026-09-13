@@ -14,6 +14,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
+      reportOnFailure: true, // ← добавить эту строку
       include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: [
         'src/**/*.test.{js,jsx,ts,tsx}',

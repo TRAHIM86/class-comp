@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,25 +97,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { render, screen } from '@testing-library/react';
 import { MainPage } from '../../pages/mainPage';
@@ -123,13 +123,13 @@ import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
 &nbsp;
-export async function imitateError(btnName: string, getText: string) {
-  const queryClientTest = new QueryClient();
+export async function <span class="fstat-no" title="function not covered" >imitateError(b</span>tnName: string, getText: string) {
+  const queryClientTest = <span class="cstat-no" title="statement not covered" >new QueryClient();</span>
 &nbsp;
   // имитация URL-адреса для теста (для useSearchParams())
-  window.history.pushState({}, 'Test page', '/class-comp/');
+<span class="cstat-no" title="statement not covered" >  window.history.pushState({}, 'Test page', '/class-comp/');</span>
 &nbsp;
-  render(
+<span class="cstat-no" title="statement not covered" >  render(</span>
     &lt;QueryClientProvider client={queryClientTest}&gt;
       &lt;BrowserRouter basename="/class-comp/"&gt;
         &lt;MainPage /&gt;
@@ -137,12 +137,12 @@ export async function imitateError(btnName: string, getText: string) {
     &lt;/QueryClientProvider&gt;
   );
 &nbsp;
-  const errBtn = screen.getByRole('button', { name: new RegExp(btnName, 'i') });
+  const errBtn = <span class="cstat-no" title="statement not covered" >screen.getByRole('button', { name: new RegExp(btnName, 'i') });</span>
 &nbsp;
-  await userEvent.click(errBtn);
-  await new Promise((resolve) =&gt; setTimeout(resolve, 2500));
+<span class="cstat-no" title="statement not covered" >  await userEvent.click(errBtn);</span>
+<span class="cstat-no" title="statement not covered" >  await new <span class="fstat-no" title="function not covered" >Promise((r</span>esolve) =&gt; <span class="cstat-no" title="statement not covered" >setTimeout(resolve, 2500))</span>;</span>
 &nbsp;
-  expect(screen.getByText(new RegExp(getText, 'i'))).toBeInTheDocument();
+<span class="cstat-no" title="statement not covered" >  expect(screen.getByText(new RegExp(getText, 'i'))).toBeInTheDocument();</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -151,7 +151,7 @@ export async function imitateError(btnName: string, getText: string) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-07-10T23:57:20.161Z
+                at 2026-09-13T21:09:45.445Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

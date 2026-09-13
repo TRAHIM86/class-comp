@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 import { renderSearch } from './test-utils/renderSearch';
 import userEvent from '@testing-library/user-event';
+import { useStore } from '../store/store';
 
 describe('Search test', () => {
   test('Search render', () => {
@@ -10,27 +11,28 @@ describe('Search test', () => {
   });
 
   test('Input value change', async () => {
-    const SearchComponent = renderSearch();
+    renderSearch();
 
     const input = screen.getByRole('textbox');
     expect(input).toBeInTheDocument();
 
     await userEvent.type(input, 'r2');
-    expect(SearchComponent.mockOnChange).toHaveBeenCalledTimes(2);
+
+    // после ввода 'r2' в сторе должно быть 'r2'
+    expect(useStore.getState().inputValue).toBe('r2');
   });
 
   test('BtnSearch click with value', async () => {
-    const SearchComponent = renderSearch();
+    const { mockOnClick } = renderSearch();
 
-    const searchBtn = screen.getByRole('button');
+    // кладем в стор 'dart' (как будто ввели)
+    useStore.getState().setInputValue('dart');
+
+    const searchBtn = screen.getByRole('button', { name: /SEARCH/i });
     expect(searchBtn).toBeInTheDocument();
 
     await userEvent.click(searchBtn);
-    expect(SearchComponent.mockOnClick).toHaveBeenCalledTimes(1);
-    expect(SearchComponent.mockOnClick).toHaveBeenLastCalledWith(
-      SearchComponent.value,
-      1
-    );
+    expect(mockOnClick).toHaveBeenLastCalledWith('dart');
   });
 
   test('Test props SearchBtn', () => {
