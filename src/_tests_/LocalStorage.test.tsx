@@ -3,9 +3,19 @@ import { MainPage } from '../pages/mainPage';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useStore } from '../store/store';
 
 describe('LocalStorage test', () => {
   const queryClientTest = new QueryClient();
+
+  beforeEach(() => {
+    localStorage.clear();
+    useStore.setState({
+      inputValue: '',
+      currentPage: 1,
+      selectedHeroes: [],
+    });
+  });
 
   test('Get localStorage (if ls haves data)', async () => {
     // имитация URL-адреса для теста (для useSearchParams())
@@ -13,6 +23,7 @@ describe('LocalStorage test', () => {
 
     // поместить в ЛС данные, которые будем читать
     localStorage.setItem('searchStr', 'padme');
+    useStore.setState({ inputValue: 'padme' });
 
     // рендер. Для MainPage нужно два контекста. QueryClientProvider -
     // без него useQuery() в MainPage упадет с ошибкой. BrowserRouter -
@@ -36,7 +47,6 @@ describe('LocalStorage test', () => {
 
   test('Get localStorage (if ls haves not data)', async () => {
     window.history.pushState({}, 'Test page', '/class-comp/');
-    localStorage.clear();
 
     render(
       <QueryClientProvider client={queryClientTest}>

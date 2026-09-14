@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">60.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>14/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">54.54% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>6/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>12/20</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,27 +123,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">177x</span>
+<span class="cline-any cline-yes">177x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,10 +142,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -177,17 +177,17 @@ import { useStore } from '../../store/store';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >Pagination = ({</span> countPages }: PaginationProps) =&gt; {</span>
+export const Pagination = ({ countPages }: PaginationProps) =&gt; {
   // создать из countHeroes массив индексов, например [0,1,2,3,4,5]
-  const arrRange = <span class="cstat-no" title="statement not covered" >Array.from({ length: countPages }<span class="fstat-no" title="function not covered" >, (_</span>, ind) =&gt; <span class="cstat-no" title="statement not covered" >ind + 1);</span></span>
+  const arrRange = Array.from({ length: countPages }<span class="fstat-no" title="function not covered" >, (_</span>, ind) =&gt; <span class="cstat-no" title="statement not covered" >ind + 1);</span>
 &nbsp;
-  const <span class="cstat-no" title="statement not covered" >currentPage = <span class="fstat-no" title="function not covered" >useStore((s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >state.currentPage);</span></span>
-  const <span class="cstat-no" title="statement not covered" >setCurrentPage = <span class="fstat-no" title="function not covered" >useStore((s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >state.setCurrentPage);</span></span>
+  const currentPage = useStore((state) =&gt; state.currentPage);
+  const setCurrentPage = useStore((state) =&gt; state.setCurrentPage);
 &nbsp;
-  const <span class="cstat-no" title="statement not covered" >params = useParams();</span>
-  const <span class="cstat-no" title="statement not covered" >navigate = useNavigate();</span>
-  const [<span class="cstat-no" title="statement not covered" >searchParams] = useSearchParams();</span>
-  const searchStr = <span class="cstat-no" title="statement not covered" >searchParams.get('search') || '';</span>
+  const params = useParams();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const searchStr = searchParams.get('search') || '';
 &nbsp;
   // выбрать текущую страницу
   function <span class="fstat-no" title="function not covered" >changePage(n</span>um: number): number {
@@ -196,20 +196,20 @@ export const <span class="cstat-no" title="statement not covered" ><span class="
 <span class="cstat-no" title="statement not covered" >    return num;</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  useEffect(() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    if (</span>
+  useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (
       params.pageId &amp;&amp;
-      (isNaN(Number(params.pageId)) || Number(params.pageId) &gt; countPages)
+      (<span class="branch-1 cbranch-no" title="branch not covered" >isNaN(Number(params.pageId)) </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >Number(params.pageId) &gt; countPages)</span>
     ) {
 <span class="cstat-no" title="statement not covered" >      navigate('/1');</span>
 <span class="cstat-no" title="statement not covered" >      setCurrentPage(1);</span>
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    setCurrentPage(Number(params.pageId || 1));</span>
+    setCurrentPage(Number(params.pageId || 1));
   }, [params.pageId, countPages, navigate, setCurrentPage]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className={paginationBlock}&gt;
       {arrRange.<span class="fstat-no" title="function not covered" >map((n</span>umPage) =&gt; {
 <span class="cstat-no" title="statement not covered" >        return (</span>
@@ -232,7 +232,7 @@ export const <span class="cstat-no" title="statement not covered" ><span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-13T21:09:45.445Z
+                at 2026-09-14T11:09:58.186Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

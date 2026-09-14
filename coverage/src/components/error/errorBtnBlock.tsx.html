@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -129,7 +129,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,32 +140,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">78x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,7 +190,7 @@ import { errorBlock } from '../../styles/styles';
 import type { ErrorRequest } from '../../types';
 import { ErrorBtn } from './errorBtn';
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >ErrorBlock = ({</span></span>
+export const ErrorBlock = ({
   isLoading,
   setRenderError,
   setErrorRequest,
@@ -200,33 +200,33 @@ export const <span class="cstat-no" title="statement not covered" ><span class="
   setErrorRequest: (value: ErrorRequest) =&gt; void;
 }) =&gt; {
   // блок с имитацией ошибок
-  async function <span class="fstat-no" title="function not covered" >imitateErrorRender() {</span>
-<span class="cstat-no" title="statement not covered" >    await new <span class="fstat-no" title="function not covered" >Promise((r</span>esolve) =&gt; <span class="cstat-no" title="statement not covered" >setTimeout(resolve, 1000))</span>;</span>
-<span class="cstat-no" title="statement not covered" >    console.log('render error');</span>
+  async function imitateErrorRender() {
+    await new Promise((resolve) =&gt; setTimeout(resolve, 1000));
+    console.log('render error');
 &nbsp;
     // @ts-expect-error - имитация ошибки для ErrorBoundary
-<span class="cstat-no" title="statement not covered" >    setRenderError('123');</span>
+    setRenderError('123');
   }
 &nbsp;
-  async function <span class="fstat-no" title="function not covered" >fetchError4xx() {</span>
-<span class="cstat-no" title="statement not covered" >    console.log('imitation4xx');</span>
-    const error4xx = <span class="cstat-no" title="statement not covered" >await Requests.imitation4xx();</span>
+  async function fetchError4xx() {
+    console.log('imitation4xx');
+    const error4xx = await Requests.imitation4xx();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (error4xx) {</span>
-<span class="cstat-no" title="statement not covered" >      console.log('error4xx :', error4xx);</span>
-<span class="cstat-no" title="statement not covered" >      setErrorRequest(error4xx);</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (error4xx) {
+      console.log('error4xx :', error4xx);
+      setErrorRequest(error4xx);
     }
   }
 &nbsp;
-  async function <span class="fstat-no" title="function not covered" >fetchErrorNetwork() {</span>
-    const errorNetwork = <span class="cstat-no" title="statement not covered" >await Requests.imitationErrNetwork();</span>
+  async function fetchErrorNetwork() {
+    const errorNetwork = await Requests.imitationErrNetwork();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    setErrorRequest({ isError: true, status: 'Unknown error' });</span>
+    setErrorRequest({ isError: true, status: 'Unknown error' });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return errorNetwork;</span>
+    return errorNetwork;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div data-testid="error-block" className={errorBlock}&gt;
       &lt;ErrorBtn
         btnText="render error"
@@ -253,7 +253,7 @@ export const <span class="cstat-no" title="statement not covered" ><span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-13T21:09:45.445Z
+                at 2026-09-14T11:09:58.186Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

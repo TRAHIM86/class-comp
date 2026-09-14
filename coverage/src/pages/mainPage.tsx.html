@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -151,32 +151,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,32 +223,32 @@ import { ErrorBlock } from '../components/error/errorBtnBlock';
 import { container1280 } from '../styles/styles';
 import { FormManager } from '../components/formsManager/formsManager';
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >MainPage = () =&gt; {</span></span>
-  const <span class="cstat-no" title="statement not covered" >navigate = useNavigate();</span>
+export const MainPage = () =&gt; {
+  const navigate = useNavigate();
 &nbsp;
   // данные из кастомного хука для поиска
-  const { searchValue, currentPage, <span class="cstat-no" title="statement not covered" >handleSearch } = usePeopleSearch();</span>
+  const { searchValue, currentPage, handleSearch } = usePeopleSearch();
 &nbsp;
   // данные из кастомного хука для основного рендера
-  const { people, isLoading, error, <span class="cstat-no" title="statement not covered" >countPages } = usePeople(</span>
+  const { people, isLoading, error, countPages } = usePeople(
     searchValue,
     currentPage
   );
 &nbsp;
   // специальные состояния для имитации ошибок (рендер + 2 запроса)
-  const [renderError, <span class="cstat-no" title="statement not covered" >setRenderError] = useState([1]);</span>
-  const [errorRequest, <span class="cstat-no" title="statement not covered" >setErrorRequest] = useState&lt;{</span>
+  const [renderError, setRenderError] = useState([1]);
+  const [errorRequest, setErrorRequest] = useState&lt;{
     isError: boolean;
     status: string;
   } | null&gt;(null);
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  useEffect(() =&gt; {</span></span>
+  useEffect(() =&gt; {
     // при первой загрузке, даже если в url есть search=da,
     // перебросить на значение из локалстордж (условие таска)
-<span class="cstat-no" title="statement not covered" >    navigate(`/${currentPage}?search=${searchValue}`);</span>
+    navigate(`/${currentPage}?search=${searchValue}`);
   }, []);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div data-testid="container" className={container1280}&gt;
       &lt;FormManager /&gt;
 &nbsp;
@@ -257,7 +257,7 @@ export const <span class="cstat-no" title="statement not covered" ><span class="
       {isLoading || !people ? (
         &lt;Loading quantity={8} data-testid="loading" /&gt;
       ) : people?.peopleArr.length === 0 ? (
-        &lt;ErrorResponse /&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;ErrorResponse /&gt;</span>
       ) : (
         &lt;ErrorBoundary&gt;
           &lt;Result
@@ -286,7 +286,7 @@ export const <span class="cstat-no" title="statement not covered" ><span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-13T21:09:45.445Z
+                at 2026-09-14T11:09:58.186Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
