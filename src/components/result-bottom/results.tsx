@@ -1,24 +1,32 @@
-import React from 'react';
 import { errorMessage, result_sec } from '../../styles/styles';
 import { TableResult } from './tableresult';
-import type { hero, StateError } from '../../types';
+import type { ErrorRequest, PeopleResponse } from '../../types';
 
-export class Result extends React.Component<{
-  heroes: Array<hero>;
-  stateError?: StateError;
-}> {
-  render() {
-    return (
-      <section className={result_sec}>
-        {this.props.stateError?.isError ? (
-          <div className={errorMessage}>
-            Error. Status: {this.props.stateError.errorStatus}. Please try
-            again.
-          </div>
-        ) : (
-          <TableResult heroes={this.props.heroes} />
-        )}
-      </section>
-    );
-  }
-}
+export const Result = ({
+  heroes,
+  error,
+  renderError,
+  errorRequest,
+}: {
+  heroes: PeopleResponse;
+  error?: Error | null;
+  renderError: number[];
+  errorRequest: ErrorRequest | null;
+}) => {
+  return (
+    <section data-testid="result" className={result_sec}>
+      {renderError?.map((num) => (
+        <div key={num}></div>
+      ))}
+
+      {error || errorRequest ? (
+        <div className={errorMessage}>
+          Error. Status: {error?.message || errorRequest?.status}. Please try
+          again.
+        </div>
+      ) : (
+        <TableResult heroes={heroes} />
+      )}
+    </section>
+  );
+};
