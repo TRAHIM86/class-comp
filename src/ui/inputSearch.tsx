@@ -12,7 +12,7 @@ export class InputSearch extends React.Component<InputProps> {
         name="search"
         value={this.props.value}
         onChange={this.props.onChangeFunc}
-        className="border p-2"
+        className="border p-2 w-full"
       ></input>
     );
   }

@@ -1,26 +1,45 @@
-import React from 'react';
 import { search_form, search_sec } from '../../styles/styles';
 import { Btn } from '../../ui/btn';
 import { InputSearch } from '../../ui/inputSearch';
 import type { SearchProps } from '../../types';
+import { useStore } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 
-export class Search extends React.Component<SearchProps> {
-  render() {
-    const { value, onChangeFunc, onClickFunc, disabled, btnText } = this.props;
+export const Search = ({ onClickFunc, disabled }: SearchProps) => {
+  //const currentPage = useStore((state) => state.currentPage);
+  const inputValue = useStore((state) => state.inputValue);
+  const setInputValue = useStore((state) => state.setInputValue);
 
-    return (
-      <section className={search_sec}>
-        <form className={search_form} onSubmit={(e) => e.preventDefault()}>
-          <InputSearch value={value} onChangeFunc={onChangeFunc} />
-          <Btn
-            btnText={btnText}
-            disabled={disabled}
-            onClickFunc={() => onClickFunc(value)}
-          >
-            SEARCH
-          </Btn>
-        </form>
-      </section>
-    );
+  const navigate = useNavigate();
+
+  function changeInputValue(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    setInputValue(value);
+    //navigate(`/${currentPage}?search=${value}`);
   }
-}
+
+  return (
+    <section className={search_sec} data-testid="search-section">
+      <form
+        className={search_form}
+        onSubmit={(e) => e.preventDefault()}
+        data-testid="form"
+      >
+        <div className="w-1/2">
+          <InputSearch value={inputValue} onChangeFunc={changeInputValue} />
+        </div>
+
+        <div className="w-1/2">
+          <Btn
+            btnText={'SEARCH'}
+            disabled={disabled}
+            onClickFunc={() => {
+              onClickFunc(inputValue);
+              navigate(`/1?search=${inputValue}`);
+            }}
+          />
+        </div>
+      </form>
+    </section>
+  );
+};
