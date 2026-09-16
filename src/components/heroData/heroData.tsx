@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Requests from '../../requests';
 import { Loading } from '../loading/loading';
 import { ErrorBoundary } from '../error/errorBoundary';
@@ -8,8 +8,12 @@ import { useQuery } from '@tanstack/react-query';
 
 export const HeroData = () => {
   const params = useParams();
+  const currentPage = params.pageId || 1;
   console.log('PARAMS:', params);
   const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const searchStr = searchParams.get('search') || '';
 
   const heroId = params.heroId || undefined;
 
@@ -53,7 +57,9 @@ export const HeroData = () => {
             <Btn
               btnText="HIDE"
               disabled={isLoading}
-              onClickFunc={() => navigate('..')}
+              onClickFunc={() =>
+                navigate(`/${currentPage}?search=${searchStr}`)
+              }
             />
             <Btn btnText="Update" onClickFunc={updateHeroData} />
           </div>

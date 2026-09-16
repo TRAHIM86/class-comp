@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { result_table, result_block, title_item } from '../../styles/styles';
 import type { PeopleResponse } from '../../types';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import {
+  Outlet,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import { useStore } from '../../store/store';
 import { Btn } from '../../ui/btn';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -11,6 +16,9 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
   const toggleSelectHero = useStore((state) => state.toggleSelectHero);
   const clearSelected = useStore((state) => state.clearSelected);
   const downloadSelected = useStore((state) => state.downloadSelected);
+
+  const [searchParams] = useSearchParams();
+  const searchStr = searchParams.get('search') || '';
 
   const queryClient = useQueryClient();
 
@@ -38,7 +46,7 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
   );
 
   if (params.heroId && isNaN(Number(params.heroId))) {
-    navigate('/1');
+    navigate(`/1?search=${searchStr}`);
     return null;
   }
 
@@ -49,7 +57,7 @@ export const TableResult = ({ heroes }: { heroes: PeopleResponse }) => {
     const heroId = Number(stringData.split('/').filter(Boolean).pop()) || 0;
     setCurrentHeroId(heroId);
 
-    navigate(`/${currentPage}/${heroId}`);
+    navigate(`/${currentPage}/${heroId}?search=${searchStr}`);
     imitateMutation.mutate(heroId);
     return heroId;
   }

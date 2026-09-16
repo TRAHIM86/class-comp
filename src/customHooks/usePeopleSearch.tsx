@@ -6,7 +6,7 @@ export const usePeopleSearch = () => {
   const [searchValue, setSearchValue] = useLocalStorage('searchStr', '');
 
   // store для инпута
-  const inputValue = useStore((state) => state.inputValue);
+  //const inputValue = useStore((state) => state.inputValue);
 
   // store для текущая страница
   const currentPage = useStore((state) => state.currentPage);
@@ -14,10 +14,10 @@ export const usePeopleSearch = () => {
 
   // функция обновить поиск и страницу
   function handleSearch(value: string) {
-    if (searchValue.trim() === inputValue.trim()) {
+    /*if (searchValue.trim() === inputValue.trim()) {
       console.log('Please enter new data for search');
       return;
-    }
+    }*/
 
     setSearchValue(value);
     setCurrentPage(1);

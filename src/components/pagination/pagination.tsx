@@ -28,7 +28,7 @@ export const Pagination = ({ countPages }: PaginationProps) => {
       params.pageId &&
       (isNaN(Number(params.pageId)) || Number(params.pageId) > countPages)
     ) {
-      navigate('/1');
+      navigate(`/1?search=${searchStr}`);
       setCurrentPage(1);
       return;
     }
